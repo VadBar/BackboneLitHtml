@@ -1,3 +1,5 @@
+// import * as Backbone from "../../assets/js/backbone";
+
 export class ModelBook extends Backbone.Model {
 	
 	constructor(attrs, options) {
@@ -13,8 +15,8 @@ export class ModelBook extends Backbone.Model {
 				genres: [],
 				_id: ''
 				};
-				this.defaults._id = this.generateId();
-		this.idAttribute = '_id',
+		this.defaults._id = this.generateId();
+		this.idAttribute = '_id';
 		// this.validateAllAtt = false;
 		this.url = 'books';
 		this.on('pushCheck', this.pushCheck);
@@ -29,11 +31,9 @@ export class ModelBook extends Backbone.Model {
 	}
 	pushCheck(checked){
 		var genres = this.get('genres').filter(function(i) {
-			if(i !== checked.value) {
-				return true
-			}
-			return false;
-		})
+			return i !== checked.value;
+
+		});
 		if(genres.length === this.get('genres').length) {
 			genres.push(checked.value);
 		}

@@ -30,10 +30,7 @@ export class CollectionBooks extends Backbone.Collection {
 	filtration(obj) {
 		this.returnDefaultState();
 		this.reset(this.models.filter((i) => {
-			if(i.get(obj.name).indexOf(obj.value) !== -1) {
-				return true;
-			}
-			return false;
+			return i.get(obj.name).indexOf(obj.value) !== -1;
 		}));	
 	}
 	pushToDB() {

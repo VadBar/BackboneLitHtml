@@ -6,11 +6,6 @@ export class ViewListGenres extends Backbone.View {
 		this.model = obj.model;
 		this.router = obj.router;
 		this.collection = obj.collection;
-		// this.tagName = "div";
-		// this.events = {
-		// 	"change input[name='genre']": "pushCheckedToBook",
-		// 	"click .accepListGenresButton": "redirectToForm"
-		// };
 		Backbone.View.apply(this);
 		this.counter = 0;
 		this.listGenres = ['Science fiction', 'Satire', 'Drama', 'Action and Adventure', 
@@ -21,16 +16,21 @@ export class ViewListGenres extends Backbone.View {
 				this.redirectToForm();
 			}
 		};
+		this.listenerChangeCheckboxes = {
+			handleEvent(e) {
+				this.pushCheckedToBook(e)
+			}
+		};
 		this.prepareTemplate();
 		this.render();
 	}
-	generateCheckets(genre, checkedEl) {
+	generateCheckets(genre, checkedGenres) {
 		this.counter++;
 			return html` 
 			${((this.counter % 5) === 0) ? html`</tr><tr>`:  html``}
 			${this.counter === 1 ? html`<tr>` : html``}
 		<td>
-			<input type="checkbox"  name="genre" .value=${this.counter}>
+			<input type="checkbox"  name="genre" .value=${this.counter}  ?checked=${~checkedGenres.indexOf(String(this.counter))} @change=${this.listenerChangeCheckboxes.handleEvent.bind(this)}>
 		</td>
 		<td>
 			${genre}
@@ -77,7 +77,6 @@ export class ViewListGenres extends Backbone.View {
 	}
 	pushCheckedToBook(e) {
 		this.model.trigger("pushCheck", {value: e.target.value});
-		// console.log(this.model)
 	}
 	redirectToForm() {
 		if(this.stateAdd) {

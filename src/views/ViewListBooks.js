@@ -30,6 +30,7 @@ export class ViewListBooks extends Backbone.View {
 	}
 	render() {
 		this.updatePosition();
+        // document.getElementsByClassName('content')[0].innerHTML = '';
 		$('.content').prepend(this.$el);
 		var myContainerBooks = (collection) => html`
 		<div class="listBooks toCenter">

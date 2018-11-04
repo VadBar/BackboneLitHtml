@@ -1,13 +1,12 @@
 import {html, render} from '../../node_modules/lit-html/lit-html.js';
 import {ViewBinding} from '../views/ViewBinding.js';
-import { timingSafeEqual } from 'crypto';
 export class ViewFormBook extends ViewBinding {
 	constructor(obj) {
 		super();
 		this.collection = obj.collection;
 		this.router = obj.router;
 		this.defineWindow(obj);
-		this.listenTo(this.collection, 'add', this.clearForm);
+		// this.listenTo(this.collection, 'add', this.clearForm);
 		this.listenTo(this.collection, 'add', this.blockButton);
 		this.listenTo(this.collection, 'add', this.redirectToListBooks);
 		this.listenTo(this.model, 'invalid', this.showError);
@@ -16,17 +15,18 @@ export class ViewFormBook extends ViewBinding {
 			handleEvent() {
 				this.redirectToListGenres();
 			}
-		}
+		};
 		this.listenerClickButtonClear = {
 			handleEvent() {
 				this.clearForm();
 			}
-		}
+		};
 		this.listenerClickButtonAddBook = {
 			handleEvent() {
 				this.saveBook();
 			}
-		}
+		};
+        this.prepareTemplate();
 		this.render();
 		this.setListenersBlurForField();
 		super.InitializeListenersFields(this.prepareFields());
@@ -140,9 +140,9 @@ export class ViewFormBook extends ViewBinding {
         </form>
         </div>
 		`;
+        // document.getElementsByClassName('content')[0].innerHTML = '';
 	}
 	render() {
-		this.prepareTemplate();
 		if(!this.stateAdd) {
 			if(this.collection.currentEditableModel) {
 				this.model = this.collection.currentEditableModel;
@@ -180,7 +180,7 @@ export class ViewFormBook extends ViewBinding {
 	}
 	saveBook() {
 		if(this.stateAdd) {
-			this.collection.trigger('pushModel', this.model);
+            this.collection.trigger('pushModel', this.model);
 		} else {
 			this.router.navigate("list", {trigger: true});
 		}
@@ -191,13 +191,14 @@ export class ViewFormBook extends ViewBinding {
 	redirectToListBooks() {
 		this.router.navigate("fromForm", {trigger: true});
 	}
-	clearForm() {
-		if(this.stateAdd) {
-			render(this.template(this.model.defaults));
-		} else {
-			render(this.template(this.model));
-		}
-	}
+	// clearForm() {
+	// 	if(this.stateAdd) {
+	// 		console.log(this.model.defaults)
+	// 		// render(this.template(this.model.defaults));
+	// 	} else {
+	// 		render(this.template(this.model));
+	// 	}
+	// }
 	redirectToListGenres() {
 		if(this.stateAdd) {
 			this.router.navigate("check", {trigger: true});

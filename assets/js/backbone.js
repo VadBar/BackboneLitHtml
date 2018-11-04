@@ -895,7 +895,6 @@
         }
         if (toRemove.length) this._removeModels(toRemove, options);
       }
-
       // See if sorting is needed, update `length` and splice in new models.
       var orderChanged = false;
       var replace = !sortable && add && remove;
@@ -911,10 +910,8 @@
         splice(this.models, toAdd, at == null ? this.length : at);
         this.length = this.models.length;
       }
-
       // Silently sort the collection if appropriate.
       if (sort) this.sort({silent: true});
-
       // Unless silenced, it's time to fire all appropriate add/sort/update events.
       if (!options.silent) {
         for (i = 0; i < toAdd.length; i++) {
@@ -932,7 +929,6 @@
           this.trigger('update', this, options);
         }
       }
-
       // Return the added (or merged) model (or models).
       return singular ? models[0] : models;
     },

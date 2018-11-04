@@ -4,6 +4,7 @@ import {ViewFormBook} from '../views/ViewFormBook.js';
 import {ViewListBooks} from '../views/ViewListBooks.js';
 import {ViewFiltrationBooks} from '../views/ViewFiltrationBooks.js';
 import {ViewListGenres} from '../views/ViewListGenres.js';
+// import * as Backbone from "../../assets/js/backbone";
 export class RouterBooks extends Backbone.Router {
 	
 	constructor() {
@@ -20,13 +21,14 @@ export class RouterBooks extends Backbone.Router {
 		this.model = new ModelBook();
 		this.coll = new CollectionBooks();
 		Backbone.Router.apply(this);
-		Backbone.history.start();	
+		Backbone.history.start();
 	}
 	preperingWindow() {
 		for(var el in this) {
 			if(this.hasOwnProperty(el)){
 				if(el !== 'routes' && el !== 'model' && el !== 'coll' && el !== '_events') {
-					this[el].remove();
+					// this[el].remove();
+					console.log(this[el])
 					delete this[el];
 				}
 			}
