@@ -1,0 +1,224 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f8;
+}
+header {
+    width: 80%;
+    margin-left:10%;
+}
+header li {
+    display: inline-block;
+    list-style: none;
+    margin-left:2%;
+}
+header a {
+    text-decoration: none
+}
+header p {
+    font-size: 20px;
+    color:#222;
+    font-weight: 800;
+    opacity: 0.7;
+}
+header p:hover {
+    opacity: 1;
+}
+.toCenter {
+    border: 8px solid #565659;
+    border-radius: 15px;
+    background-color: #fff;
+}
+input{
+    outline:none;
+}
+input:active {
+    outline:none;
+}
+button, input[type="submit"], input[type="reset"] {
+    border: none;
+}
+.btnStyle {
+    background: linear-gradient(to top, #3d3d3f, #d7d8e0);
+}
+.btnStyle:hover {
+    background: linear-gradient(to top, #1a1a1c, #494a5c);
+    color: #fff;
+}
+input, select, button {
+    padding: 8px 20px;
+}
+@media (min-width: 991px) {
+    .toCenter {
+        width: 80%;
+        margin-left: 10%;
+    }
+    input {
+        width: 200px;
+        padding: 8px 20px;
+        margin-left: 10px;
+    }
+    /*.addBookForm label input {*/
+    /*width: 20%;*/
+    /*height: 30px;*/
+    /*margin-left: 10px;*/
+    /*margin-top: 20px;*/
+    /*}*/
+    /*.addBookForm label {*/
+    /*margin-left: 5%;*/
+    /*}*/
+}
+@media (max-width: 991px) {
+    .toCenter {
+        width: 85%;
+        margin-left: 7.5%;
+    }
+    input {
+        width: 150px;
+        padding: 8px 20px;
+        margin-left: 10px;
+    }
+}
+@media (max-width: 768px) {
+    .toCenter {
+        width: 90%;
+        margin: 0 5% 0 5%;
+    }
+    input {
+        width: 100px;
+        padding: 8px 20px;
+        margin-left: 10px;
+    }
+}
+@media (max-width: 568px) {
+    .toCenter {
+        width: 100%;
+        margin-left: 0;
+    }
+    input {
+        width: 100%;
+        padding: 8px 20px;
+        margin-left: 10px;
+    }
+}
+/*Section addition books*/
+.addBookForm {
+    margin-top:50px;
+    padding: 10px 20px 30px 20px;
+}
+.addBookForm table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.addBookForm td {
+    height: 50px;
+}
+.addBookForm input {
+    width: 80%;
+}
+/*Section filtration books*/
+.fltrationBooks {
+    padding: 10px 20px 30px 20px;
+    margin-top: 80px;
+}
+.fltrationBooks label {
+    margin-left: 5%;
+}
+.fltrationBooks button, select {
+    width: 10%;
+}
+.rangeComponent input {
+    width: 5%;
+}
+.rangeComponent {
+    margin-left:5%;
+}
+.showMoreBook {
+    padding: 5px 20px;
+    width: 10%;
+    display: block;
+    margin: 10px auto;
+    text-align:center;
+}
+/*Section list books*/
+.listBooks {
+    padding: 10px 20px 30px 20px;
+    margin-top: 80px;
+}
+.listBooks table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.listBooks table caption {
+    margin-bottom: 20px;
+}
+.listBooks td, th {
+    border-bottom: 2px solid black;
+    text-align: center;
+    padding: 10px 20px;
+}
+.editBookButton {
+    background: linear-gradient(to top, #3e3838, #fac165);
+}
+.editBookButton:hover {
+    background: linear-gradient(to top, #1a1a1c, #494a5c);
+    color: #fff;
+}
+.deleteBookButton {
+    background: linear-gradient(to top, #3e3838, #fa6565);
+    color: #fff;
+}
+.deleteBookButton:hover {
+    background: linear-gradient(to top, #1a1a1c, #494a5c);
+    color: #fff;
+}
+/*Section list geners*/
+.listGenres {
+    padding: 10px 20px 30px 20px;
+    position: fixed;
+    top: 10%;
+    visibility: hidden;
+    z-index: 10;
+}
+.listGenres table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.listGenres  input[type='checkbox'] {
+    width: 100%;
+    padding: 40px;
+    transform: scale(1.8);
+}
+.listGenres td {
+    /*border: 1px solid black;*/
+    padding: 10px 10px;
+}
+/*Section edit book*/
+.editBookForm {
+    padding: 10px 20px 30px 20px;
+    position: fixed;
+    top: 10%;
+    visibility: hidden;
+}
+.editBookForm table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.editBookForm td {
+    height: 50px;
+}
+.editBookForm input {
+    width: 80%;
+}
+.showEl {
+    visibility: visible;
+}
+/* df;la*/
+.headerSection {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.error {
+    float: left;
+    color: red;
+}
