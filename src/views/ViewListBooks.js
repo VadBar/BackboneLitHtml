@@ -10,6 +10,7 @@ export class ViewListBooks extends Backbone.View {
 		this.step = 15;
 		this.limit = 1;
 		this.self = this;
+		// this.el = 
 		this.stateButtonShowMoreBook = true;
 		this.listenTo(this.collection, 'remove', this.render);
 		this.listenTo(this.collection, 'reset', this.render);
@@ -29,7 +30,6 @@ export class ViewListBooks extends Backbone.View {
 				this.showMoreBooks();
 			}
 		}
-		// this.bindingThisForListeners(this.listenerClickDeleteBook, this.listenerClickToEditBook);
 		this.prepareTemplate();
 		this.render();
 	}
@@ -74,7 +74,8 @@ export class ViewListBooks extends Backbone.View {
 	}
 	render() {
 		this.updatePosition();
-		render(this.template(this.collection), document.getElementsByClassName('content')[0].lastElementChild);
+		this.updateCounter();
+		render(this.template(this.collection), this.el);
 	}
 	renderBook(model) {
 		if(this.position < this.step * this.limit) {
@@ -98,7 +99,6 @@ export class ViewListBooks extends Backbone.View {
 	}
 	deleteBook(id) {
 		let model = this.collection.where({_id: id});
-		console.log(model);
 		model[0].destroy();
 	}
 	increaseLimit() {

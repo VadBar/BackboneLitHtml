@@ -24,6 +24,7 @@ export class ViewFiltrationBooks extends Backbone.View {
 		this.render();
 	}
 	prepareTemplate() {
+		$('.content').append(this.$el);
 		this.template = () => html`
 		<div class="fltrationBooks toCenter">
         <h1 class="headerSection">Filtration</h1>
@@ -46,7 +47,7 @@ export class ViewFiltrationBooks extends Backbone.View {
 		`
 	}
 	render() {
-		render(this.template(), document.getElementsByClassName('content')[0]);
+		render(this.template(), this.el);
 	}
 	changeMethodFiltration(e) {
 		document.querySelector('#valueFiltration').setAttribute('name', e.target.value);

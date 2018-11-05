@@ -38,6 +38,7 @@ export class ViewListGenres extends Backbone.View {
 		`;
 	}
 	prepareTemplate() {
+		$('.content').append(this.$el);
 		this.template = (data) => html`
 		<h1 class="headerSection">${data.title}</h1>
         <table>
@@ -68,11 +69,11 @@ export class ViewListGenres extends Backbone.View {
 			if(this.collection.currentEditableModel) {
 				this.stateAdd = false;
 				this.model = this.collection.currentEditableModel;
-				render(this.template(Object.assign({genres: this.model.get('genres') || [], title: "CHANGE GENRES", btnValue: "Edit"})), document.getElementsByClassName('content')[0])
+				render(this.template(Object.assign({genres: this.model.get('genres') || [], title: "CHANGE GENRES", btnValue: "Edit"})), this.el)
 			}
 		} else {
 			this.stateAdd = true;
-			render(this.template(Object.assign({genres: this.model.get('genres') || [], title: "ADD GENRES", btnValue: "ADD"})), document.getElementsByClassName('content')[0]);
+			render(this.template(Object.assign({genres: this.model.get('genres') || [], title: "ADD GENRES", btnValue: "ADD"})), this.el);
 		}
 	}
 	pushCheckedToBook(e) {
@@ -83,7 +84,6 @@ export class ViewListGenres extends Backbone.View {
 			this.router.navigate("add", {trigger: true});
 		} else {
 			this.router.navigate(`edit/${this.model.get('_id')}`, {trigger: true});
-		}
-		
+		}		
 	}
 };

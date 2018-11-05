@@ -6,7 +6,6 @@ export class ViewFormBook extends ViewBinding {
 		this.collection = obj.collection;
 		this.router = obj.router;
 		this.defineWindow(obj);
-		// this.listenTo(this.collection, 'add', this.clearForm);
 		this.listenTo(this.collection, 'add', this.blockButton);
 		this.listenTo(this.collection, 'add', this.redirectToListBooks);
 		this.listenTo(this.model, 'invalid', this.showError);
@@ -17,8 +16,9 @@ export class ViewFormBook extends ViewBinding {
 			}
 		};
 		this.listenerClickButtonClear = {
-			handleEvent() {
-				this.clearForm();
+			handleEvent(e) {
+				// e.preventDefault();
+				// this.clearForm();
 			}
 		};
 		this.listenerClickButtonAddBook = {
@@ -26,17 +26,23 @@ export class ViewFormBook extends ViewBinding {
 				this.saveBook();
 			}
 		};
+		this.listenerBlurFields = {
+			handleEvent() {
+				this.validateForm();
+			}
+		}
         this.prepareTemplate();
 		this.render();
-		this.setListenersBlurForField();
+		// this.setListenersBlurForField();
 		super.InitializeListenersFields(this.prepareFields());
 	}
-	setListenersBlurForField() {
-		[].forEach.call(document.getElementsByClassName('valid'), (i) => {
-			i.addEventListener('blur', this.validateForm.bind(this));
-		});
-	}
+	// setListenersBlurForField() {
+	// 	[].forEach.call(document.getElementsByClassName('valid'), (i) => {
+	// 		i.addEventListener('blur', this.validateForm.bind(this));
+	// 	});
+	// }
 	prepareFields() {
+		$('.content').append(this.$el);
 		return this.bindingElements = new Map([
 					["name", {
 						selector: ".name",
@@ -76,7 +82,6 @@ export class ViewFormBook extends ViewBinding {
 	 			]);
 	}
 	prepareTemplate() {
-		// document.getElementsByClassName('content')[0].innerHTML = '';
 		this.template = (model) => html`
 		<div class="addBookForm toCenter">
     <h1 class="headerSection">${model.title}</h1>
@@ -86,17 +91,17 @@ export class ViewFormBook extends ViewBinding {
                     <tr>
                         <td><label>Name</label></td>
                         <td>
-                            <input type="text" class="name valid"  minlength="0" maxlength="50" name="name" .value=${model.name}>
+                            <input type="text" class="name" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="name" .value=${model.name}>
                             <span class="error"></span>
                         </td>
                         <td><label>Author</label></td>
                         <td>
-                            <input type="text" class="author valid"  minlength="0" maxlength="50" name="author" .value=${model.author}>
+                            <input type="text" class="author" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="author" .value=${model.author}>
                             <span class="error"></span>
                         </td>
                         <td><label>Year</label></td>
                         <td>
-                            <input type="text" class="year valid" min="100" name="year" .value=${model.year}>
+                            <input type="text" class="year" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="100" name="year" .value=${model.year}>
                             <span class="error"></span>
                         </td>
                     </tr>
@@ -105,24 +110,24 @@ export class ViewFormBook extends ViewBinding {
                         <td><button class="addGenreButton btnStyle" @click=${this.listenerClickButtonGenre.handleEvent.bind(this)}>Add genre</button></td>
                         <td><label>CountOfPage</label></td>
                         <td>
-                            <input type="text" class="countOfPage valid" min="1" name="countOfPage" .value=${model.countOfPage}>
+                            <input type="text" class="countOfPage" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
                             <span class="error"></span>
                         </td>
                         <td><label>Price</label></td>
                         <td>
-                            <input type="text" class="price valid" min="1" name="price" .value=${model.price}>
+                            <input type="text" class="price" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="price" .value=${model.price}>
                             <span class="error"></span>
                         </td>
                     </tr>
                     <tr>
                         <td><label>Amount</label></td>
                         <td>
-                            <input type="text" min="0" class="amount valid" name="amount" .value=${model.amount}>
+                            <input type="text" min="0" class="amount" @blur=${this.listenerBlurFields.handleEvent.bind(this)} name="amount" .value=${model.amount}>
                             <span class="error"></span>
                         </td>
                         <td><label>PublishinHouse</label></td>
                         <td>
-                            <input type="text" class="homePrinting valid" minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
+                            <input type="text" class="homePrinting" @blur=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
                             <span class="error"></span>
                         </td>
                         <td></td>
@@ -141,16 +146,15 @@ export class ViewFormBook extends ViewBinding {
         </form>
         </div>
 		`;
-        // document.getElementsByClassName('content')[0].innerHTML = '';
 	}
 	render() {
 		if(!this.stateAdd) {
 			if(this.collection.currentEditableModel) {
 				this.model = this.collection.currentEditableModel;
-				render(this.template(Object.assign(this.model.toJSON(), {title: "CHANGE BOOK", btnValue: "Edit"})), document.getElementsByClassName('content')[0])
+				render(this.template(Object.assign(this.model.toJSON(), {title: "CHANGE BOOK", btnValue: "Edit"})), this.el)
 			}
 		} else {
-			render(this.template(Object.assign(this.model.toJSON(), {title: "ADD BOOK", btnValue: "ADD"})), document.getElementsByClassName('content')[0]);
+			render(this.template(Object.assign(this.model.toJSON(), {title: "ADD BOOK", btnValue: "ADD"})), this.el);
 		}
 	}
 	validateForm() {
@@ -194,10 +198,10 @@ export class ViewFormBook extends ViewBinding {
 	}
 	// clearForm() {
 	// 	if(this.stateAdd) {
-	// 		console.log(this.model.defaults)
-	// 		// render(this.template(this.model.defaults));
+	// 		this.model.attributes = this.model.defaults;
+	// 		this.render();
 	// 	} else {
-	// 		render(this.template(this.model));
+	// 		this.render();
 	// 	}
 	// }
 	redirectToListGenres() {
