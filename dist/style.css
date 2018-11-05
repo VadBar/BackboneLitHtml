@@ -172,6 +172,9 @@ input, select, button {
     background: linear-gradient(to top, #1a1a1c, #494a5c);
     color: #fff;
 }
+.hideButtonShowMoreBooks {
+    visibility: hidden;
+}
 /*Section list geners*/
 .listGenres {
     padding: 10px 20px 30px 20px;

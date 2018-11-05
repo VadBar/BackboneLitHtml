@@ -76,6 +76,7 @@ export class ViewFormBook extends ViewBinding {
 	 			]);
 	}
 	prepareTemplate() {
+		// document.getElementsByClassName('content')[0].innerHTML = '';
 		this.template = (model) => html`
 		<div class="addBookForm toCenter">
     <h1 class="headerSection">${model.title}</h1>

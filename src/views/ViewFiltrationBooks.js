@@ -5,14 +5,14 @@ export class ViewFiltrationBooks extends Backbone.View {
 		super();
 		this.collection = collection;
 		this.tagName =  "div";
-		this.events = {
-			"change #typeFiltration": "changeMethodFiltration",
-			"click .filtrationData": "filtrationData"
-		};
+		// this.events = {
+		// 	"change #typeFiltration": "changeMethodFiltration",
+		// 	"click .filtrationData": "filtrationBooks"
+		// };
 		Backbone.View.apply(this);
 		this.listenerFiltration = {
 			handleEvent() {
-				this.filtrationData();
+				this.filtrationBooks();
 			}
 		};
 		this.listenerChangeField = {
@@ -45,14 +45,13 @@ export class ViewFiltrationBooks extends Backbone.View {
         </div>
 		`
 	}
-	render() {	
-		$('.content').prepend(document.createElement('div'));
-		render(this.template(), document.getElementsByClassName('content')[0].firstElementChild);
+	render() {
+		render(this.template(), document.getElementsByClassName('content')[0]);
 	}
 	changeMethodFiltration(e) {
 		document.querySelector('#valueFiltration').setAttribute('name', e.target.value);
 	}
-	filtrationData() {
+	filtrationBooks() {
 		this.collection.trigger('filtration', {name: $('#typeFiltration').attr('value'), value: $('#valueFiltration').attr('value')});
 	}
 }

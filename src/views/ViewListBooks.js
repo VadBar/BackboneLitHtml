@@ -8,9 +8,11 @@ export class ViewListBooks extends Backbone.View {
 		this.router = router;
 		this.position = 0;
 		this.step = 15;
+		this.limit = 1;
 		this.self = this;
-		this.listenTo(this.collection, 'remove', this.renderAll);
-		this.listenTo(this.collection, 'reset', this.renderAll);
+		this.stateButtonShowMoreBook = true;
+		this.listenTo(this.collection, 'remove', this.render);
+		this.listenTo(this.collection, 'reset', this.render);
 		Backbone.View.apply(this);
 		this.listenerClickToEditBook = {
 			handleEvent(e) {
@@ -22,17 +24,25 @@ export class ViewListBooks extends Backbone.View {
 				this.deleteBook(e.target.value);
 			}
 		};
+		this.listenerToShowMoreBooks = {
+			handleEvent() {
+				this.showMoreBooks();
+			}
+		}
 		// this.bindingThisForListeners(this.listenerClickDeleteBook, this.listenerClickToEditBook);
+		this.prepareTemplate();
 		this.render();
 	}
 	updatePosition() {
 		this.position = 0;
 	}
-	render() {
-		this.updatePosition();
-        // document.getElementsByClassName('content')[0].innerHTML = '';
-		$('.content').prepend(this.$el);
-		var myContainerBooks = (collection) => html`
+	updateCounter() {
+		this.counter = 0;
+	}
+	prepareTemplate() {
+		this.updateCounter();
+		$('.content').append(this.$el);
+		this.template = (collection) => html`
 		<div class="listBooks toCenter">
         	<table>
             	<caption>
@@ -53,19 +63,25 @@ export class ViewListBooks extends Backbone.View {
 				 <tbody id="bodyListBooks">
 				 	${
 						collection.models.map((i) => {
+							this.counter++;
 							return this.renderBook(i)
 						})
 					 }
             	</tbody>
         	</table>
-        <a class="btnStyle showMoreBook">More books</a>
+        <a class="btnStyle showMoreBook ${this.stateButtonShowMoreBook ? 'hideButtonShowMoreBooks' : ''}" @click=${this.listenerToShowMoreBooks.handleEvent.bind(this)}>More books</a>
 		</div>`;
-		render(myContainerBooks(this.collection), document.getElementsByClassName('content')[0].firstElementChild);
+	}
+	render() {
+		this.updatePosition();
+		render(this.template(this.collection), document.getElementsByClassName('content')[0].lastElementChild);
 	}
 	renderBook(model) {
-		if(this.position < this.step) {
+		if(this.position < this.step * this.limit) {
+			this.position++;
 			return html`<tr>
-			<td>-</td><td>${model.get('name')}</td>
+			<td>${this.counter}</td>
+			<td>${model.get('name')}</td>
 			<td>${model.get('author')}</td>
 				<td>${model.get('year')}</td>
 				<td>${model.get('price')}</td>
@@ -73,6 +89,8 @@ export class ViewListBooks extends Backbone.View {
 				<td><button .value=${model.get("_id")} @click=${this.listenerClickToEditBook.handleEvent.bind(this)} class="editBookButton">Edit</button></td>
 				<td><button class="deleteBookButton" .value=${model.get('_id')} @click=${this.listenerClickDeleteBook.handleEvent.bind(this)}>Delete</button></td>
 			</tr>`
+		} else {
+			this.stateButtonShowMoreBook = false;
 		}
 	}
 	redirectToChangeBookPage(id) {
@@ -82,5 +100,14 @@ export class ViewListBooks extends Backbone.View {
 		let model = this.collection.where({_id: id});
 		console.log(model);
 		model[0].destroy();
+	}
+	increaseLimit() {
+		this.limit++;
+	}
+	showMoreBooks() {
+		this.increaseLimit();
+		this.updateCounter();
+		this.stateButtonShowMoreBook = true;
+		this.render();	
 	}
 };

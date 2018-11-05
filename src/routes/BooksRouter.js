@@ -27,8 +27,7 @@ export class RouterBooks extends Backbone.Router {
 		for(var el in this) {
 			if(this.hasOwnProperty(el)){
 				if(el !== 'routes' && el !== 'model' && el !== 'coll' && el !== '_events') {
-					// this[el].remove();
-					console.log(this[el])
+					this[el].remove();
 					delete this[el];
 				}
 			}
@@ -44,8 +43,8 @@ export class RouterBooks extends Backbone.Router {
 	}
 	listBooksPage() {	
 		this.preperingWindow();
-		this.ViewListBooks = new ViewListBooks({collection:this.coll, router: this});
 		this.ViewFiltrationBooks = new ViewFiltrationBooks({collection: this.coll});
+		this.ViewListBooks = new ViewListBooks({collection:this.coll, router: this});
 	}
 	addBookPage() {
 		this.preperingWindow();
