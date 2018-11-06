@@ -26,7 +26,7 @@ export class ViewFiltrationBooks extends Backbone.View {
 	prepareTemplate() {
 		$('.content').append(this.$el);
 		this.template = () => html`
-		<div class="fltrationBooks toCenter">
+		<div class="fltrationBooks">
         <h1 class="headerSection">Filtration</h1>
         <form>
               <label>Field

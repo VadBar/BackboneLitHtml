@@ -1,7 +1,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #f2f2f8;
+    font-size: 15px;
+    background-color: #E2E2E2;
 }
 header {
     width: 80%;
@@ -24,11 +25,6 @@ header p {
 header p:hover {
     opacity: 1;
 }
-.toCenter {
-    border: 8px solid #565659;
-    border-radius: 15px;
-    background-color: #fff;
-}
 input{
     outline:none;
 }
@@ -49,30 +45,13 @@ input, select, button {
     padding: 8px 20px;
 }
 @media (min-width: 991px) {
-    .toCenter {
-        width: 80%;
-        margin-left: 10%;
-    }
     input {
         width: 200px;
         padding: 8px 20px;
         margin-left: 10px;
     }
-    /*.addBookForm label input {*/
-    /*width: 20%;*/
-    /*height: 30px;*/
-    /*margin-left: 10px;*/
-    /*margin-top: 20px;*/
-    /*}*/
-    /*.addBookForm label {*/
-    /*margin-left: 5%;*/
-    /*}*/
 }
 @media (max-width: 991px) {
-    .toCenter {
-        width: 85%;
-        margin-left: 7.5%;
-    }
     input {
         width: 150px;
         padding: 8px 20px;
@@ -80,10 +59,6 @@ input, select, button {
     }
 }
 @media (max-width: 768px) {
-    .toCenter {
-        width: 90%;
-        margin: 0 5% 0 5%;
-    }
     input {
         width: 100px;
         padding: 8px 20px;
@@ -91,10 +66,6 @@ input, select, button {
     }
 }
 @media (max-width: 568px) {
-    .toCenter {
-        width: 100%;
-        margin-left: 0;
-    }
     input {
         width: 100%;
         padding: 8px 20px;
@@ -120,45 +91,61 @@ input, select, button {
 .fltrationBooks {
     padding: 10px 20px 30px 20px;
     margin-top: 80px;
+    min-width: 100%;
 }
-.fltrationBooks label {
-    margin-left: 5%;
+.fltrationBooks form {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    min-width: 100%;
+    height: 100%;
 }
-.fltrationBooks button, select {
-    width: 10%;
+#typeFiltration {
+    border: 1px solid black;
+    flex-basis: 30%;
 }
-.rangeComponent input {
-    width: 5%;
-}
-.rangeComponent {
-    margin-left:5%;
-}
-.showMoreBook {
-    padding: 5px 20px;
-    width: 10%;
-    display: block;
-    margin: 10px auto;
-    text-align:center;
+#valueFiltration {
+    flex-basis: 50%;
 }
 /*Section list books*/
 .listBooks {
     padding: 10px 20px 30px 20px;
     margin-top: 80px;
+    width: 100%;
 }
 .listBooks table {
-    border-collapse: collapse;
     width: 100%;
 }
 .listBooks table caption {
     margin-bottom: 20px;
 }
+.listBooks tr {
+    display: grid;
+    grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+    grid-template-rows: 100%;
+    align-content: stretch;
+    height: 60px;
+    border-bottom: 1px solid gray;
+}
 .listBooks td, th {
-    border-bottom: 2px solid black;
-    text-align: center;
-    padding: 10px 20px;
+    display: inline-grid;
+    min-height: 100%;
+}
+.listBooks td, th > div {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listBooks td > div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .editBookButton {
     background: linear-gradient(to top, #3e3838, #fac165);
+    flex: 1 1 50%;
 }
 .editBookButton:hover {
     background: linear-gradient(to top, #1a1a1c, #494a5c);
@@ -167,6 +154,7 @@ input, select, button {
 .deleteBookButton {
     background: linear-gradient(to top, #3e3838, #fa6565);
     color: #fff;
+    flex: 1 1 50%;
 }
 .deleteBookButton:hover {
     background: linear-gradient(to top, #1a1a1c, #494a5c);

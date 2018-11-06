@@ -43,21 +43,21 @@ export class ViewListBooks extends Backbone.View {
 		this.updateCounter();
 		$('.content').append(this.$el);
 		this.template = (collection) => html`
-		<div class="listBooks toCenter">
-        	<table>
+		<div class="listBooks">
+        	<table class="table">
             	<caption>
                 	<h1>List books</h1>
            	 </caption>
             	<thead>
             	<tr>
-                	<th>N</th>
-                	<th>Name</th>
-                	<th>Author</th>
-                	<th>Amount</th>
-                	<th>Price</th>
-                	<th>Publishing House</th>
-                	<th></th>
-                	<th></th>
+                	<th><div>N</div></th>
+                	<th><div>Name</div></th>
+                	<th><div>Author</div></th>
+                	<th><div>Amount</div></th>
+                	<th><div>Price</div></th>
+                	<th><div>Publishing House</div></th>
+                	<th><div></div></th>
+                	<th><div></div></th>
            	 	</tr>
             	</thead>
 				 <tbody id="bodyListBooks">
@@ -81,14 +81,14 @@ export class ViewListBooks extends Backbone.View {
 		if(this.position < this.step * this.limit) {
 			this.position++;
 			return html`<tr>
-			<td>${this.counter}</td>
-			<td>${model.get('name')}</td>
-			<td>${model.get('author')}</td>
-				<td>${model.get('year')}</td>
-				<td>${model.get('price')}</td>
-				<td>${model.get('homePrinting')}</td>
-				<td><button .value=${model.get("_id")} @click=${this.listenerClickToEditBook.handleEvent.bind(this)} class="editBookButton">Edit</button></td>
-				<td><button class="deleteBookButton" .value=${model.get('_id')} @click=${this.listenerClickDeleteBook.handleEvent.bind(this)}>Delete</button></td>
+			<td><div>${this.counter}</div></td>
+			<td><div>${model.get('name')}</div></td>
+			<td><div>${model.get('author')}</div></td>
+				<td><div>${model.get('year')}</div></td>
+				<td><div>${model.get('price')}</div></td>
+				<td><div>${model.get('homePrinting')}</div></td>
+				<td><div><button .value=${model.get("_id")} @click=${this.listenerClickToEditBook.handleEvent.bind(this)} class="editBookButton">Edit</button></div></td>
+				<td><div><button class="deleteBookButton" .value=${model.get('_id')} @click=${this.listenerClickDeleteBook.handleEvent.bind(this)}>Delete</button></div></td>
 			</tr>`
 		} else {
 			this.stateButtonShowMoreBook = false;
