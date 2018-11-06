@@ -166,45 +166,29 @@ input, select, button {
 /*Section list geners*/
 .listGenres {
     padding: 10px 20px 30px 20px;
-    position: fixed;
-    top: 10%;
-    visibility: hidden;
-    z-index: 10;
-}
-.listGenres table {
     width: 100%;
-    border-collapse: collapse;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-row-gap: 20px;
+}
+.listItem {
+    display: inline-grid;
+}
+.listItem > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .listGenres  input[type='checkbox'] {
-    width: 100%;
-    padding: 40px;
     transform: scale(1.8);
 }
-.listGenres td {
-    /*border: 1px solid black;*/
-    padding: 10px 10px;
+.footerListGenres {
+   grid-column-start: 1;
+   grid-column-end: 11;
 }
-/*Section edit book*/
-.editBookForm {
-    padding: 10px 20px 30px 20px;
-    position: fixed;
-    top: 10%;
-    visibility: hidden;
-}
-.editBookForm table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.editBookForm td {
-    height: 50px;
-}
-.editBookForm input {
-    width: 80%;
-}
-.showEl {
-    visibility: visible;
-}
-/* df;la*/
 .headerSection {
     text-align: center;
     margin-bottom: 30px;

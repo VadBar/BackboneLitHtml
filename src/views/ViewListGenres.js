@@ -27,41 +27,30 @@ export class ViewListGenres extends Backbone.View {
 	generateCheckets(genre, checkedGenres) {
 		this.counter++;
 			return html` 
-			${((this.counter % 5) === 0) ? html`</tr><tr>`:  html``}
-			${this.counter === 1 ? html`<tr>` : html``}
-		<td>
-			<input type="checkbox"  name="genre" .value=${this.counter}  ?checked=${~checkedGenres.indexOf(String(this.counter))} @change=${this.listenerChangeCheckboxes.handleEvent.bind(this)}>
-		</td>
-		<td>
-			${genre}
-		</td>
+		<div class="listItem">
+			<div>
+				<input type="checkbox"  name="genre" .value=${this.counter}  ?checked=${~checkedGenres.indexOf(String(this.counter))} @change=${this.listenerChangeCheckboxes.handleEvent.bind(this)}>
+			</div>
+				</div>
+		<div class="listItem">
+			<div>
+				${genre}
+			</div>
+		</div>
 		`;
 	}
 	prepareTemplate() {
 		$('.content').append(this.$el);
 		this.template = (data) => html`
 		<h1 class="headerSection">${data.title}</h1>
-        <table>
-			<tbody>
+		<div class="listGenres">
                 ${
 					this.listGenres.map((i) => {
 						return this.generateCheckets(i, data.genres);
 					})
 				}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button class="accepListGenresButton btnStyle" @click=${this.listenerAcceptGenres.handleEvent.bind(this)}>${data.btnValue}</button></td>
-            </tr>
-            </tbody>
-        </table>
+			<div class="footerListGenres listItem"><div><button class="accepListGenresButton btnStyle" @click=${this.listenerAcceptGenres.handleEvent.bind(this)}>${data.btnValue}</button></div></div>
+		</div>
 		`;
 	}
 	render() {
