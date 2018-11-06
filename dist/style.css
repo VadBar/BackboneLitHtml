@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
 html, body {
     margin: 0;
     padding: 0;
     font-size: 15px;
     background-color: #E2E2E2;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    overflow-x: none;
 }
 header {
     width: 80%;
@@ -44,48 +47,42 @@ button, input[type="submit"], input[type="reset"] {
 input, select, button {
     padding: 8px 20px;
 }
-@media (min-width: 991px) {
-    input {
-        width: 200px;
-        padding: 8px 20px;
-        margin-left: 10px;
-    }
-}
-@media (max-width: 991px) {
-    input {
-        width: 150px;
-        padding: 8px 20px;
-        margin-left: 10px;
-    }
-}
-@media (max-width: 768px) {
-    input {
-        width: 100px;
-        padding: 8px 20px;
-        margin-left: 10px;
-    }
-}
-@media (max-width: 568px) {
-    input {
-        width: 100%;
-        padding: 8px 20px;
-        margin-left: 10px;
-    }
-}
 /*Section addition books*/
 .addBookForm {
     margin-top:50px;
     padding: 10px 20px 30px 20px;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%; 
+    grid-row-gap: 20px;
 }
-.addBookForm table {
-    border-collapse: collapse;
-    width: 100%;
+.itemForm {
+    display: inline-grid;
 }
-.addBookForm td {
-    height: 50px;
+.itemForm > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.addBookForm input {
-    width: 80%;
+.buttonClearForm {
+    grid-area: 4/5/5/6;
+}
+.buttonAddForm {
+    grid-area: 4/6/5/7;
+}
+.itemForm  input{
+    width: 70%;
+}
+@media (max-width: 600px) {
+    .addBookForm {
+        grid-template-columns: 25% 25% 25% 25%;
+    }
+    .buttonClearForm {
+        grid-area: 5/3/6/4;
+    }
+    .buttonAddForm {
+        grid-area: 5/4/6/5;
+    }
 }
 /*Section filtration books*/
 .fltrationBooks {
@@ -101,11 +98,22 @@ input, select, button {
     height: 100%;
 }
 #typeFiltration {
-    border: 1px solid black;
     flex-basis: 30%;
 }
 #valueFiltration {
     flex-basis: 50%;
+}
+@media (max-width: 700px) {
+    .fltrationBooks form {
+        flex-direction: column;
+        align-items: center;
+    }
+    .fltrationBooks form > * {
+        margin-top: 20px;
+    }
+    #valueFiltration {
+        width: 80%;
+    }
 }
 /*Section list books*/
 .listBooks {

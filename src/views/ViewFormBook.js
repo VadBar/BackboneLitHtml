@@ -83,67 +83,61 @@ export class ViewFormBook extends ViewBinding {
 	}
 	prepareTemplate() {
 		this.template = (model) => html`
-		<div class="addBookForm toCenter">
-    <h1 class="headerSection">${model.title}</h1>
-        <form name="addBookForm" >
-            <table>
-                <tbody>
-                    <tr>
-                        <td><label>Name</label></td>
-                        <td>
-                            <input type="text" class="name" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="name" .value=${model.name}>
-                            <span class="error"></span>
-                        </td>
-                        <td><label>Author</label></td>
-                        <td>
-                            <input type="text" class="author" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="author" .value=${model.author}>
-                            <span class="error"></span>
-                        </td>
-                        <td><label>Year</label></td>
-                        <td>
-                            <input type="text" class="year" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="100" name="year" .value=${model.year}>
-                            <span class="error"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Genre</label></td>
-                        <td><button class="addGenreButton btnStyle" @click=${this.listenerClickButtonGenre.handleEvent.bind(this)}>Add genre</button></td>
-                        <td><label>CountOfPage</label></td>
-                        <td>
-                            <input type="text" class="countOfPage" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
-                            <span class="error"></span>
-                        </td>
-                        <td><label>Price</label></td>
-                        <td>
-                            <input type="text" class="price" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="price" .value=${model.price}>
-                            <span class="error"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Amount</label></td>
-                        <td>
-                            <input type="text" min="0" class="amount" @blur=${this.listenerBlurFields.handleEvent.bind(this)} name="amount" .value=${model.amount}>
-                            <span class="error"></span>
-                        </td>
-                        <td><label>PublishinHouse</label></td>
-                        <td>
-                            <input type="text" class="homePrinting" @blur=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
-                            <span class="error"></span>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="reset" value="Clear" class="clearBook btnStyle" @click=${this.listenerClickButtonClear.handleEvent.bind(this)}></td>
-                        <td></td>
-                        <td><input type="submit" .value=${model.btnValue} disabled class="addBookButton btnStyle" @click=${this.listenerClickButtonAddBook.handleEvent.bind(this)}></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+		<h1 class="headerSection">${model.title}</h1>
+		<div class="addBookForm">
+            <div class="itemForm"><div><label>Name</label></div></div>
+				<div class="itemForm">
+					<div>
+                    	<input type="text" class="name" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="name" .value=${model.name}>
+						<span class="error"></span>
+					</div>
+                </div>
+                <div class="itemForm"><div><label>Author</label></div></div>
+				<div class="itemForm">
+					<div>
+                    	<input type="text" class="author" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="author" .value=${model.author}>
+						<span class="error"></span>
+					</div>
+                </div>
+            	<div class="itemForm"><div><label>Year</label></div></div>
+				<div class="itemForm">
+					<div>
+                    	<input type="text" class="year" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="100" name="year" .value=${model.year}>
+						<span class="error"></span>
+					</div>
+                </div>
+                <div class="itemForm"><div><label>CountOfPage</label></div></div>
+				<div class="itemForm">
+					<div>
+                    	<input type="text" class="countOfPage" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
+						<span class="error"></span>
+					</div>
+                </div>
+                <div class="itemForm"><div><label>Price</label></div></div>
+				<div class="itemForm">
+					<div>
+                    	<input type="text" class="price" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="price" .value=${model.price}>
+						<span class="error"></span>
+					</div>
+                </div>
+                <div class="itemForm"><div><label>Amount</label></div></div>
+				<div class="itemForm">
+					<div>
+                    	<input type="text" min="0" class="amount" @blur=${this.listenerBlurFields.handleEvent.bind(this)} name="amount" .value=${model.amount}>
+						<span class="error"></span>
+					</div>
+                </div>
+                <div class="itemForm"><div><label>PublishinHouse</label></div></div>
+				<div class="itemForm">
+					<div>
+                    	<input type="text" class="homePrinting" @blur=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
+						<span class="error"></span>
+					</div>
+				</div>
+				<div class="itemForm"><div><label>Genre</label></div></div>
+                <div class="itemForm"><div><button class="addGenreButton btnStyle" @click=${this.listenerClickButtonGenre.handleEvent.bind(this)}>Add genre</button></div></div>
+                <div class="itemForm buttonClearForm"><input type="reset" value="Clear" class="clearBook btnStyle" @click=${this.listenerClickButtonClear.handleEvent.bind(this)}></div>
+                <div class="itemForm buttonAddForm"><div><input type="submit" .value=${model.btnValue} disabled class="addBookButton btnStyle" @click=${this.listenerClickButtonAddBook.handleEvent.bind(this)}></div></div>
         </div>
 		`;
 	}
