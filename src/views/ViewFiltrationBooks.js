@@ -31,7 +31,7 @@ export class ViewFiltrationBooks extends Backbone.View {
         <form>
               <label>Field
                    <select id="typeFiltration" @change=${this.listenerChangeField.handleEvent.bind(this)}>
-                       <option value="name" >Name</option>
+                       <option value="name" ></option>
                        <option value="author">Author</option>
                        <option value="year">Year</option>
                        <option value="countOfPage">CountOfPage</option>

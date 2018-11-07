@@ -66,7 +66,7 @@ export class ViewListGenres extends Backbone.View {
 		}
 	}
 	pushCheckedToBook(e) {
-		this.model.trigger("pushCheck", {value: e.target.value});
+		this.model.trigger("pushCheckedGenres", {value: e.target.value});
 	}
 	redirectToForm() {
 		if(this.stateAdd) {
