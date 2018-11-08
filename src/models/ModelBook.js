@@ -23,6 +23,10 @@ export class ModelBook extends Backbone.Model {
 		this.on('pushCheckedGenres', this.pushCheckedGenres);
 		Backbone.Model.apply(this, [attrs, options]);
 		this.prepareValidationList();
+		this.prepareFiltrationList();
+	}
+	prepareFiltrationList() {
+		this.filtrationList = ['name', 'author', 'year', 'count of pages', 'price', 'amount', 'publishing house'];
 	}
 	generateId() {
 		var id = '';

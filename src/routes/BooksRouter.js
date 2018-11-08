@@ -43,7 +43,7 @@ export class RouterBooks extends Backbone.Router {
 	}
 	listBooksPage() {	
 		this.preperingWindow();
-		this.ViewFiltrationBooks = new ViewFiltrationBooks({collection: this.coll});
+		this.ViewFiltrationBooks = new ViewFiltrationBooks({collection: this.coll, model: this.model});
 		this.ViewListBooks = new ViewListBooks({collection:this.coll, router: this});
 	}
 	addBookPage() {

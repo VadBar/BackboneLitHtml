@@ -1,12 +1,14 @@
 import {html, render} from '../../node_modules/lit-html/lit-html.js';
-import {ViewDropDown} from '../views/ViewDropDown.js';
-export class ViewFiltrationBooks extends ViewDropDown {
+import {ViewDropDown} from '../components/dropDownComponent/ViewDropDown.js';
+export class ViewFiltrationBooks extends Backbone.View {
 	
-	constructor({collection}) {
+	constructor({collection, model}) {
 		super();
+		this.model = model;
 		this.collection = collection;
 		this.tagName =  "div";
 		Backbone.View.apply(this);
+		this.dropDown = new ViewDropDown();
 		this.listenerFiltration = {
 			handleEvent() {
 				this.filtrationBooks();
@@ -19,7 +21,7 @@ export class ViewFiltrationBooks extends ViewDropDown {
 		}
 		this.prepareTemplate();
 		this.render();
-		super.initializeDropDown('drop', 'list');
+		this.dropDown.initializeDropDown('drop', this.model.filtrationList);
 	}
 	prepareTemplate() {
 		$('.content').append(this.$el);
@@ -27,7 +29,7 @@ export class ViewFiltrationBooks extends ViewDropDown {
 		<div class="fltrationBooks">
         <h1 class="headerSection">Filtration</h1>
 		<form>	
-			  <input type="text" id="drop">
+			  <div id="drop"></div>
               <label>Field
                    <select id="typeFiltration" @change=${this.listenerChangeField.handleEvent.bind(this)}>
                        <option value="name" ></option>

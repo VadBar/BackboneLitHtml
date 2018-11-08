@@ -109,6 +109,9 @@ button:hover {
 #valueFiltration {
     flex-basis: 50%;
 }
+#drop {
+    border: 1px solid black;
+}
 @media (max-width: 700px) {
     .fltrationBooks form {
         flex-direction: column;
