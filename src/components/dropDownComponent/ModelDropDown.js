@@ -3,7 +3,7 @@ export class ModelDropDown {
     findSimilierValues(value, list) {
         var rx = new RegExp(value, 'i');
         return list.filter((i) => {
-            return i.search(rx) !== -1;
+            return i.name.search(rx) !== -1;
         })
     }
 }

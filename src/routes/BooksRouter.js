@@ -4,6 +4,7 @@ import {ViewFormBook} from '../views/ViewFormBook.js';
 import {ViewListBooks} from '../views/ViewListBooks.js';
 import {ViewFiltrationBooks} from '../views/ViewFiltrationBooks.js';
 import {ViewListGenres} from '../views/ViewListGenres.js';
+import {ViewHeader} from '../views/ViewHeader.js';
 // import * as Backbone from "../../assets/js/backbone";
 export class RouterBooks extends Backbone.Router {
 	
@@ -22,6 +23,7 @@ export class RouterBooks extends Backbone.Router {
 		this.coll = new CollectionBooks();
 		Backbone.Router.apply(this);
 		Backbone.history.start();
+		this.header = new ViewHeader(this.model);
 	}
 	preperingWindow() {
 		for(var el in this) {

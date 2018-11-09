@@ -24,9 +24,24 @@ export class ModelBook extends Backbone.Model {
 		Backbone.Model.apply(this, [attrs, options]);
 		this.prepareValidationList();
 		this.prepareFiltrationList();
+		this.prepareLanguageList();
+	}
+	prepareLanguageList() {
+		this.languageList = [
+			{name: "English", data: "en"},
+			{name: "Russion", data: 'ru'}
+		];
 	}
 	prepareFiltrationList() {
-		this.filtrationList = ['name', 'author', 'year', 'count of pages', 'price', 'amount', 'publishing house'];
+		this.filtrationList = [
+		{name: 'name', data: 'name'},
+		{name: 'author', data: 'athor'},
+		{name: 'year', data: 'year'},
+		{name: 'count of pages', data: 'countOfPage'},
+		{name: 'price', data: 'price'}, 
+		{name: 'amount', data: 'amount'}, 
+		{name: 'publishing house', data: 'homePrinting'}, 
+	];
 	}
 	generateId() {
 		var id = '';

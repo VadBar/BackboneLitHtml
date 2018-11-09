@@ -1,0 +1,69 @@
+{
+    "navbar": {
+        "mainPage": "LIST",
+        "formPage": "ADD"
+    },
+    "filtration": {
+        "title": "Filtration",
+        "buttonFiltration": "Filtration"
+    },
+    "listBooks": {
+        "title": "List books",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "formAddBook": {
+        "title": "ADD BOOK",
+        "buttonAddGenres": "Add genres",
+        "buttonClearForm": "Clear",
+        "butttonAddBook": "ADD"
+    },
+    "formChangeBook": {
+        "title": "CHANGE BOOK",
+        "buttonChangeGenres": "Change genres",
+        "buttonClearForm": "Clear",
+        "buttonChangeBook": "Change"
+    },
+    "genres": {
+        "title": {
+            "change": "CHANGE GENRES",
+            "add": "ADD GENRES"
+        },
+        "0": "Science fiction",
+        "1": "Satire",
+        "2": "Drama",
+        "3": "Action and Adventure",
+        "4": "Romance",
+        "5": "Mystery",
+        "6": "Horror",
+        "7": "Children's",
+        "8": "Trilogy",
+        "9": "Biography",
+        "10": "Fantasy",
+        "11": "Comics",
+        "12": "Diaries",
+        "13": "Journals",
+        "14": "Poetry",
+        "15": "Art",
+        "16": "Cook book",
+        "17": "Encyclopedy",
+        "18": "Dictionary",
+        "19": "History"
+    },
+    "fields": {
+        "name": "Name",
+        "author": "Author",
+        "amount": "Amount",
+        "price": "Price",
+        "year": "Year",
+        "publishingHouse": "Publishing house",
+        "countOfPages": "Count of pages",
+        "genres": "Genres"
+    },
+    "validation": {
+        "required": "{{name}} field is required",
+        "length": "Incorrect {{name}}, length must be less 50 chares and more 3",
+        "minValue": "Incorrect {{name}}, value mustn't be less 1",
+        "maxYear": "Incorrect year, year mustn't be more this year and less 1"
+    }
+}
