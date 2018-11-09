@@ -1,21 +1,21 @@
-export class Lang {
+export class Lang extends Backbone.Model {
     constructor(lang) {
-        this.loadJSON((response) => {
-            console.log(response)
-        });
+        super();
+        this.loadJSON(lang);
     }
-    loadJSON(callback) {   
-        var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-        xobj.open('GET', 'en.json', true); 
-        xobj.onreadystatechange = function () {
-              if (xobj.readyState == 4 && xobj.status == "200") {
-                callback(xobj.responseText);
-              }
-        };
-        xobj.send(null);  
+    loadJSON(lang) {   
+        this.data = require(`./locales/${lang}.json`);
      }
-    // const l = new Lang();
-    // l.get('validation.required', {name: "Surname"})
-
+    changeJSON(lang) {
+        this.data = require(`./locales/${lang}.json`);
+        this.trigger('change', true);
+    }
+    getData(field, data) {
+        var value = this.data;
+        let list = field.split('.');
+        for(let i = 0; i < list.length; i++) {
+            value = value[list[i]];
+        }
+        return value;
+    }
 }

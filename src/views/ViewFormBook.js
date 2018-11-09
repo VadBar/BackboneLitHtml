@@ -5,7 +5,9 @@ export class ViewFormBook extends ViewBinding {
 		super();
 		this.collection = obj.collection;
 		this.router = obj.router;
+		this.lang = obj.lang;
 		this.defineWindow(obj);
+		this.listenTo(this.lang, 'change', this.render);
 		this.listenTo(this.collection, 'add', this.blockButton);
 		this.listenTo(this.collection, 'add', this.redirectToListBooks);
 		this.listenTo(this.model, 'invalid', this.showError);
@@ -33,51 +35,38 @@ export class ViewFormBook extends ViewBinding {
 		}
         this.prepareTemplate();
 		this.render();
-		// this.setListenersBlurForField();
 		super.InitializeListenersFields(this.prepareFields());
 	}
-	// setListenersBlurForField() {
-	// 	[].forEach.call(document.getElementsByClassName('valid'), (i) => {
-	// 		i.addEventListener('blur', this.validateForm.bind(this));
-	// 	});
-	// }
 	prepareFields() {
 		$('.content').append(this.$el);
 		return this.bindingElements = new Map([
 					["name", {
 						selector: ".name",
 						viewToModel() { return document.querySelector(this.selector).value },
-						// modelToView() { return this.model.get('name')}
 					}],
 					["author", {
 						selector: ".author",
 						viewToModel() { return document.querySelector(this.selector).value},
-						// modelToView() { return this.model.get('author')}
 					}],
 					["year", {
 						selector: ".year",
 						viewToModel() { return parseInt(document.querySelector(this.selector).value)},
-						// modelToView() { return this.model.get('year')}
 					}],
 					["countOfPage", {
 						selector: ".countOfPage",
 						viewToModel() { return parseInt(document.querySelector(this.selector).value)},
-						// modelToView() { return this.model.get('countOfPage')}
 					}],
 					["price", {
 						selector: ".price",
 						viewToModel() { return parseInt(document.querySelector(this.selector).value)},
-						// modelToView() { return this.model.get('price')}
 					}],
 					["amount", {
 						selector: ".amount",
 						viewToModel() { return parseInt(document.querySelector(this.selector).value)},
-						// modelToView() { return this.model.get('amount')}
 					}],
 					["homePrinting", {
 						selector: ".homePrinting",
 						viewToModel() { return document.querySelector(this.selector).value},
-						// modelToView() { return this.model.get('homePrinting')}
 					}],
 	 			]);
 	}
@@ -85,58 +74,58 @@ export class ViewFormBook extends ViewBinding {
 		this.template = (model) => html`
 		<h1 class="headerSection">${model.title}</h1>
 		<div class="addBookForm">
-            <div class="itemForm"><div><label>Name</label></div></div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.name')}</label></div></div>
 				<div class="itemForm">
 					<div>
                     	<input type="text" class="name" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="name" .value=${model.name}>
 						<span class="error"></span>
 					</div>
                 </div>
-                <div class="itemForm"><div><label>Author</label></div></div>
+                <div class="itemForm"><div><label>${this.lang.getData('fields.author')}</label></div></div>
 				<div class="itemForm">
 					<div>
                     	<input type="text" class="author" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="author" .value=${model.author}>
 						<span class="error"></span>
 					</div>
                 </div>
-            	<div class="itemForm"><div><label>Year</label></div></div>
+            	<div class="itemForm"><div><label>${this.lang.getData('fields.year')}</label></div></div>
 				<div class="itemForm">
 					<div>
                     	<input type="text" class="year" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="100" name="year" .value=${model.year}>
 						<span class="error"></span>
 					</div>
                 </div>
-                <div class="itemForm"><div><label>CountOfPage</label></div></div>
+                <div class="itemForm"><div><label>${this.lang.getData('fields.countOfPages')}</label></div></div>
 				<div class="itemForm">
 					<div>
                     	<input type="text" class="countOfPage" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
 						<span class="error"></span>
 					</div>
                 </div>
-                <div class="itemForm"><div><label>Price</label></div></div>
+                <div class="itemForm"><div><label>${this.lang.getData('fields.price')}</label></div></div>
 				<div class="itemForm">
 					<div>
                     	<input type="text" class="price" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="price" .value=${model.price}>
 						<span class="error"></span>
 					</div>
                 </div>
-                <div class="itemForm"><div><label>Amount</label></div></div>
+                <div class="itemForm"><div><label>${this.lang.getData('fields.amount')}</label></div></div>
 				<div class="itemForm">
 					<div>
                     	<input type="text" min="0" class="amount" @blur=${this.listenerBlurFields.handleEvent.bind(this)} name="amount" .value=${model.amount}>
 						<span class="error"></span>
 					</div>
                 </div>
-                <div class="itemForm"><div><label>PublishinHouse</label></div></div>
+                <div class="itemForm"><div><label>${this.lang.getData('fields.publishingHouse')}</label></div></div>
 				<div class="itemForm">
 					<div>
                     	<input type="text" class="homePrinting" @blur=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
 						<span class="error"></span>
 					</div>
 				</div>
-				<div class="itemForm"><div><label>Genre</label></div></div>
-                <div class="itemForm"><div><button class="addGenreButton btnStyle" @click=${this.listenerClickButtonGenre.handleEvent.bind(this)}>Add genre</button></div></div>
-                <div class="itemForm buttonClearForm"><input type="reset" value="Clear" class="clearBook btnStyle" @click=${this.listenerClickButtonClear.handleEvent.bind(this)}></div>
+				<div class="itemForm"><div><label>${this.lang.getData('fields.genres')}</label></div></div>
+                <div class="itemForm"><div><button class="addGenreButton btnStyle" @click=${this.listenerClickButtonGenre.handleEvent.bind(this)}>${this.lang.getData('formAddBook.buttonAddGenres')}</button></div></div>
+                <div class="itemForm buttonClearForm"><input type="reset" value="${this.lang.getData('formAddBook.buttonClearForm')}" class="clearBook btnStyle" @click=${this.listenerClickButtonClear.handleEvent.bind(this)}></div>
                 <div class="itemForm buttonAddForm"><div><input type="submit" .value=${model.btnValue} disabled class="addBookButton btnStyle" @click=${this.listenerClickButtonAddBook.handleEvent.bind(this)}></div></div>
         </div>
 		`;
@@ -145,10 +134,10 @@ export class ViewFormBook extends ViewBinding {
 		if(!this.stateAdd) {
 			if(this.collection.currentEditableModel) {
 				this.model = this.collection.currentEditableModel;
-				render(this.template(Object.assign(this.model.toJSON(), {title: "CHANGE BOOK", btnValue: "Edit"})), this.el)
+				render(this.template(Object.assign(this.model.toJSON(), {title: this.lang.getData('formChangeBook.title')}, {btnValue: this.lang.getData('formChangeBook.buttonChangeBook')})), this.el)
 			}
 		} else {
-			render(this.template(Object.assign(this.model.toJSON(), {title: "ADD BOOK", btnValue: "ADD"})), this.el);
+			render(this.template(Object.assign(this.model.toJSON(), {title: this.lang.getData('formAddBook.title')}, {btnValue: this.lang.getData('formAddBook.butttonAddBook')})), this.el);
 		}
 	}
 	validateForm() {

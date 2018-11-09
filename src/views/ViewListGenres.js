@@ -6,11 +6,10 @@ export class ViewListGenres extends Backbone.View {
 		this.model = obj.model;
 		this.router = obj.router;
 		this.collection = obj.collection;
+		this.lang = obj.lang;
+		this.listenTo(this.lang, 'change', this.render);
 		Backbone.View.apply(this);
-		this.counter = 0;
-		this.listGenres = ['Science fiction', 'Satire', 'Drama', 'Action and Adventure', 
-		'Romance', 'Mystery', 'Horror', 'Children\'s','Trilogy', 'Biography','Fantasy', 
-		'Comics', 'Diaries', 'Journals', 'Poetry', 'Art', ' Cook book', 'Encyclopedy', 'Dictionary', 'History'];
+		this.listGenres = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 		this.listenerAcceptGenres = {
 			handleEvent() {
 				this.redirectToForm();
@@ -24,17 +23,16 @@ export class ViewListGenres extends Backbone.View {
 		this.prepareTemplate();
 		this.render();
 	}
-	generateCheckets(genre, checkedGenres) {
-		this.counter++;
+	generateCheckets(i, checkedGenres) {
 			return html` 
 		<div class="listItem">
 			<div>
-				<input type="checkbox"  name="genre" .value=${this.counter}  ?checked=${~checkedGenres.indexOf(String(this.counter))} @change=${this.listenerChangeCheckboxes.handleEvent.bind(this)}>
+				<input type="checkbox"  name="genre" .value=${i}  ?checked=${~checkedGenres.indexOf(String(i))} @change=${this.listenerChangeCheckboxes.handleEvent.bind(this)}>
 			</div>
 				</div>
 		<div class="listItem">
 			<div>
-				${genre}
+				${this.lang.getData(`genres.${i}`)}
 			</div>
 		</div>
 		`;
@@ -58,11 +56,11 @@ export class ViewListGenres extends Backbone.View {
 			if(this.collection.currentEditableModel) {
 				this.stateAdd = false;
 				this.model = this.collection.currentEditableModel;
-				render(this.template(Object.assign({genres: this.model.get('genres') || [], title: "CHANGE GENRES", btnValue: "Edit"})), this.el)
+				render(this.template(Object.assign({genres: this.model.get('genres') || [], title: this.lang.getData('genres.title.change'), btnValue: this.lang.getData('genres.button.change')})), this.el)
 			}
 		} else {
 			this.stateAdd = true;
-			render(this.template(Object.assign({genres: this.model.get('genres') || [], title: "ADD GENRES", btnValue: "ADD"})), this.el);
+			render(this.template(Object.assign({genres: this.model.get('genres') || [], title: this.lang.getData('genres.title.add'), btnValue: this.lang.getData('genres.button.add')})), this.el);
 		}
 	}
 	pushCheckedToBook(e) {

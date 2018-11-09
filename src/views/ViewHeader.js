@@ -4,17 +4,21 @@ import {Lang} from '../internationalization/lang.js';
 export class ViewHeader extends Backbone.View {
     constructor(model) {
         super();
+        this.lang = new Lang('en');
         this.model = model;
         this.tagName = document.createElement('header');
         this.drawHeader();
         this.dropDown = new ViewDropDown('lang', this.model.languageList);
         this.initializeListeningChangesDropDown();
-        this.lang = new Lang();
+    }
+    returnLanguage() {
+        return this.lang;
     }
     initializeListeningChangesDropDown() {
         document.querySelector('#lang .dropDownContent').addEventListener('click', (e) => {
             var lang = document.querySelector('#lang input').getAttribute('data');
-            console.log(lang);
+            this.lang.changeJSON(lang);
+            this.drawHeader();
         })
     }
     prepareTamplate() {
@@ -22,14 +26,14 @@ export class ViewHeader extends Backbone.View {
         return html`
             <nav>
                 <ul>
-                    <li><a href="#list"><p>LIST</p></a></li>
-                    <li><a href="#add"><p>ADD</p></a></li>
+                    <li><a href="#list"><p>${this.lang.getData('navbar.mainPage')}</p></a></li>
+                    <li><a href="#add"><p>${this.lang.getData('navbar.formPage')}</p></a></li>
                 </ul>
             </nav>
             <div id="lang"></div>
         `;
     }
     drawHeader() {
-        render(this.prepareTamplate(), this.tagName)
+        render(this.prepareTamplate(), this.tagName);
     }
 }

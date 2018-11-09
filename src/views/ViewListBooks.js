@@ -2,16 +2,17 @@ import {html, render} from '../../node_modules/lit-html/lit-html.js';
 import {ViewBook} from '../views/ViewBook.js';
 export class ViewListBooks extends Backbone.View {
 	
-	constructor({collection, router}) {
+	constructor({collection, router, lang}) {
 		super();
 		this.collection = collection;
 		this.router = router;
+		this.lang = lang;
 		this.position = 0;
 		this.step = 15;
 		this.limit = 1;
 		this.self = this;
-		// this.el = 
 		this.stateButtonShowMoreBook = true;
+		this.listenTo(this.lang, 'change', this.render);
 		this.listenTo(this.collection, 'remove', this.render);
 		this.listenTo(this.collection, 'reset', this.render);
 		Backbone.View.apply(this);
@@ -46,16 +47,16 @@ export class ViewListBooks extends Backbone.View {
 		<div class="listBooks">
         	<table class="table">
             	<caption>
-                	<h1>List books</h1>
+                	<h1>${this.lang.getData('listBooks.title')}</h1>
            	 </caption>
             	<thead>
             	<tr>
                 	<th><div>N</div></th>
-                	<th><div>Name</div></th>
-                	<th><div>Author</div></th>
-                	<th><div>Amount</div></th>
-                	<th><div>Price</div></th>
-                	<th><div>Publishing House</div></th>
+                	<th><div>${this.lang.getData('fields.name')}</div></th>
+                	<th><div>${this.lang.getData('fields.author')}</div></th>
+                	<th><div>${this.lang.getData('fields.amount')}</div></th>
+                	<th><div>${this.lang.getData('fields.price')}</div></th>
+                	<th><div>${this.lang.getData('fields.publishingHouse')}</div></th>
                 	<th><div></div></th>
                 	<th><div></div></th>
            	 	</tr>
@@ -87,8 +88,8 @@ export class ViewListBooks extends Backbone.View {
 				<td><div>${model.get('year')}</div></td>
 				<td><div>${model.get('price')}</div></td>
 				<td><div>${model.get('homePrinting')}</div></td>
-				<td><div><button .value=${model.get("_id")} @click=${this.listenerClickToEditBook.handleEvent.bind(this)} class="editBookButton">Edit</button></div></td>
-				<td><div><button class="deleteBookButton" .value=${model.get('_id')} @click=${this.listenerClickDeleteBook.handleEvent.bind(this)}>Delete</button></div></td>
+				<td><div><button .value=${model.get("_id")} @click=${this.listenerClickToEditBook.handleEvent.bind(this)} class="editBookButton">${this.lang.getData('listBooks.edit')}</button></div></td>
+				<td><div><button class="deleteBookButton" .value=${model.get('_id')} @click=${this.listenerClickDeleteBook.handleEvent.bind(this)}>${this.lang.getData('listBooks.delete')}</button></div></td>
 			</tr>`
 		} else {
 			this.stateButtonShowMoreBook = false;

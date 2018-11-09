@@ -1,12 +1,14 @@
 import {html, render} from '../../node_modules/lit-html/lit-html.js';
 import {ViewDropDown} from '../components/dropDownComponent/ViewDropDown.js';
+import {Lang} from '../internationalization/lang.js';
 export class ViewFiltrationBooks extends Backbone.View {
-	
-	constructor({collection, model}) {
+	constructor({collection, model, lang}) {
 		super();
 		this.model = model;
 		this.collection = collection;
+		this.lang = lang;
 		this.tagName =  "div";
+		this.listenTo(this.lang, 'change', this.render);
 		Backbone.View.apply(this);
 		
 		this.listenerFiltration = {
@@ -27,11 +29,11 @@ export class ViewFiltrationBooks extends Backbone.View {
 		$('.content').append(this.$el);
 		this.template = () => html`
 		<div class="fltrationBooks">
-        <h1 class="headerSection">Filtration</h1>
+        <h1 class="headerSection">${this.lang.getData('filtration.title')}</h1>
 		<form>	
 			  <div id="drop"></div>
                <input id="valueFiltration" type="text" name="name">
-            <label><button class="filtrationData btnStyle" @click=${this.listenerFiltration.handleEvent.bind(this)}>Filtration</button></label>
+            <label><button class="filtrationData btnStyle" @click=${this.listenerFiltration.handleEvent.bind(this)}>${this.lang.getData('filtration.buttonFiltration')}</button></label>
         </form>
         </div>
 		`

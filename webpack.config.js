@@ -11,4 +11,12 @@ module.exports = {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     }
+    // module: {
+    //     loaders: [
+    //         {
+    //             test: /\.json$/,
+    //             loader: 'json-loader'
+    //         }
+    //     ]
+    // }
 };
