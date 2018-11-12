@@ -75,58 +75,81 @@ export class ViewFormBook extends ViewBinding {
 		<h1 class="headerSection">${model.title}</h1>
 		<div class="addBookForm">
             <div class="itemForm"><div><label>${this.lang.getData('fields.name')}</label></div></div>
-				<div class="itemForm">
-					<div>
-                    	<input type="text" class="name" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="name" .value=${model.name}>
-						<span class="error"></span>
-					</div>
-                </div>
-                <div class="itemForm"><div><label>${this.lang.getData('fields.author')}</label></div></div>
-				<div class="itemForm">
-					<div>
-                    	<input type="text" class="author" @blur=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="author" .value=${model.author}>
-						<span class="error"></span>
-					</div>
-                </div>
-            	<div class="itemForm"><div><label>${this.lang.getData('fields.year')}</label></div></div>
-				<div class="itemForm">
-					<div>
-                    	<input type="text" class="year" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="100" name="year" .value=${model.year}>
-						<span class="error"></span>
-					</div>
-                </div>
-                <div class="itemForm"><div><label>${this.lang.getData('fields.countOfPages')}</label></div></div>
-				<div class="itemForm">
-					<div>
-                    	<input type="text" class="countOfPage" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
-						<span class="error"></span>
-					</div>
-                </div>
-                <div class="itemForm"><div><label>${this.lang.getData('fields.price')}</label></div></div>
-				<div class="itemForm">
-					<div>
-                    	<input type="text" class="price" @blur=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="price" .value=${model.price}>
-						<span class="error"></span>
-					</div>
-                </div>
-                <div class="itemForm"><div><label>${this.lang.getData('fields.amount')}</label></div></div>
-				<div class="itemForm">
-					<div>
-                    	<input type="text" min="0" class="amount" @blur=${this.listenerBlurFields.handleEvent.bind(this)} name="amount" .value=${model.amount}>
-						<span class="error"></span>
-					</div>
-                </div>
-                <div class="itemForm"><div><label>${this.lang.getData('fields.publishingHouse')}</label></div></div>
-				<div class="itemForm">
-					<div>
-                    	<input type="text" class="homePrinting" @blur=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
-						<span class="error"></span>
-					</div>
+			<div class="itemForm">
+				<div>
+                    <input type="text" class="name" @change=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="name" .value=${model.name}>
+					<span class="error">
+							<span name="name.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.name').toLowerCase(), name: 'name'})}</span>
+							<span name="name.length" class="hidden">${this.lang.getData('validation.length', [{value: this.lang.getData('fields.name').toLowerCase(), name: 'name'},{value: 3, name: 'minLength'}, {value: 50, name: 'maxLength'}])}</span>
+					</span>
 				</div>
-				<div class="itemForm"><div><label>${this.lang.getData('fields.genres')}</label></div></div>
-                <div class="itemForm"><div><button class="addGenreButton btnStyle" @click=${this.listenerClickButtonGenre.handleEvent.bind(this)}>${this.lang.getData('formAddBook.buttonAddGenres')}</button></div></div>
-                <div class="itemForm buttonClearForm"><input type="reset" value="${this.lang.getData('formAddBook.buttonClearForm')}" class="clearBook btnStyle" @click=${this.listenerClickButtonClear.handleEvent.bind(this)}></div>
-                <div class="itemForm buttonAddForm"><div><input type="submit" .value=${model.btnValue} disabled class="addBookButton btnStyle" @click=${this.listenerClickButtonAddBook.handleEvent.bind(this)}></div></div>
+			</div>
+			
+            <div class="itemForm"><div><label>${this.lang.getData('fields.author')}</label></div></div>
+			<div class="itemForm">
+				<div>
+                    <input type="text" class="author" @change=${this.listenerBlurFields.handleEvent.bind(this)}  minlength="0" maxlength="50" name="author" .value=${model.author}>
+					<span class="error">
+						<span name="author.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.author').toLowerCase(), name: 'name'})}</span>
+						<span name="author.length" class="hidden">${this.lang.getData('validation.length', [{value: this.lang.getData('fields.author').toLowerCase(), name: 'name'}, {value: 3, name: 'minLength'}, {value: 50, name: 'maxLength'}])}</span>
+					</span>
+				</div>
+            </div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.year')}</label></div></div>
+			<div class="itemForm">
+				<div>
+                    <input type="text" class="year" @change=${this.listenerBlurFields.handleEvent.bind(this)} min="100" name="year" .value=${model.year}>
+					<span class="error">
+						<span name="year.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.year').toLowerCase(), name: 'name'})}</span>
+						<span name="year.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.year').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
+						<span name="year.maxYear" class="hidden">${this.lang.getData('validation.maxYear', {value: 1, name: 'minYear'})}</span>
+					</span>
+				</div>
+            </div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.countOfPages')}</label></div></div>
+			<div class="itemForm">
+				<div>
+                    <input type="text" class="countOfPage" @change=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
+					<span class="error">
+						<span name="countOfPage.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.countOfPages').toLowerCase(), name: 'name'})}</span>
+						<span name="countOfPage.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.countOfPages').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
+					</span>
+				</div>
+            </div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.price')}</label></div></div>
+			<div class="itemForm">
+				<div>
+                    <input type="text" class="price" @change=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="price" .value=${model.price}>
+					<span class="error">
+						<span name="price.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.price').toLowerCase(), name: 'name'})}</span>
+						<span name="price.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.price').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
+					</span>
+				</div>
+            </div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.amount')}</label></div></div>
+			<div class="itemForm">
+				<div>
+                    <input type="text" min="0" class="amount" @change=${this.listenerBlurFields.handleEvent.bind(this)} name="amount" .value=${model.amount}>
+					<span class="error">
+						<span name="amount.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.amount').toLowerCase(), name: 'name'})}</span>
+						<span name="amount.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.amount').toLowerCase(), name: 'name'}, {value: 0, name: 'minValue'}])}</span>
+					</span>
+				</div>
+            </div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.publishingHouse')}</label></div></div>
+			<div class="itemForm">
+				<div>
+                    <input type="text" class="homePrinting" @change=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
+					<span class="error">
+						<span name="homePrinting.required" class="hidden">${this.lang.getData('validation.required',{value: this.lang.getData('fields.publishingHouse').toLowerCase(), name: 'name'})}</span>
+						<span name="homePrinting.length" class="hidden">${this.lang.getData('validation.length', [{value: this.lang.getData('fields.publishingHouse').toLowerCase(), name: 'name'},{value: 3, name: 'minLength'}, {value: 50, name: 'maxLength'}])}</span>
+					</span>
+				</div>
+			</div>
+			<div class="itemForm"><div><label>${this.lang.getData('fields.genres')}</label></div></div>
+            <div class="itemForm"><div><button class="addGenreButton btnStyle" @click=${this.listenerClickButtonGenre.handleEvent.bind(this)}>${this.lang.getData('formAddBook.buttonAddGenres')}</button></div></div>
+            <div class="itemForm buttonClearForm"><input type="reset" value="${this.lang.getData('formAddBook.buttonClearForm')}" class="clearBook btnStyle" @click=${this.listenerClickButtonClear.handleEvent.bind(this)}></div>
+            <div class="itemForm buttonAddForm"><div><input type="submit" .value=${model.btnValue} disabled class="addBookButton btnStyle" @click=${this.listenerClickButtonAddBook.handleEvent.bind(this)}></div></div>
         </div>
 		`;
 	}
@@ -159,10 +182,13 @@ export class ViewFormBook extends ViewBinding {
 		}
 	}
 	showError(model, error) {
+		let el = document.querySelector(`span[name="${error.name}.${error.type}"]`);
 		if(typeof error === 'object') {
-			$('input[name="' + error.name + '"] + span').text(error.error)
-			setTimeout(function() {
-			$('input[name="' + error.name + '"] + span').text('')
+			if(el.classList.contains('hidden')) {
+				el.classList.remove('hidden');
+			}
+			setTimeout(() => {
+				el.classList.add('hidden');
 		}, 3000);
 		}
 	}

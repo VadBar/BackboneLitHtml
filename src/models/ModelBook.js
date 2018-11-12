@@ -60,10 +60,10 @@ export class ModelBook extends Backbone.Model {
 		}
 		this.set('genres', genres);
 	}
-	generateError(nameField, message, arrayErrors) {
+	generateError(nameField, type, arrayErrors) {
 		var objError = {
 			name: nameField,
-			error: message
+			type
 		};
 		if(this.hasChanged(nameField)) {
 			return objError;
@@ -71,60 +71,64 @@ export class ModelBook extends Backbone.Model {
 			return arrayErrors.push(objError);
 		}
 	}
-	validateStringField(arrayErrors, value, nameField, message) {
-		if(!value || value.length < 3 || value.length > 50) {
-			return this.generateError(nameField, message, arrayErrors);
+	validateStringField(arrayErrors, value, nameField) {
+		if(!value) {
+			return this.generateError(nameField, 'required', arrayErrors);
+		} else if (value.length < 3 || value.length > 50) {
+			return this.generateError(nameField, 'length', arrayErrors);
+		} else {
+			return false;
 		}
-		return false;
 	}
-	validateNumberField(arrayErrors, value, nameField, message) {
-		if(!+value || value < 1) {
-			return this.generateError(nameField, message, arrayErrors);
+	validateNumberField(arrayErrors, value, nameField) {
+		if(!+value && +value !== 0) {
+			return this.generateError(nameField, 'required', arrayErrors);
+		} else if (value < 1) {
+			return this.generateError(nameField, 'minValue', arrayErrors);
+		} else {
+			return false;
 		}
-		return false;
 	}
-	validateYearField(arrayErrors, value, nameField, message) {
-		if(!+value || value < 1 || value > new Date().getFullYear()) {
-			return this.generateError(nameField, message, arrayErrors);
+	validateYearField(arrayErrors, value, nameField) {
+		if(!+value) {
+			return this.generateError(nameField, 'required', arrayErrors);
+		} else if(value < 1) {
+			return this.generateError(nameField, 'minValue', arrayErrors);
+		} else if(value > new Date().getFullYear()) {
+			return this.generateError(nameField, 'maxYear', arrayErrors);
+		} else {
+			return false;
 		}
-		return false;
 	}
 	prepareValidationList() {
 		this.validationList = new Map([
 			['name', {
-				validationField(self, arrayErrors, value, key) { return self.validateStringField(arrayErrors, value, key, this.message)},
-				message: 'Incorrect name, length must be less 50 chares and more 3'
+				validationField(arrayErrors, value, key) { return this.validateStringField(arrayErrors, value, key)}
 			}],
 			['author', {
-				validationField(self, arrayErrors, value, key) { return self.validateStringField(arrayErrors, value, key, this.message)},
-				message: 'Incorrect author, length must be less 50 chares and more 3'
+				validationField(arrayErrors, value, key) { return this.validateStringField(arrayErrors, value, key)}
 			}],
 			['homePrinting', {
-				validationField(self,arrayErrors, value, key) { return self.validateStringField(arrayErrors, value, key, this.message)},
-				message: 'Incorrect publishing house, length must be less 50 chares and more 3'
+				validationField(arrayErrors, value, key) { return this.validateStringField(arrayErrors, value, key)}
 			}],
 			['price', {
-				validationField(self,arrayErrors, value, key) { return self.validateNumberField(arrayErrors, value, key, this.message)},
-				message: `Incorrect price, value mustn't be less 1`
+				validationField(arrayErrors, value, key) { return this.validateNumberField(arrayErrors, value, key)}
 			}],
 			['countOfPage', {
-				validationField(self,arrayErrors, value, key) { return self.validateNumberField(arrayErrors, value, key, this.message)},
-				message: `Incorrect amount, value mustn't be less 1`
+				validationField(arrayErrors, value, key) { return this.validateNumberField(arrayErrors, value, key)}
 			}],
 			['amount', {
-				validationField(self,arrayErrors, value, key) { return self.validateNumberField(arrayErrors, value, key, this.message)},
-				message:  `Incorrect count of pages, value mustn't be less 1`
+				validationField(arrayErrors, value, key) { return this.validateNumberField(arrayErrors, value, key)}
 			}],
 			['year', {
-				validationField(self,arrayErrors, value, key) { return self.validateYearField(arrayErrors, value, key, this.message)},
-				message:  "Incorrect year, year mustn't be more this year and less 1"
+				validationField(arrayErrors, value, key) { return this.validateYearField(arrayErrors, value, key)}
 			}]
 		]);
 	}
 	validate(attrs, message) {
 		let arrayErrors = [];
 		for(let [key, value] of this.validationList) {
-			let error = value.validationField(this, arrayErrors, attrs[key], key);
+			let error = value.validationField.call(this, arrayErrors, attrs[key], key);
 			if(typeof error === 'object') {
 				return error;
 			}

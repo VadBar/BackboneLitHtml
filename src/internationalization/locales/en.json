@@ -64,8 +64,8 @@
     },
     "validation": {
         "required": "{{name}} field is required",
-        "length": "Incorrect {{name}}, length must be less 50 chares and more 3",
-        "minValue": "Incorrect {{name}}, value mustn't be less 1",
-        "maxYear": "Incorrect year, year mustn't be more this year and less 1"
+        "length": "Incorrect {{name}}, length must be less {{maxLength}} chares and more {{minLength}}",
+        "minValue": "Incorrect {{name}}, value mustn't be less {{minValue}}",
+        "maxYear": "Incorrect year, year mustn't be more this year and less {{minYear}}"
     }
 }

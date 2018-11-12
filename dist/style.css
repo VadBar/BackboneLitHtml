@@ -39,6 +39,9 @@ header p:hover {
     right: 50px;
 }
 /*GENERAL*/
+.hidden {
+    display: none;
+}
 input{
     outline:none;
 }
@@ -65,18 +68,24 @@ input, select, button {
     max-width: 100%;
     display: grid;
     grid-template-columns: 16% 16% 16% 16% 16% 16%; 
-    grid-row-gap: 20px;
+    grid-row-gap: 40px;
 }
 .itemForm {
     display: inline-grid;
+    height: 80px;
 }
 .itemForm > div {
     display: flex;
+    flex-flow: row wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+}
+.error {
+    align-self: flex-end!important;
 }
 .buttonClearForm {
     grid-area: 4/5/5/6;
+    height: 40%;
 }
 .buttonAddForm {
     grid-area: 4/6/5/7;
