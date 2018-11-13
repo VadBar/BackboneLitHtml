@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    color: white;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    overflow-x: none;
+    background-image: url('./books.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+/*HEADER*/
+header {
+    width: 80%;
+    margin-left:10%;
+}
+header li {
+    display: inline-block;
+    list-style: none;
+    margin-left:2%;
+}
+header a {
+    text-decoration: none;
+}
+header p {
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    opacity: 0.7;
+} 
+header p:hover {
+    opacity: 1;
+}
+#lang {
+    width: 120px;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+/*GENERAL*/
+.hidden {
+    display: none;
+}
+input{
+    outline:none;
+}
+input:active {
+    outline:none;
+}
+button, input[type="submit"], input[type="reset"] {
+    border: none;
+}
+.btnStyle {
+    background: linear-gradient(to top, #3d3d3f, #d7d8e0);
+}
+.btnStyle:hover {
+    background: linear-gradient(to top, #1a1a1c, #494a5c);
+    color: #fff;
+}
+input, select, button {
+    padding: 8px 20px;
+}
+/*Section addition books*/
+.addBookForm {
+    margin-top:50px;
+    padding: 10px 20px 30px 20px;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%; 
+    grid-row-gap: 40px;
+}
+.itemForm {
+    display: inline-grid;
+    height: 80px;
+}
+.itemForm > div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.error {
+    align-self: flex-end!important;
+}
+.buttonClearForm {
+    grid-area: 4/5/5/6;
+    height: 40%;
+}
+.buttonAddForm {
+    grid-area: 4/6/5/7;
+}
+.itemForm  input{
+    width: 70%;
+}
+button:hover {
+    cursor: pointer;
+}
+@media (max-width: 600px) {
+    .addBookForm {
+        grid-template-columns: 25% 25% 25% 25%;
+    }
+    .buttonClearForm {
+        grid-area: 5/3/6/4;
+    }
+    .buttonAddForm {
+        grid-area: 5/4/6/5;
+    }
+}
+/*Section filtration books*/
+.fltrationBooks {
+    padding: 10px 20px 30px 20px;
+    margin-top: 40px;
+    min-width: 100%;
+    height: 320px;
+}
+.fltrationBooks form {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    flex-flow: row wrap;
+    min-width: 100%;
+    height: 100%;
+}
+#drop {
+    flex-basis: 230px;
+}
+#valueFiltration {
+    flex-basis: 50%;
+    max-height: 15px;
+}
+@media (max-width: 700px) {
+    .fltrationBooks form {
+        flex-direction: column;
+        align-items: center;
+    }
+    .fltrationBooks form > * {
+        margin-top: 20px;
+    }
+    #valueFiltration {
+        width: 80%;
+    }
+}
+/*Section list books*/
+.listBooks {
+    padding: 10px 20px 30px 20px;
+    margin-top: 80px;
+    width: 100%;
+}
+.listBooks table {
+    width: 100%;
+}
+.listBooks table caption {
+    margin-bottom: 20px;
+}
+.listBooks tr {
+    display: grid;
+    grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+    grid-template-rows: 100%;
+    align-content: stretch;
+    height: 60px;
+    border-bottom: 1px solid gray;
+}
+.listBooks tbody tr {
+    opacity: 0.8;
+}
+.listBooks tbody tr:hover {
+    opacity: 1;
+    background-color: #222;
+}
+.listBooks td, th {
+    display: inline-grid;
+    min-height: 100%;
+}
+.listBooks td, th > div {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listBooks td > div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editBookButton {
+    background: linear-gradient(to top, #3e3838, #fac165);
+    flex: 1 1 50%;
+}
+.editBookButton:hover {
+    background: linear-gradient(to top, #1a1a1c, #494a5c);
+    color: #fff;
+}
+.deleteBookButton {
+    background: linear-gradient(to top, #3e3838, #fa6565);
+    color: #fff;
+    flex: 1 1 50%;
+}
+.deleteBookButton:hover {
+    background: linear-gradient(to top, #1a1a1c, #494a5c);
+    color: #fff;
+}
+.hideButtonShowMoreBooks {
+    visibility: hidden;
+}
+/*Section list geners*/
+.listGenres {
+    padding: 10px 20px 30px 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-row-gap: 20px;
+}
+.listItem {
+    display: inline-grid;
+}
+.listItem > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.listGenres  input[type='checkbox'] {
+    transform: scale(1.8);
+}
+.footerListGenres {
+   grid-column-start: 1;
+   grid-column-end: 11;
+}
+.headerSection {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.error {
+    float: left;
+    color: red;
+}
