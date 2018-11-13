@@ -10,13 +10,10 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
-    }
-    // module: {
-    //     loaders: [
-    //         {
-    //             test: /\.json$/,
-    //             loader: 'json-loader'
-    //         }
-    //     ]
-    // }
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 8000
+      }
 };

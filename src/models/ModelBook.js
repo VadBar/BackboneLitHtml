@@ -14,17 +14,42 @@ export class ModelBook extends Backbone.Model {
 				price: 1,
 				amount: 1,
 				homePrinting: '',
-				genres: [],
-				_id: ''
+				genres: []
 				};
-		this.defaults._id = this.generateId();
-		this.idAttribute = '_id';
-		this.url = 'books';
+		// this.url = '/books/3253406311390484245';
+		// this.urlRoot = '/books/';
 		this.on('pushCheckedGenres', this.pushCheckedGenres);
+		this.sync = this.myOwnSpecificSync;
 		Backbone.Model.apply(this, [attrs, options]);
 		this.prepareValidationList();
 		this.prepareFiltrationList();
 		this.prepareLanguageList();
+	}
+	myOwnSpecificSync(method, model, options) {
+		console.log(method);
+		if(method === 'create') {
+			model.set('id', this.generateId());
+			model.idAttribute = 'id';
+			let books = JSON.parse(localStorage.getItem('books'));
+			if(books) {
+				books.push(model);
+				localStorage.setItem('books', JSON.stringify(books));
+			} else {
+				localStorage.setItem('books', JSON.stringify([model]));
+			}
+		} 
+		if(method === 'delete') {
+			console.log('i here');
+			let books = localStorage.getItem('books');
+			books = books.filter((i) => {
+				if(i._id !== model._id) {
+					return true;
+				} else {
+					return false;
+				}
+			});
+			localStorage.setItem('books', books);
+		}
 	}
 	prepareLanguageList() {
 		this.languageList = [

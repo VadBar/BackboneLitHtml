@@ -19,15 +19,13 @@ export class RouterBooks extends Backbone.Router {
 			"check/:id":"changeCheckedGenres",
 			"fromForm": "clearViewForm"
 		};
+		
 		this.model = new ModelBook();
 		this.coll = new CollectionBooks();
 		this.header = new ViewHeader(this.model);
 		this.lang = this.header.returnLanguage();
 		Backbone.Router.apply(this);
 		Backbone.history.start();
-	}
-	start() {
-		console.log('lasdf')
 	}
 	preperingWindow() {
 		for(var el in this) {

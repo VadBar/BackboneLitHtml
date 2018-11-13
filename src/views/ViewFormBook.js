@@ -194,7 +194,8 @@ export class ViewFormBook extends ViewBinding {
 	}
 	saveBook() {
 		if(this.stateAdd) {
-            this.collection.trigger('pushModel', this.model);
+			// this.collection.trigger('pushModel', this.model);
+			this.model.save();
 		} else {
 			this.router.navigate("list", {trigger: true});
 		}

@@ -6,8 +6,11 @@ export class CollectionBooks extends Backbone.Collection {
 		this.on('pushModel', this.pushModel);
 		this.on('selectEditModel', this.selectEditModel);
 		this.on('filtration', this.filtration);
+		this.url = 'file://books';
+		this.fetch();
 		Backbone.Collection.apply(this);
-		this.initializeModels();
+		// this.initializeModels();
+		
 	}
 	initializeModels() {
 		if(localStorage.getItem('books')) {
@@ -25,7 +28,7 @@ export class CollectionBooks extends Backbone.Collection {
 	}
 	pushModel(model) {
 		this.push(model);
-		this.pushToDB();
+		// this.pushToDB();
 	}
 	filtration(obj) {
 		this.returnDefaultState();
