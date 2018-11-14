@@ -5,7 +5,6 @@ import {ViewListBooks} from '../views/ViewListBooks.js';
 import {ViewFiltrationBooks} from '../views/ViewFiltrationBooks.js';
 import {ViewListGenres} from '../views/ViewListGenres.js';
 import {ViewHeader} from '../views/ViewHeader.js';
-// import * as Backbone from "../../assets/js/backbone";
 export class RouterBooks extends Backbone.Router {
 	
 	constructor() {
@@ -21,7 +20,6 @@ export class RouterBooks extends Backbone.Router {
 		};
 		this.model = new ModelBook();
 		this.coll = new CollectionBooks();
-		this.model.initializeCollection(this.coll);
 		this.header = new ViewHeader(this.model);
 		this.lang = this.header.returnLanguage();
 		Backbone.Router.apply(this);

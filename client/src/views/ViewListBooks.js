@@ -98,7 +98,10 @@ export class ViewListBooks extends Backbone.View {
 		this.router.navigate(`edit/${id}`, {trigger: true});
 	}
 	deleteBook(id) {
-		this.collection.findWhere({_id: id}).destroy();
+		this.collection.findWhere({_id: id}).destroy()
+			.then((id) => {
+				this.collection.removeBook(id);
+			})
 	}
 	increaseLimit() {
 		this.limit++;

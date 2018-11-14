@@ -194,9 +194,15 @@ export class ViewFormBook extends ViewBinding {
 	}
 	saveBook() {
 		if(this.stateAdd) {
-			this.model.save();
+			this.model.save()
+			.then((book) => {
+				this.collection.addBook(book);
+			});
 		} else {
-			this.model.save();
+			this.model.save()
+			.then((book) => {
+				this.collection.updateBook(book);
+			})
 			this.router.navigate("list", {trigger: true});
 		}
 	}

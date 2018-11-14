@@ -5,8 +5,46 @@ export class CollectionBooks extends Backbone.Collection {
 		this.model = ModelBook;
 		this.on('selectEditModel', this.selectEditModel);
 		this.on('filtration', this.filtration);
-		this.fetch();
+		this.sync = this.overrideSync;
+		this.fetch = this.myFetch;
+		this.fetch()
+		.then((allBooks) => {
+			this.reset(allBooks);
+		})
 		Backbone.Collection.apply(this);
+	}
+	myFetch() {
+		return this.sync('read');
+	}
+	overrideSync(method) {
+		if(method === 'read') {
+			return new Promise((resolve, reject) => {
+				fetch('http://localhost:5000/api/books/', {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8"
+                    }
+                })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((allBooks) => {
+                   resolve(allBooks);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+			})
+		}
+	}
+	removeBook(id) {
+		this.remove(this.findWhere({_id: id}));
+	}
+	addBook(book) {
+		this.push(book);
+	}
+	updateBook(book) {
+		this.findWhere({_id: book._id}).set(book);
 	}
 	selectEditModel(id) {
 		this.forEach(function(item, index) {
@@ -16,11 +54,14 @@ export class CollectionBooks extends Backbone.Collection {
 		}.bind(this));
 	}
 	filtration(obj) {
-		this.fetch();
+		this.fetch()
+		.then((allBooks) => {
+			return this.reset(allBooks);
+		})
+		.then(() => {
+			this.reset(this.models.filter((i) => {
+				return i.get(obj.name).indexOf(obj.value) !== -1;
+			}));
+		})
 	}
-	// filtr() {
-	// 	this.reset(this.models.filter((i) => {
-	// 		return i.get(obj.name).indexOf(obj.value) !== -1;
-	// 	}));	
-	// }
 }

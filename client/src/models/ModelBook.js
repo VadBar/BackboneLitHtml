@@ -16,23 +16,91 @@ export class ModelBook extends Backbone.Model {
 				};
 		this.on('pushCheckedGenres', this.pushCheckedGenres);
 		this.idAttribute = "_id";
+		this.sync = this.overridSync;
+		this.destroy = this.myDestroy;
+		this.save = this.mySave;
 		Backbone.Model.apply(this, [attrs, options]);
 		this.prepareValidationList();
 		this.prepareFiltrationList();
 		this.prepareLanguageList();
 	}
-	initializeCollection(collection) {
-		this.coll = collection;
+	mySave() {
+		var id = this.idAttribute;
+		if(this.get(id)) {
+			return this.sync('update', this);
+		} else {
+			return this.sync('create', this);
+		}
 	}
-	// removeBookFromColl(id) {
-	// 	console.log(this.coll.models)
-	// 	this.coll.models = this.coll.models.filter((i) => {
-	// 		if(i.get('_id') === id) {
-	// 			return false;
-	// 		}
-	// 		return true;
-	// 	});
-	// }
+	myDestroy() {
+		return this.sync('delete', this);
+	}
+	overridSync(method, model) {
+		console.log(method)
+		switch(method) {
+			case 'create': 
+				return new Promise((resolve, reject) => {
+					fetch('http://localhost:5000/api/books/', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      },
+                    body: JSON.stringify(model)
+                })
+                .then((response, reject) => {
+                    return response.json();
+                })
+                .then((book) => {
+                   resolve(book);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+				})  
+            break;
+			case 'update':
+				return new Promise((resolve, reject) => {
+					fetch(`http://localhost:5000/api/books/${model.get('_id')}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      },
+                    body: JSON.stringify(model)
+                })
+                .then((response, reject) => {
+                    return response.json();
+                })
+                .then((book) => {
+                   resolve(book);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+				})
+            break;
+			case 'delete':
+				return new Promise((resolve, reject) => {
+					fetch(`http://localhost:5000/api/books/${model.get('_id')}`, {
+                	method: 'DELETE',
+                	headers: {
+                    	'Content-Type': 'application/json'
+                 	 }
+            		})
+            		.then((response, reject) => {
+                		return response.json();
+            		})
+            		.then((book) => {
+               			resolve(book.id);
+            		})
+            		.catch((e) => {
+                		console.log(e);
+           		 	})
+				})
+            break;
+        }
+	}
 	prepareLanguageList() {
 		this.languageList = [
 			{name: "English", data: "en"},
