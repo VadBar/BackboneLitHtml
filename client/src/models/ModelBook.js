@@ -1,5 +1,4 @@
 import { isArray } from "util";
-// import * as Backbone from "../../assets/js/backbone";
 
 export class ModelBook extends Backbone.Model {
 	
@@ -16,28 +15,24 @@ export class ModelBook extends Backbone.Model {
 				genres: []
 				};
 		this.on('pushCheckedGenres', this.pushCheckedGenres);
+		this.idAttribute = "_id";
 		Backbone.Model.apply(this, [attrs, options]);
 		this.prepareValidationList();
 		this.prepareFiltrationList();
 		this.prepareLanguageList();
 	}
 	initializeCollection(collection) {
-		this.collection = collection;
+		this.coll = collection;
 	}
-	pushBookToColl(model) {
-		this.collection.push(model);
-	}
-	removeBookFromColl(id) {
-		this.collection.models = this.collection.models.filter((i) => {
-			if(i.get('_id') === id) {
-				return false;
-			}
-			return true;
-		});
-	}
-	changeBookOfColl(model) {
-
-	}
+	// removeBookFromColl(id) {
+	// 	console.log(this.coll.models)
+	// 	this.coll.models = this.coll.models.filter((i) => {
+	// 		if(i.get('_id') === id) {
+	// 			return false;
+	// 		}
+	// 		return true;
+	// 	});
+	// }
 	prepareLanguageList() {
 		this.languageList = [
 			{name: "English", data: "en"},
@@ -54,13 +49,6 @@ export class ModelBook extends Backbone.Model {
 		{name: 'amount', data: 'amount'}, 
 		{name: 'publishing house', data: 'homePrinting'}, 
 	];
-	}
-	generateId() {
-		var id = '';
-            for(var i = 0; i < 10; i++){
-                id += (Math.random() * (100 - 1) + 1).toFixed(0);
-            }
-            return id;
 	}
 	pushCheckedGenres(checked){
 		var genres = this.get('genres').filter(function(i) {
@@ -142,6 +130,7 @@ export class ModelBook extends Backbone.Model {
 		for(let [key, value] of this.validationList) {
 			let error = value.validationField.call(this, arrayErrors, attrs[key], key);
 			if(typeof error === 'object') {
+				console.log(error);
 				return error;
 			}
 		}

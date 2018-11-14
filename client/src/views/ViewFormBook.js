@@ -1,6 +1,3 @@
-import $ from "jquery";
-import _ from "underscore";
-import Backbone from '../../node_modules/backbone/backbone.js';
 import {html, render} from '../../node_modules/lit-html/lit-html.js';
 import {ViewBinding} from '../views/ViewBinding.js';
 export class ViewFormBook extends ViewBinding {
@@ -199,6 +196,7 @@ export class ViewFormBook extends ViewBinding {
 		if(this.stateAdd) {
 			this.model.save();
 		} else {
+			this.model.save();
 			this.router.navigate("list", {trigger: true});
 		}
 	}

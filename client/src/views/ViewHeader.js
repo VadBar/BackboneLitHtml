@@ -1,6 +1,3 @@
-import $ from "jquery";
-import _ from "underscore";
-import Backbone from '../../node_modules/backbone/backbone.js';
 import {html, render} from '../../node_modules/lit-html/lit-html.js';
 import {ViewDropDown} from '../components/dropDownComponent/ViewDropDown.js';
 import {Lang} from '../internationalization/lang.js';

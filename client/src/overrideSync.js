@@ -16,6 +16,9 @@ export class overrideSync {
                 })
                 .then((allBooks) => {
                     this.reset(allBooks);
+                    // this.models.forEach((i) => {
+                    //     i.initializeCollection(this);
+                    // })
                 })
                 .catch((e) => {
                     console.log(e);
@@ -34,27 +37,43 @@ export class overrideSync {
                     return response.json();
                 })
                 .then((book) => {
-                   this.pushBookToColl(book);
+                   return book;
                 })
                 .catch((e) => {
                     console.log(e);
                 })
             break;
             case 'update':
+            fetch(`http://localhost:5000/api/books/${model.get('_id')}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      },
+                    body: JSON.stringify(model)
+                })
+                .then((response, reject) => {
+                    return response.json();
+                })
+                .then((book) => {
+                   return book;
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
             break;
-            case 'remove':
+            case 'delete':
             fetch(`http://localhost:5000/api/books/${model.get('_id')}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
-                  },
-                body: JSON.stringify(model)
+                  }
             })
             .then((response, reject) => {
                 return response.json();
             })
             .then((book) => {
-                this.removeBookFromColl(book._id);
+               return book;
             })
             .catch((e) => {
                 console.log(e);

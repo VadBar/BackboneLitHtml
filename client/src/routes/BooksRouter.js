@@ -5,7 +5,6 @@ import {ViewListBooks} from '../views/ViewListBooks.js';
 import {ViewFiltrationBooks} from '../views/ViewFiltrationBooks.js';
 import {ViewListGenres} from '../views/ViewListGenres.js';
 import {ViewHeader} from '../views/ViewHeader.js';
-import {overrideSync} from '../overrideSync';
 // import * as Backbone from "../../assets/js/backbone";
 export class RouterBooks extends Backbone.Router {
 	
@@ -20,8 +19,6 @@ export class RouterBooks extends Backbone.Router {
 			"check/:id":"changeCheckedGenres",
 			"fromForm": "clearViewForm"
 		};
-		this.override = new overrideSync();
-		Backbone.sync = this.override.override;
 		this.model = new ModelBook();
 		this.coll = new CollectionBooks();
 		this.model.initializeCollection(this.coll);
@@ -29,9 +26,6 @@ export class RouterBooks extends Backbone.Router {
 		this.lang = this.header.returnLanguage();
 		Backbone.Router.apply(this);
 		Backbone.history.start();
-	}
-	mySync(method, model, options) {
-		console.log(method);
 	}
 	preperingWindow() {
 		for(var el in this) {

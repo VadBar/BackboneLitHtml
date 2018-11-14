@@ -22,7 +22,8 @@ module.exports.remove = async(req, res) => {
     try{
         await Book.remove({_id: req.params.id});
         res.status(200).json({
-            message: 'Категория удалена!'
+            message: 'Категория удалена!',
+            id: req.params.id
         });
     }catch(e) {
         errorHandler(res, e);

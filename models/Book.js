@@ -22,19 +22,13 @@ const bookSchema = new Schema({
         required: true
     },
     year: {
-        type: Date,
-        default: Date.now()
+        type: String,
+        required: true
     },
     homePrinting: {
         type: String,
         required: true
     },
-    genres: [
-        {
-            name: {
-                type: String
-            }
-        }
-    ],
+    genres: [{type: String}],
 });
 module.exports = mongoose.model('books', bookSchema);

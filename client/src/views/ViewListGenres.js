@@ -1,6 +1,3 @@
-import $ from "jquery";
-import _ from "underscore";
-import Backbone from '../../node_modules/backbone/backbone.js';
 import {html, render} from '../../node_modules/lit-html/lit-html.js';
 export class ViewListGenres extends Backbone.View {
 	
