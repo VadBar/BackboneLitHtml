@@ -11,7 +11,8 @@
     "lit-html": "^0.12.0",
     "save-dev": "^2.0.0",
     "style-loader": "^0.23.1",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "webpack-merge-and-include-globally": "^2.1.5"
   },
   "devDependencies": {
     "concurrently": "^4.0.1",

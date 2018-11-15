@@ -23,6 +23,7 @@ export class ModelBook extends Backbone.Model {
 		this.prepareValidationList();
 		this.prepareFiltrationList();
 		this.prepareLanguageList();
+		this.prepareThemeList();
 	}
 	mySave() {
 		var id = this.idAttribute;
@@ -100,6 +101,12 @@ export class ModelBook extends Backbone.Model {
 				})
             break;
         }
+	}
+	prepareThemeList() {
+		this.themsList = [
+			{name: 'first', data: 'first'},
+			{name: 'second', data: 'second'}
+		]
 	}
 	prepareLanguageList() {
 		this.languageList = [

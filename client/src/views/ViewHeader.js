@@ -9,7 +9,9 @@ export class ViewHeader extends Backbone.View {
         this.tagName = document.createElement('header');
         this.drawHeader();
         this.dropDown = new ViewDropDown('lang', this.model.languageList);
+        this.themsDropDown = new ViewDropDown('thems', this.model.themsList)
         this.initializeListeningChangesDropDown();
+        this.initializeListeningChangesThemesDropDown();
     }
     returnLanguage() {
         return this.lang;
@@ -21,6 +23,12 @@ export class ViewHeader extends Backbone.View {
             this.drawHeader();
         })
     }
+    initializeListeningChangesThemesDropDown() {
+        document.querySelector('#thems .dropDownContent').addEventListener('click', (e) => {
+            var theme = document.querySelector('#thems input').getAttribute('data');
+            document.documentElement.setAttribute('theme', theme);
+        })
+    }
     prepareTamplate() {
         document.body.prepend(this.tagName);
         return html`
@@ -30,6 +38,7 @@ export class ViewHeader extends Backbone.View {
                     <li><a href="#add"><p>${this.lang.getData('navbar.formPage')}</p></a></li>
                 </ul>
             </nav>
+            <div id="thems"></div>
             <div id="lang"></div>
         `;
     }

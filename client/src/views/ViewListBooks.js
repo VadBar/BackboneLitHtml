@@ -64,6 +64,7 @@ export class ViewListBooks extends Backbone.View {
 				 <tbody id="bodyListBooks">
 				 	${
 						collection.models.map((i) => {
+							this.counter++;
 							return this.renderBook(i)
 						})
 					 }
