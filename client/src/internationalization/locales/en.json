@@ -22,6 +22,9 @@
         "title": "CHANGE BOOK",
         "buttonChangeBook": "Change"
     },
+    "loadImg": {
+        "title": "Upload image"
+    },
     "genres": {
         "title": {
             "change": "CHANGE GENRES",

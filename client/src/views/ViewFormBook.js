@@ -125,7 +125,7 @@ export class ViewFormBook extends ViewBinding {
 						<span name="price.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.price').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
 					</span>
 				</div>
-            </div>
+			</div>
             <div class="itemForm"><div><label>${this.lang.getData('fields.amount')}</label></div></div>
 			<div class="itemForm">
 				<div>
@@ -135,7 +135,26 @@ export class ViewFormBook extends ViewBinding {
 						<span name="amount.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.amount').toLowerCase(), name: 'name'}, {value: 0, name: 'minValue'}])}</span>
 					</span>
 				</div>
-            </div>
+			</div>
+			<div class="itemForm" id="imgItem">
+				<div>
+					<div id="image" name="image">
+						<div class="body">
+							<div class="uploadImg"></div>
+						</div>
+						<div class="menu">
+							<label class="loadImg">
+								${this.lang.getData('loadImg.title')}
+								<input type="file" name="image">
+							<label>
+						</div>
+					</div>
+					<span class="error">
+						<span name="price.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.price').toLowerCase(), name: 'name'})}</span>
+						<span name="price.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.price').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
+					</span>
+				</div>
+			</div>
             <div class="itemForm"><div><label>${this.lang.getData('fields.publishingHouse')}</label></div></div>
 			<div class="itemForm">
 				<div>

@@ -24,6 +24,9 @@
         "buttonClearForm": "Очистить",
         "buttonChangeBook": "Изменить"
     },
+    "loadImg": {
+        "title": "Загрузить картинку"
+    },
     "genres": {
         "title": {
             "change": "ИЗМЕНИТЬ ЖАНРИ",

@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c|Spicy+Rice');
+:root[theme='first'] {
+    --document-text-color: #fff;
+    --document-margin: 0;
+    --document-padding: 0;
+    --document-font-size: 15px;
+    --document-image: url('./image/books.jpg');
+    --document-font-family: 'M PLUS Rounded 1c', sans-serif;
+    --document-background-color: none;
+    /* HEADER */
+    --header-text-default-opacity: 0.7;
+    --header-text-focus-opacity: 1;
+    --header-text-color: #fff;
+    --header-font-weight: 800;
+    --header-font-size: 20px;
+    /* GENERAL */
+    --button-default-background:  linear-gradient(to top, #3d3d3f, #d7d8e0);
+    --button-hover-background: linear-gradient(to top, #1a1a1c, #494a5c);
+    --button-text-color: #fff;
+    --input-default-outline: none;
+    --input-active-outline: none;
+    --input-border: 4px solid none;
+    /* LISTBOOKS */
+    --list-tr-default-opacity: 0.8;
+    --list-tr-active-opacity: 1;
+    --list-tr-active-background: #222;
+    /* EDITBUTTON */
+    --button-edit-background: linear-gradient(to top, #3e3838, #fac165);
+    --button-edit-active-background: linear-gradient(to top, #1a1a1c, #494a5c);
+    --button-edit-default-text-color: #222;
+    --button-edit-active-text-color: #fff;
+    /* DELETEBUTTON */
+    --button-delete-background: linear-gradient(to top, #3e3838, #fa6565);
+    --button-delete-active-background: linear-gradient(to top, #1a1a1c, #494a5c);
+    --button-delete-default-text-color: #222;
+    --button-delete-active-text-color: #fff;
+}
+:root[theme='second'] {
+    --document-text-color: #222;
+    --document-margin: 0;
+    --document-padding: 0;
+    --document-font-size: 15px;
+    --document-image: none;
+    --document-font-family: 'Spicy Rice', cursive;
+    --document-background-color: #bbc46b;
+    ;
+    /* HEADER */
+    --header-text-default-opacity: 0.7;
+    --header-text-focus-opacity: 1;
+    --header-text-color: #222;
+    --header-font-weight: 800;
+    --header-font-size: 20px;
+    /* GENERAL */
+    --button-default-background: #00100c;
+    --button-hover-background: #00100c;
+    --button-text-color: #fff;
+    --input-default-outline: none;
+    --input-active-outline: none;
+    --input-border: 4px solid #00100c;
+    /* LISTBOOKS */
+    --list-tr-default-opacity: 0.8;
+    --list-tr-active-opacity: 1;
+    --list-tr-active-background: #88872b;
+    /* EDITBUTTON */
+    --button-edit-background: #00100c;
+    --button-edit-active-background: #00100c;
+    --button-edit-default-text-color: #fff;
+    --button-edit-active-text-color: #fff;
+    /* DELETEBUTTON */
+    --button-delete-background: #00100c;
+    --button-delete-active-background: #00100c;
+    --button-delete-default-text-color: #fff;
+    --button-delete-active-text-color: #fff;
+}
+html, body {
+    margin: var(--document-margin);
+    padding: var(--document-padding);
+    font-size: var(--document-font-size);
+    color: var(--document-text-color);
+    font-family: var(--document-font-family);
+    overflow-x: none;
+    background-color: var(--document-background-color);
+    background-image: var(--document-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/*HEADER*/
+header {
+    width: 80%;
+    margin: 0 auto;
+}
+header li {
+    display: inline-block;
+    list-style: none;
+    margin-left:2%;
+}
+header a {
+    text-decoration: none;
+}
+header p {
+    color: var(--header-text-color);
+    font-size: 20px;
+    font-weight: var(--header-font-weight);
+    opacity: var(--header-text-default-opacity);
+} 
+header p:hover {
+    opacity: var(--header-text-focus-opacity);
+}
+/* DROPDOWN CONTAINERS */
+#lang {
+    width: 120px;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+#thems {
+    width: 120px;
+    position: absolute;
+    top: 20px;
+    right: 175px;
+}
+/*GENERAL*/
+.hidden {
+    display: none;
+}
+input{
+    outline: var(--input-default-outline);
+    border: var(--input-border)
+}
+input:active {
+    outline: var(--input-active-outline);
+}
+button, input[type="submit"], input[type="reset"] {
+    border: none;
+}
+.btnStyle {
+    background: var(--button-default-background);
+    color: var(--button-text-color);
+}
+.btnStyle:hover {
+    background: var(--button-hover-background);
+    color: var(--button-text-color);
+}
+input, select, button {
+    padding: 8px 20px;
+}
+/*Section addition books*/
+.addBookForm {
+    margin-top:50px;
+    padding: 10px 20px 30px 20px;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%; 
+    grid-row-gap: 40px;
+}
+.itemForm {
+    display: inline-grid;
+    height: 80px;
+}
+.itemForm > div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.error {
+    align-self: flex-end!important;
+}
+.buttonClearForm {
+    grid-area: 4/5/5/6;
+    height: 40%;
+}
+.buttonAddForm {
+    grid-area: 4/6/5/7;
+}
+.itemForm  input{
+    width: 70%;
+}
+button:hover {
+    cursor: pointer;
+}
+@media (max-width: 600px) {
+    .addBookForm {
+        grid-template-columns: 25% 25% 25% 25%;
+    }
+    .buttonClearForm {
+        grid-area: 5/3/6/4;
+    }
+    .buttonAddForm {
+        grid-area: 5/4/6/5;
+    }
+}
+/*Section filtration books*/
+.fltrationBooks {
+    padding: 10px 20px 30px 20px;
+    margin-top: 40px;
+    min-width: 100%;
+    height: 320px;
+}
+.fltrationBooks form {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    flex-flow: row wrap;
+    min-width: 100%;
+    height: 100%;
+}
+#drop {
+    flex-basis: 230px;
+}
+#valueFiltration {
+    flex-basis: 50%;
+    max-height: 15px;
+}
+@media (max-width: 700px) {
+    .fltrationBooks form {
+        flex-direction: column;
+        align-items: center;
+    }
+    .fltrationBooks form > * {
+        margin-top: 20px;
+    }
+    #valueFiltration {
+        width: 80%;
+    }
+}
+/*Section list books*/
+.listBooks {
+    padding: 10px 20px 30px 20px;
+    margin-top: 80px;
+    width: 100%;
+}
+.listBooks table {
+    width: 100%;
+}
+.listBooks table caption {
+    margin-bottom: 20px;
+}
+.listBooks tr {
+    display: grid;
+    grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+    grid-template-rows: 100%;
+    align-content: stretch;
+    height: 60px;
+    border-bottom: 1px solid gray;
+}
+.listBooks tbody tr {
+    opacity: var(--list-tr-active-opacity);
+}
+.listBooks tbody tr:hover {
+    opacity: var(--list-tr-active-opacity);
+    background-color: var(--list-tr-active-background);
+}
+.listBooks td, th {
+    display: inline-grid;
+    min-height: 100%;
+}
+.listBooks td, th > div {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listBooks td > div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editBookButton {
+    background: var(--button-edit-background);
+    color: var(--button-edit-default-text-color);
+    flex: 1 1 50%;
+}
+.editBookButton:hover {
+    background: var(--button-edit-active-background);
+    color: var(--button-edit-active-text-color);
+}
+.deleteBookButton {
+    background: var(--button-delete-background);
+    color: var(--button-delete-default-text-color);
+    flex: 1 1 50%;
+}
+.deleteBookButton:hover {
+    background: var(--button-delete-active-background);
+    color: var(--button-delete-active-text-color);
+}
+.hideButtonShowMoreBooks {
+    visibility: hidden;
+}
+/*Section list geners*/
+.listGenres {
+    padding: 10px 20px 30px 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-row-gap: 20px;
+}
+.listItem {
+    display: inline-grid;
+}
+.listItem > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.listGenres  input[type='checkbox'] {
+    transform: scale(1.8);
+}
+.footerListGenres {
+   grid-column-start: 1;
+   grid-column-end: 11;
+}
+.headerSection {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.error {
+    float: left;
+    color: red;
+}
+.dropDown {
+    max-width: 100%;
+    max-height: 100%;
+    border: 8px solid black;
+    border-radius: 7px;
+}
+.dropDownInput {
+    box-sizing: border-box;
+    position: relative;
+    max-width: 100% !important;
+    border: 8px solid black;
+}
+.elementOfListDropDown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 100%;
+    height: 40px;
+    opacity: 0.7;
+}
+.elementOfListDropDown:hover {
+    background-color: #000a10;
+    cursor: pointer;
+    opacity: 1;
+}
