@@ -65,3 +65,6 @@
      background: #afa;
      border-color: #0f0;
  }
+ .activeDrag {
+     background-color: green!important;
+ }

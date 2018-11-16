@@ -1,5 +1,6 @@
 import {html, render} from 'lit-html';
 import {ModelImgUploader} from './ModelImgUploader';
+import {dragAndDrop} from  '../dragAndDropComponent/dragAndDrop';
 export class ViewImgUploader {
     constructor(Id, lang, model, field) {
         this.mainModel = model;
@@ -10,6 +11,29 @@ export class ViewImgUploader {
         this.field =  document.querySelector(`#${Id} .image .menu input`);
         this.body = document.querySelector(`#${Id} .image .body`);
         this.setListenerChangeImg();
+        this.dragObj = {
+            areaSelector: `#${Id} .image .body`,
+            activeDragMethod: function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                document.querySelector(`#${Id} .image .body`).classList.add('activeDrag');
+            }, 
+            disactiveDragMethod: function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                document.querySelector(`#${Id} .image .body`).classList.remove('activeDrag');
+            },
+            dropMethod: function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+        
+                var transfer = e.dataTransfer;
+                var files = transfer.files;
+                this.showImg(files[0]);
+            }.bind(this)
+
+        }
+        this.drag = new dragAndDrop(this.dragObj);
     }
     setListenerChangeImg() {
         this.field.addEventListener('change', this.showImg.bind(this));
@@ -34,11 +58,13 @@ export class ViewImgUploader {
         this.body.appendChild(img);
         } 
     }
-    showImg() {
-        if(this.model.validateImg(this.field.files[0])) {        
+    showImg(myImage = false) {
+        var image = myImage && myImage instanceof Event === false ? myImage : this.field.files[0];
+        console.log(image);
+        if(this.model.validateImg(image)) {        
             this.removeImg(`.myImg`);
             this.hideDefaultBody();
-            var file = this.field.files[0];
+            var file = image;
             var img = document.createElement("img");
             img.classList.add("myImg");
             this.body.appendChild(img);
