@@ -35,7 +35,7 @@ export class ViewImgUploader {
         } 
     }
     showImg() {
-        if(this.model.validateImg(image)) {        
+        if(this.model.validateImg(this.field.files[0])) {        
             this.removeImg(`.myImg`);
             this.hideDefaultBody();
             var file = this.field.files[0];
