@@ -38,7 +38,8 @@ module.exports.create = async (req, res) => {
         amount: req.body.amount,
         countOfPage: req.body.countOfPage,
         year: req.body.year,
-        genres: req.body.genres
+        genres: req.body.genres,
+        imageSrc: req.file ? req.file.path : ''
     });
     try{
         await book.save();

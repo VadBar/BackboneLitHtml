@@ -9,6 +9,7 @@ const app = express();
 mongoose.connect(keyConfig.urlDataBase)
     .then(() => console.log('Connected!...')).catch((e) => console.log(e));
 app.use(morgan('dev'));
+app.use('/uploads/', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());

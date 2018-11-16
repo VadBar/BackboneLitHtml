@@ -12,7 +12,8 @@ export class ModelBook extends Backbone.Model {
 				price: 1,
 				amount: 1,
 				homePrinting: '',
-				genres: []
+				genres: [],
+				image: ''
 				};
 		this.on('pushCheckedGenres', this.pushCheckedGenres);
 		this.idAttribute = "_id";
@@ -40,14 +41,20 @@ export class ModelBook extends Backbone.Model {
 		console.log(method)
 		switch(method) {
 			case 'create': 
+				var formData = new FormData();
+				formData.append('name', model.get('name'));
+				formData.append('author', model.get('author'));
+				formData.append('year', model.get('year'));
+				formData.append('countOfPage', model.get('countOfPage'));
+				formData.append('price', model.get('price'));
+				formData.append('amount', model.get('amount'));
+				formData.append('homePrinting', model.get('homePrinting'));
+				formData.append('genres', model.get('genres'));
+				formData.append('image', model.get('image'));
 				return new Promise((resolve, reject) => {
-					fetch('http://localhost:5000/api/books/', {
+					fetch('/api/books/', {
                     method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                      },
-                    body: JSON.stringify(model)
+                    body: formData
                 })
                 .then((response, reject) => {
                     return response.json();
@@ -61,14 +68,20 @@ export class ModelBook extends Backbone.Model {
 				})  
             break;
 			case 'update':
+			var formData = new FormData();
+				formData.append('name', model.get('name'));
+				formData.append('author', model.get('author'));
+				formData.append('year', model.get('year'));
+				formData.append('countOfPage', model.get('countOfPage'));
+				formData.append('price', model.get('price'));
+				formData.append('amount', model.get('amount'));
+				formData.append('homePrinting', model.get('homePrinting'));
+				formData.append('genres', model.get('genres'));
+				formData.append('image', model.get('image'));
 				return new Promise((resolve, reject) => {
-					fetch(`http://localhost:5000/api/books/${model.get('_id')}`, {
+					fetch(`/api/books/${model.get('_id')}`, {
                     method: 'PATCH',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                      },
-                    body: JSON.stringify(model)
+                    body: formData
                 })
                 .then((response, reject) => {
                     return response.json();
@@ -83,7 +96,7 @@ export class ModelBook extends Backbone.Model {
             break;
 			case 'delete':
 				return new Promise((resolve, reject) => {
-					fetch(`http://localhost:5000/api/books/${model.get('_id')}`, {
+					fetch(`/api/books/${model.get('_id')}`, {
                 	method: 'DELETE',
                 	headers: {
                     	'Content-Type': 'application/json'

@@ -1,5 +1,6 @@
 import {html, render} from '../../node_modules/lit-html/lit-html.js';
 import {ViewBinding} from '../views/ViewBinding.js';
+import {ViewImgUploader} from '../components/imgUploader/ViewImgUploader';
 export class ViewFormBook extends ViewBinding {
 	constructor(obj) {
 		super();
@@ -36,6 +37,10 @@ export class ViewFormBook extends ViewBinding {
         this.prepareTemplate();
 		this.render();
 		super.InitializeListenersFields(this.prepareFields());
+		this.imgUploader = new ViewImgUploader('imgItem', this.lang, this.model, 'image');
+		if(this.stateAdd === false) {
+			this.imgUploader.setImg(this.model.get('imageSrc'));
+		}
 	}
 	prepareFields() {
 		$('.content').append(this.$el);
@@ -136,25 +141,7 @@ export class ViewFormBook extends ViewBinding {
 					</span>
 				</div>
 			</div>
-			<div class="itemForm" id="imgItem">
-				<div>
-					<div id="image" name="image">
-						<div class="body">
-							<div class="uploadImg"></div>
-						</div>
-						<div class="menu">
-							<label class="loadImg">
-								${this.lang.getData('loadImg.title')}
-								<input type="file" name="image">
-							<label>
-						</div>
-					</div>
-					<span class="error">
-						<span name="price.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.price').toLowerCase(), name: 'name'})}</span>
-						<span name="price.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.price').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
-					</span>
-				</div>
-			</div>
+			<div class="itemForm" id="imgItem"></div>
             <div class="itemForm"><div><label>${this.lang.getData('fields.publishingHouse')}</label></div></div>
 			<div class="itemForm">
 				<div>

@@ -30,5 +30,9 @@ const bookSchema = new Schema({
         required: true
     },
     genres: [{type: String}],
+    imageSrc: {
+        type: String,
+        default: ''
+    }
 });
 module.exports = mongoose.model('books', bookSchema);

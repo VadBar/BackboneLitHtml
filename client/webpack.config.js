@@ -15,16 +15,31 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
-        port: 8000
+        port: 8000,
+        proxy: {
+            "/api/*": {
+                target: "http://localhost:5000",
+                secure: false,
+                logLevel: "debug",
+                changeOrigin: true
+              },
+              "/uploads/*": {
+                target: "http://localhost:5000",
+                secure: false,
+                logLevel: "debug",
+                changeOrigin: true
+              }
+        }
       },
     plugins: [
         new MergeIntoSingleFilePlugin({
             files: {
                 "vendor.css": [
                     './src/css/style.css',
-                    './src/components/dropDownComponent/style.css'
+                    './src/components/dropDownComponent/style.css',
+                    './src/components/imgUploader/style.css'
                 ]
             }
         }),
-    ] 
+    ]
 };

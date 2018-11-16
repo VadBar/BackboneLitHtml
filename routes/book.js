@@ -1,9 +1,10 @@
 const bookController = require('../controllers/book.js');
+const upload = require('../midleware/upload');
 const express = require('express');
 const router = express.Router();
 router.get('/',  bookController.getAll);
 router.get('/:id', bookController.getById);
 router.delete('/:id', bookController.remove);
-router.post('/', bookController.create);
-router.patch('/:id', bookController.update);
+router.post('/', upload.single('image'), bookController.create);
+router.patch('/:id', upload.single('image'), bookController.update);
 module.exports = router;
