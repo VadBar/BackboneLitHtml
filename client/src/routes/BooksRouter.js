@@ -1,8 +1,9 @@
 import {ModelBook} from '../models/ModelBook.js';
 import {CollectionBooks} from '../collections/BooksCollection.js';
 import {ViewFormBook} from '../views/ViewFormBook.js';
-import {ViewListBooks} from '../views/ViewListBooks.js';
-import {ViewFiltrationBooks} from '../views/ViewFiltrationBooks.js';
+// import {ViewListBooks} from '../views/ViewListBooks.js';
+// import {ViewFiltrationBooks} from '../views/ViewFiltrationBooks.js';
+import {ViewMainList} from '../components/mainListComponent/ViewMainList.js';
 import {ViewListGenres} from '../views/ViewListGenres.js';
 import {ViewHeader} from '../views/ViewHeader.js';
 export class RouterBooks extends Backbone.Router {
@@ -45,8 +46,18 @@ export class RouterBooks extends Backbone.Router {
 	}
 	listBooksPage() {
 		this.preperingWindow();
-		this.ViewFiltrationBooks = new ViewFiltrationBooks({collection: this.coll, model: this.model, lang: this.lang});
-		this.ViewListBooks = new ViewListBooks({collection: this.coll, router: this, lang: this.lang});
+		const config = [
+			{name: 'name', data: 'name', showColumn: true},
+			{name: 'author', data: 'author', showColumn: true},
+			{name: 'year', data: 'year', showColumn: true},
+			{name: 'count of pages', data: 'countOfPage', showColumn: true},
+			{name: 'price', data: 'price', showColumn: true}, 
+			{name: 'amount', data: 'amount', showColumn: true}, 
+			{name: 'publishing house', data: 'homePrinting', showColumn: true}, 
+		];
+		this.ViewMainList = new ViewMainList(this.router, this.lang, this.coll, config, '.content');
+		// this.ViewFiltrationBooks = new ViewFiltrationBooks({collection: this.coll, model: this.model, lang: this.lang});
+		// this.ViewListBooks = new ViewListBooks({collection: this.coll, router: this, lang: this.lang});
 	}
 	addBookPage() {
 		this.preperingWindow();

@@ -63,8 +63,8 @@
         "amount": "Количество",
         "price": "Цена",
         "year": "Год",
-        "publishingHouse": "Издательство",
-        "countOfPages": "Количество страниц",
+        "homePrinting": "Издательство",
+        "countOfPage": "Количество страниц",
         "genres": "Жанри"
     },
     "validation": {

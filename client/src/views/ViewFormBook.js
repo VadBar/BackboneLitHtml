@@ -111,7 +111,7 @@ export class ViewFormBook extends ViewBinding {
 					</span>
 				</div>
             </div>
-            <div class="itemForm"><div><label>${this.lang.getData('fields.countOfPages')}</label></div></div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.countOfPage')}</label></div></div>
 			<div class="itemForm">
 				<div>
                     <input type="text" class="countOfPage" @change=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
@@ -142,7 +142,7 @@ export class ViewFormBook extends ViewBinding {
 				</div>
 			</div>
 			<div class="itemForm" id="imgItem"></div>
-            <div class="itemForm"><div><label>${this.lang.getData('fields.publishingHouse')}</label></div></div>
+            <div class="itemForm"><div><label>${this.lang.getData('fields.homePrinting')}</label></div></div>
 			<div class="itemForm">
 				<div>
                     <input type="text" class="homePrinting" @change=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>

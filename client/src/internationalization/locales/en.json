@@ -61,8 +61,8 @@
         "amount": "Amount",
         "price": "Price",
         "year": "Year",
-        "publishingHouse": "Publishing house",
-        "countOfPages": "Count of pages",
+        "homePrinting": "Publishing house",
+        "countOfPage": "Count of pages",
         "genres": "Genres"
     },
     "validation": {

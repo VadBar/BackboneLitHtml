@@ -31,19 +31,18 @@ export class ViewImgUploader {
                 var files = transfer.files;
                 this.showImg(files[0]);
             }.bind(this)
-
         }
         this.drag = new dragAndDrop(this.dragObj);
     }
     setListenerChangeImg() {
         this.field.addEventListener('change', this.showImg.bind(this));
     }
-    setImgToModel() {
-        this.mainModel.set(this.fieldImg, this.field.files[0]);
+    setImgToModel(image) {
+        this.mainModel.set(this.fieldImg, image);
     }
     showDefaultBody() {
         document.querySelector('.uploadImg').style.display = 'block';
-        this.body.style.outline = '4px';
+        this.body.style.outline = '4px doshed silver';
     }
     hideDefaultBody() { 
         document.querySelector('.uploadImg').style.display = 'none';
@@ -60,7 +59,6 @@ export class ViewImgUploader {
     }
     showImg(myImage = false) {
         var image = myImage && myImage instanceof Event === false ? myImage : this.field.files[0];
-        console.log(image);
         if(this.model.validateImg(image)) {        
             this.removeImg(`.myImg`);
             this.hideDefaultBody();
@@ -71,7 +69,7 @@ export class ViewImgUploader {
             var reader = new FileReader();
             reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
             reader.readAsDataURL(file);
-            this.setImgToModel();
+            this.setImgToModel(image);
         } else {
             this.removeImg(`.myImg`);
             this.showDefaultBody();

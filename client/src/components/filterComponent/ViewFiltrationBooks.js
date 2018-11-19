@@ -1,13 +1,12 @@
-import {html, render} from '../../node_modules/lit-html/lit-html.js';
-import {ViewDropDown} from '../components/dropDownComponent/ViewDropDown.js';
-import {Lang} from '../internationalization/lang.js';
+import {html, render} from 'lit-html';
+import {ViewDropDown} from '../dropDownComponent/ViewDropDown.js';
 export class ViewFiltrationBooks extends Backbone.View {
-	constructor({collection, model, lang}) {
+	constructor(collection, lang, selector, listFields) {
 		super();
-		this.model = model;
 		this.collection = collection;
 		this.lang = lang;
-		this.tagName =  "div";
+		this.el =  selector;
+		this.listFields = listFields;
 		this.listenTo(this.lang, 'change', this.render);
 		Backbone.View.apply(this);
 		
@@ -23,10 +22,10 @@ export class ViewFiltrationBooks extends Backbone.View {
 		}
 		this.prepareTemplate();
 		this.render();
-		this.dropDown = new ViewDropDown('drop', this.model.filtrationList);
+		this.dropDown = new ViewDropDown('drop', this.listFields);
 	}
 	prepareTemplate() {
-		$('.content').append(this.$el);
+		// $('.content').append(this.$el);
 		this.template = () => html`
 		<div class="fltrationBooks">
         <h1 class="headerSection">${this.lang.getData('filtration.title')}</h1>
