@@ -37,7 +37,10 @@ module.exports = {
                 "vendor.css": [
                     './src/css/style.css',
                     './src/components/dropDownComponent/style.css',
-                    './src/components/imgUploader/style.css'
+                    './src/components/imgUploader/style.css',
+                    './src/components/listBooksComponent/style.css',
+                    './src/components/filterComponent/style.css',
+                    './src/components/mainListComponent/style.css'
                 ]
             }
         }),

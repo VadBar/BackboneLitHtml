@@ -7,7 +7,7 @@ export class ViewListBooks extends Backbone.View {
 		this.router = router;
 		this.lang = lang;
 		this.position = 0;
-		this.step = 15;
+		this.step = 6;
 		this.limit = 1;
 		this.self = this;
 		this.listFields = listFields;
@@ -43,10 +43,8 @@ export class ViewListBooks extends Backbone.View {
 	}
 	prepareTemplate() {
 		this.updateCounter();
-		// $('.content').append(this.$el);
 		this.template = (collection) => html`
-		<div class="listBooks">
-        	<table class="table">
+        	<table class="listBooks">
             	<caption>
                 	<h1>${this.lang.getData('listBooks.title')}</h1>
            	 </caption>
@@ -74,7 +72,7 @@ export class ViewListBooks extends Backbone.View {
             	</tbody>
         	</table>
         <a class="btnStyle showMoreBook ${this.stateButtonShowMoreBook ? 'hideButtonShowMoreBooks' : ''}" @click=${this.listenerToShowMoreBooks.handleEvent.bind(this)}>More books</a>
-		</div>`;
+		`;
 	}
 	render() {
 		this.updatePosition();

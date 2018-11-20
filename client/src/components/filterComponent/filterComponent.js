@@ -9,31 +9,27 @@ export class ViewFiltrationBooks extends Backbone.View {
 		this.listFields = listFields;
 		this.listenTo(this.lang, 'change', this.render);
 		Backbone.View.apply(this);
-		
 		this.listenerFiltration = {
 			handleEvent() {
 				this.filtrationBooks();
 			}
 		};
-		this.listenerChangeField = {
-			handleEvent(e) {
-				this.changeMethodFiltration(e);
-			}
-		}
 		this.prepareTemplate();
 		this.render();
 		this.dropDown = new ViewDropDown('drop', this.listFields);
+		this.setListenerClickDropDown();
+	}
+	setListenerClickDropDown() {
+		document.querySelector('#drop .dropDownContent').addEventListener('click', (e) => {
+            var lang = document.querySelector('#lang input').getAttribute('data');
+            this.changeMethodFiltration(e);
+        })
 	}
 	prepareTemplate() {
-		// $('.content').append(this.$el);
 		this.template = () => html`
 		<div class="fltrationBooks">
-        <h1 class="headerSection">${this.lang.getData('filtration.title')}</h1>
-		<form>	
 			<div id="drop"></div>
-            <input id="valueFiltration" type="text" name="name">
-            <label><button class="filtrationData btnStyle" @click=${this.listenerFiltration.handleEvent.bind(this)}>${this.lang.getData('filtration.buttonFiltration')}</button></label>
-        </form>
+            <input id="valueFiltration" @change=${this.listenerFiltration.handleEvent.bind(this)} type="text" name="name"> 
         </div>
 		`
 	}

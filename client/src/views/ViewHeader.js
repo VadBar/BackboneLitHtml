@@ -21,7 +21,7 @@ export class ViewHeader extends Backbone.View {
             var lang = document.querySelector('#lang input').getAttribute('data');
             this.lang.changeJSON(lang);
             this.drawHeader();
-        })
+        })                                  
     }
     initializeListeningChangesThemesDropDown() {
         document.querySelector('#thems .dropDownContent').addEventListener('click', (e) => {

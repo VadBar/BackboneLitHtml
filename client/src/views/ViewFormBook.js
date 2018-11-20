@@ -7,6 +7,7 @@ export class ViewFormBook extends ViewBinding {
 		this.collection = obj.collection;
 		this.router = obj.router;
 		this.lang = obj.lang;
+		console.log(obj)
 		this.defineWindow(obj);
 		this.listenTo(this.lang, 'change', this.render);
 		this.listenTo(this.collection, 'add', this.blockButton);
@@ -116,8 +117,8 @@ export class ViewFormBook extends ViewBinding {
 				<div>
                     <input type="text" class="countOfPage" @change=${this.listenerBlurFields.handleEvent.bind(this)} min="1" name="countOfPage" .value=${model.countOfPage}>
 					<span class="error">
-						<span name="countOfPage.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.countOfPages').toLowerCase(), name: 'name'})}</span>
-						<span name="countOfPage.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.countOfPages').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
+						<span name="countOfPage.required" class="hidden">${this.lang.getData('validation.required', {value: this.lang.getData('fields.countOfPage').toLowerCase(), name: 'name'})}</span>
+						<span name="countOfPage.minValue" class="hidden">${this.lang.getData('validation.minValue', [{value: this.lang.getData('fields.countOfPage').toLowerCase(), name: 'name'}, {value: 1, name: 'minValue'}])}</span>
 					</span>
 				</div>
             </div>
@@ -147,8 +148,8 @@ export class ViewFormBook extends ViewBinding {
 				<div>
                     <input type="text" class="homePrinting" @change=${this.listenerBlurFields.handleEvent.bind(this)} minlength="0" maxlength="50" name="homePrinting" .value=${model.homePrinting}>
 					<span class="error">
-						<span name="homePrinting.required" class="hidden">${this.lang.getData('validation.required',{value: this.lang.getData('fields.publishingHouse').toLowerCase(), name: 'name'})}</span>
-						<span name="homePrinting.length" class="hidden">${this.lang.getData('validation.length', [{value: this.lang.getData('fields.publishingHouse').toLowerCase(), name: 'name'},{value: 3, name: 'minLength'}, {value: 50, name: 'maxLength'}])}</span>
+						<span name="homePrinting.required" class="hidden">${this.lang.getData('validation.required',{value: this.lang.getData('fields.homePrinting').toLowerCase(), name: 'name'})}</span>
+						<span name="homePrinting.length" class="hidden">${this.lang.getData('validation.length', [{value: this.lang.getData('fields.homePrinting').toLowerCase(), name: 'name'},{value: 3, name: 'minLength'}, {value: 50, name: 'maxLength'}])}</span>
 					</span>
 				</div>
 			</div>
@@ -166,6 +167,7 @@ export class ViewFormBook extends ViewBinding {
 				render(this.template(Object.assign(this.model.toJSON(), {title: this.lang.getData('formChangeBook.title')}, {btnValue: this.lang.getData('formChangeBook.buttonChangeBook')})), this.el)
 			}
 		} else {
+			console.log(this.model.toJSON())
 			render(this.template(Object.assign(this.model.toJSON(), {title: this.lang.getData('formAddBook.title')}, {btnValue: this.lang.getData('formAddBook.butttonAddBook')})), this.el);
 		}
 	}

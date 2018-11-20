@@ -1,0 +1,92 @@
+:root[theme='first'] {
+    /* LISTBOOKS */
+    --list-tr-default-opacity: 0.8;
+    --list-tr-active-opacity: 1;
+    --list-tr-active-background: #222;
+    /* EDITBUTTON */
+    --button-edit-background: linear-gradient(to top, #3e3838, #fac165);
+    --button-edit-active-background: linear-gradient(to top, #1a1a1c, #494a5c);
+    --button-edit-default-text-color: #222;
+    --button-edit-active-text-color: #fff;
+    /* DELETEBUTTON */
+    --button-delete-background: linear-gradient(to top, #3e3838, #fa6565);
+    --button-delete-active-background: linear-gradient(to top, #1a1a1c, #494a5c);
+    --button-delete-default-text-color: #222;
+    --button-delete-active-text-color: #fff;
+}
+:root[theme='second'] {
+    /* LISTBOOKS */
+    --list-tr-default-opacity: 0.8;
+    --list-tr-active-opacity: 1;
+    --list-tr-active-background: #88872b;
+    /* EDITBUTTON */
+    --button-edit-background: #00100c;
+    --button-edit-active-background: #00100c;
+    --button-edit-default-text-color: #fff;
+    --button-edit-active-text-color: #fff;
+    /* DELETEBUTTON */
+    --button-delete-background: #00100c;
+    --button-delete-active-background: #00100c;
+    --button-delete-default-text-color: #fff;
+    --button-delete-active-text-color: #fff;
+}
+.listBooks {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+}
+.listBooks caption {
+    margin-bottom: 20px;
+}
+.listBooks tr {
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-template-rows: 100%;
+    align-content: stretch;
+    height: 60px;
+    border-bottom: 1px solid gray;
+}
+.listBooks tbody tr {
+    opacity: var(--list-tr-active-opacity);
+}
+.listBooks tbody tr:hover {
+    opacity: var(--list-tr-active-opacity);
+    background-color: var(--list-tr-active-background);
+}
+.listBooks td, th {
+    display: inline-grid;
+    min-height: 100%;
+}
+.listBooks td, th > div {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listBooks td > div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editBookButton {
+    background: var(--button-edit-background);
+    color: var(--button-edit-default-text-color);
+    flex: 1 1 50%;
+}
+.editBookButton:hover {
+    background: var(--button-edit-active-background);
+    color: var(--button-edit-active-text-color);
+}
+.deleteBookButton {
+    background: var(--button-delete-background);
+    color: var(--button-delete-default-text-color);
+    flex: 1 1 50%;
+}
+.deleteBookButton:hover {
+    background: var(--button-delete-active-background);
+    color: var(--button-delete-active-text-color);
+}
+.hideButtonShowMoreBooks {
+    visibility: hidden;
+}

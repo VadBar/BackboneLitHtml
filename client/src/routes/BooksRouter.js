@@ -1,15 +1,13 @@
 import {ModelBook} from '../models/ModelBook.js';
 import {CollectionBooks} from '../collections/BooksCollection.js';
-import {ViewFormBook} from '../views/ViewFormBook.js';
-// import {ViewListBooks} from '../views/ViewListBooks.js';
-// import {ViewFiltrationBooks} from '../views/ViewFiltrationBooks.js';
+import {ViewFormBook} from '../views/ViewFormBook.js';   
 import {ViewMainList} from '../components/mainListComponent/ViewMainList.js';
 import {ViewListGenres} from '../views/ViewListGenres.js';
 import {ViewHeader} from '../views/ViewHeader.js';
 export class RouterBooks extends Backbone.Router {
 	
 	constructor() {
-		super();
+		super();     
 		this.routes = {
 			"": "listBooksPage",
 			"list": "listBooksPage",
@@ -23,12 +21,12 @@ export class RouterBooks extends Backbone.Router {
 		this.coll = new CollectionBooks();
 		this.header = new ViewHeader(this.model);
 		this.lang = this.header.returnLanguage();
-		Backbone.Router.apply(this);
+		Backbone.Router.apply(this); 
 		Backbone.history.start();
 	}
 	preperingWindow() {
 		for(var el in this) {
-			if(this.hasOwnProperty(el)){
+			if(this.hasOwnProperty(el)){ 
 				if(el !== 'routes' && el !== 'model' && el !== 'coll' && el !== '_events' && el !== 'lang' && el !== 'header' && el !== 'override') {
 					this[el].remove();
 					delete this[el];
@@ -56,8 +54,6 @@ export class RouterBooks extends Backbone.Router {
 			{name: 'publishing house', data: 'homePrinting', showColumn: true}, 
 		];
 		this.ViewMainList = new ViewMainList(this.router, this.lang, this.coll, config, '.content');
-		// this.ViewFiltrationBooks = new ViewFiltrationBooks({collection: this.coll, model: this.model, lang: this.lang});
-		// this.ViewListBooks = new ViewListBooks({collection: this.coll, router: this, lang: this.lang});
 	}
 	addBookPage() {
 		this.preperingWindow();

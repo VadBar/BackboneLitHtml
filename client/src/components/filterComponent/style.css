@@ -1,0 +1,11 @@
+.fltrationBooks {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items:baseline;
+    flex-flow: row wrap;
+}
+.fltrationBooks #valueFiltration {
+    max-height: 15px;
+}

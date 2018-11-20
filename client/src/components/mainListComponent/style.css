@@ -1,0 +1,113 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 100%;
+    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    height: 100%;
+}
+.grid-container > div {
+    display: inline-grid;
+    border: 1px solid black;
+}
+.grid-container > div .headerL {
+    height: 15%;
+    border: 1px solid black;
+}
+.body {
+    height: 100%;
+}
+.list {
+    position: relative;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    height: 60%;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+.filter {
+    position: relative;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.filtrByValue {
+    width: 50%;
+    height: 60%;
+}
+.buttons {
+    width: 50%;
+    height: 30%;
+}
+.buttons button {
+    margin-left: 10%;
+    height: 100%;
+    width: 30%;
+}
+.last {
+    border: 1px solid black;
+    display: flex;
+    position: relative;
+    height: 10%;
+    width: 100%;
+}
+.leftColumn, .rightColumn {
+   background-color: black;
+}
+.leftColumn {
+    margin-left: 100%;
+    transition: margin-left 1s cubic-bezier(.2, .5, .8, 1);
+    opacity: 0;
+}
+.rightColumn {
+    margin-right: 100%;
+    transition: margin-right 1s cubic-bezier(.2, .5, .8, 1);
+    opacity: 0;
+}
+.showLeft {
+    opacity: 1;
+    margin-left: 0;
+    transition: margin-left 1s cubic-bezier(.2, .5, .8, 1);
+}
+.showRight {
+    opacity: 1;
+    margin-right: 0;
+    transition: margin-right 1s cubic-bezier(.2, .5, .8, 1);
+}
+.hideLeft {
+    opacity: 0;
+    margin-left: 100%;
+    transition: opacity 1s cubic-bezier(.2, .5, .8, 1);
+    transition: margin-left 1s cubic-bezier(.2, .5, .8, 1);
+}
+.hideRight {
+    opacity: 0;
+    margin-right: 100%;
+    transition: opacity 1s cubic-bezier(.2, .5, .8, 1);
+    transition: margin-right 1s cubic-bezier(.2, .5, .8, 1);
+}
+.closeColumn {
+    background-color: red;
+    margin: 10px;
+}
+.closeColumn:hover {
+    cursor: pointer;
+}
+.closeImg {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.titleColumn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
