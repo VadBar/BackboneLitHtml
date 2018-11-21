@@ -76,7 +76,7 @@ export class ViewFormBook extends ViewBinding {
 					}],
 	 			]);
 	}
-	prepareTemplate() {
+	prepareTemplate() {   
 		this.template = (model) => html`
 		<h1 class="headerSection">${model.title}</h1>
 		<div class="addBookForm">
@@ -167,7 +167,6 @@ export class ViewFormBook extends ViewBinding {
 				render(this.template(Object.assign(this.model.toJSON(), {title: this.lang.getData('formChangeBook.title')}, {btnValue: this.lang.getData('formChangeBook.buttonChangeBook')})), this.el)
 			}
 		} else {
-			console.log(this.model.toJSON())
 			render(this.template(Object.assign(this.model.toJSON(), {title: this.lang.getData('formAddBook.title')}, {btnValue: this.lang.getData('formAddBook.butttonAddBook')})), this.el);
 		}
 	}

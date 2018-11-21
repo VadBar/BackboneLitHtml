@@ -1,4 +1,5 @@
 import {html, render} from 'lit-html';
+import {PaginationComponent} from '../paginationComponent/paginationComponent';
 export class ViewListBooks extends Backbone.View {
 	
 	constructor(collection, router, lang, selector, listFields) {
@@ -6,9 +7,6 @@ export class ViewListBooks extends Backbone.View {
 		this.collection = collection;
 		this.router = router;
 		this.lang = lang;
-		this.position = 0;
-		this.step = 6;
-		this.limit = 1;
 		this.self = this;
 		this.listFields = listFields;
 		this.el = selector;
@@ -34,22 +32,21 @@ export class ViewListBooks extends Backbone.View {
 		}
 		this.prepareTemplate();
 		this.render();
+		this.pagination = new PaginationComponent(collection, '#pagin', this);
+		this.render();
 	}
-	updatePosition() {
-		this.position = 0;
-	}
-	updateCounter() {
-		this.counter = 0;
+	prepareList() {
+		this.pagination ? this.pagination.render() : '';
+		this.list = this.pagination ? this.pagination.getList() : [];           
 	}
 	prepareTemplate() {
-		this.updateCounter();
-		this.template = (collection) => html`
+		this.template = (pagination) => html`
         	<table class="listBooks">
             	<caption>
                 	<h1>${this.lang.getData('listBooks.title')}</h1>
            	 </caption>
             	<thead>
-            	<tr>
+            	<tr>   
 					<th><div>N</div></th>
 					${
 						this.listFields.map((i) => {
@@ -58,45 +55,38 @@ export class ViewListBooks extends Backbone.View {
 							}	
 						})
 					}
-                	<th><div></div></th>
+                	<th><div></div></th> 
                 	<th><div></div></th>
            	 	</tr>
             	</thead>
 				 <tbody id="bodyListBooks">
 				 	${
-						collection.models.map((i) => {
-							this.counter++;
+						this.list.map((i) => {
 							return this.renderBook(i)
 						})
 					 }
-            	</tbody>
-        	</table>
-        <a class="btnStyle showMoreBook ${this.stateButtonShowMoreBook ? 'hideButtonShowMoreBooks' : ''}" @click=${this.listenerToShowMoreBooks.handleEvent.bind(this)}>More books</a>
+				</tbody>
+			</table>
+			<div id="pagin"></div>
 		`;
 	}
 	render() {
-		this.updatePosition();
-		this.updateCounter();
-		render(this.template(this.collection), this.el);
+		this.prepareList();
+		render(this.template(this.pagination), this.el);
 	}
 	renderBook(model) {
-		if(this.position < this.step * this.limit) {
-			this.position++;
 			return html`<tr>
-			<td><div>${this.counter}</div></td>
+			<td><div>${model[0].index}</div></td>
 			${
 				this.listFields.map((i) => {
 					if(i.showColumn === true) {
-						return html`<td><div>${model.get(i.data)}</div></td>`;
+						return html`<td><div>${model[1].get(i.data)}</div></td>`;
 					}
 				})
 			}
-			<td><div><button .value=${model.get("_id")} @click=${this.listenerClickToEditBook.handleEvent.bind(this)} class="editBookButton">${this.lang.getData('listBooks.edit')}</button></div></td>
-			<td><div><button class="deleteBookButton" .value=${model.get('_id')} @click=${this.listenerClickDeleteBook.handleEvent.bind(this)}>${this.lang.getData('listBooks.delete')}</button></div></td>
+			<td><div><button .value=${model[1].get("_id")} @click=${this.listenerClickToEditBook.handleEvent.bind(this)} class="editBookButton">${this.lang.getData('listBooks.edit')}</button></div></td>
+			<td><div><button class="deleteBookButton" .value=${model[1].get('_id')} @click=${this.listenerClickDeleteBook.handleEvent.bind(this)}>${this.lang.getData('listBooks.delete')}</button></div></td>
 			</tr>`
-		} else {
-			this.stateButtonShowMoreBook = false;
-		}
 	}
 	redirectToChangeBookPage(id) {
 		this.router.navigate(`edit/${id}`, {trigger: true});
@@ -106,14 +96,5 @@ export class ViewListBooks extends Backbone.View {
 			.then((id) => {
 				this.collection.removeBook(id);
 			})
-	}
-	increaseLimit() {
-		this.limit++;
-	}
-	showMoreBooks() {
-		this.increaseLimit();
-		this.updateCounter();
-		this.stateButtonShowMoreBook = true;
-		this.render();	
 	}
 };

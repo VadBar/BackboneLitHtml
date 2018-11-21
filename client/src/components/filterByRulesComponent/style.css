@@ -1,0 +1,13 @@
+.groupRadio {
+    list-style: none;
+    height: 150px;
+    width: 50%;
+    border: 2px solid silver;
+    margin: 20px auto;  
+}
+.groupRadio li {
+    display: inline;
+}
+.groupRadio input {
+    margin-left: 5%;
+}

@@ -16,14 +16,13 @@
     border: 1px solid black;
 }
 .body {
-    height: 100%;
+    min-height: 100vh;
 }
 .list {
     position: relative;
-    border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
-    height: 60%;
+    height: 85%;
     width: 100%;
     justify-content: center;
     align-items: flex-start;
@@ -49,13 +48,6 @@
     margin-left: 10%;
     height: 100%;
     width: 30%;
-}
-.last {
-    border: 1px solid black;
-    display: flex;
-    position: relative;
-    height: 10%;
-    width: 100%;
 }
 .leftColumn, .rightColumn {
    background-color: black;

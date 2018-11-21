@@ -1,10 +1,12 @@
 import {html, render} from 'lit-html';
 import {ViewFiltrationBooks} from '../filterComponent/filterComponent';
-import {ViewListBooks} from '../listBooksComponent/listBooksComponent';
+import {ViewListBooks} from '../listBooksComponent/listBooksComponent';   
 export class ViewMainList extends Backbone.View {
-    constructor(router, lang, collection, listFields, selector) {
+    constructor(router, lang, collection, config, selector) {
         super();
         this.elem = selector;
+        this.collection = collection;
+        this.config = config;
         Backbone.View.apply(this);
         this.listenerClickButtonLeft = {
 			handleEvent() {
@@ -27,8 +29,18 @@ export class ViewMainList extends Backbone.View {
 			}
 		}
         this.render();
-        this.listBooks = new ViewListBooks(collection, router, lang, '.mainColumn .list', listFields);
-        this.filtrBooks = new ViewFiltrationBooks(collection, lang, '.mainColumn .filtrByValue', listFields);
+        this.listBooks = new ViewListBooks(this.collection, router, lang, '.mainColumn .list', this.config.listFields);
+        this.filtrBooks = new ViewFiltrationBooks(this.collection, lang, '.mainColumn .filtrByValue', this.config.listFields, this.pagination); 
+        this.generateComponents();
+    }
+    generateComponents() {
+        var counter = String(Math.random() * 100);
+        this.config.leftColumn.components.forEach((i, index) => {
+            i.forEach((i) => {
+                this[counter] = new index(i, this.collection, '.leftColumn .body');
+                counter =+ String(Math.random() * 100);
+            })
+        })
     }
     prepareTemplate() {
         $(this.elem).append(this.$el);
@@ -54,7 +66,6 @@ export class ViewMainList extends Backbone.View {
                         </div>
                     </div>
                     <div class="list"></div>
-                    <div class="last">3</div> 
                 </div>
             </div>
             <div class="rightColumn">

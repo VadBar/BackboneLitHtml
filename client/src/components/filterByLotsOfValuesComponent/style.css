@@ -1,0 +1,11 @@
+.groupName {
+    list-style: none;
+    height: 200px;
+    width: 50%;
+    overflow: scroll;
+    border: 2px solid silver;
+    margin: 20px auto;
+}
+.groupName input {
+    margin-left: 10%;
+}

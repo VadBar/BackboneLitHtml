@@ -7,10 +7,6 @@ export class CollectionBooks extends Backbone.Collection {
 		this.on('filtration', this.filtration);
 		this.sync = this.overrideSync;
 		this.fetch = this.myFetch;
-		this.fetch()
-		.then((allBooks) => {
-			this.reset(allBooks);
-		})
 		Backbone.Collection.apply(this);
 	}
 	myFetch() {

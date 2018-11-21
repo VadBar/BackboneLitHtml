@@ -40,7 +40,10 @@ module.exports = {
                     './src/components/imgUploader/style.css',
                     './src/components/listBooksComponent/style.css',
                     './src/components/filterComponent/style.css',
-                    './src/components/mainListComponent/style.css'
+                    './src/components/mainListComponent/style.css',
+                    './src/components/paginationComponent/style.css',
+                    './src/components/filterByLotsOfValuesComponent/style.css',
+                    './src/components/filterByRulesComponent/style.css'
                 ]
             }
         }),
