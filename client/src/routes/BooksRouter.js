@@ -5,6 +5,7 @@ import {ViewMainList} from '../components/mainListComponent/ViewMainList.js';
 import {ViewListGenres} from '../views/ViewListGenres.js';
 import {ViewHeader} from '../views/ViewHeader.js';
 import {FilterByLotsOfValuesComponent} from '../components/filterByLotsOfValuesComponent/filterByLotsOfValuesComponent.js';
+import {FilterByDefinedValuesOfFieldComponent} from '../components/filterByDefinedValuesOfFieldComponent/filterByDefinedValuesOfFieldComponent.js';
 import {FilterByRulesComponent} from '../components/filterByRulesComponent/filterByRulesComponent.js';
 export class RouterBooks extends Backbone.Router {
 	
@@ -25,7 +26,7 @@ export class RouterBooks extends Backbone.Router {
 		this.lang = this.header.returnLanguage();
 		this.coll.fetch()
 		.then((allBooks) => {
-			this.coll.reset(allBooks);
+			this.coll.reset(allBooks);  
 			Backbone.history.start();
 		});
 		Backbone.Router.apply(this); 
@@ -50,37 +51,39 @@ export class RouterBooks extends Backbone.Router {
 	}
 	listBooksPage() {
 		this.preperingWindow();
+		// FilterByDefinedValuesOfFieldComponent
 		let config = {
 			leftColumn: {
-				components: new Map([[FilterByLotsOfValuesComponent, [{name: 'publishing house', data: 'homePrinting'},{name: 'genres', list: [
-					{name: 'Science fiction', data: 1, state: false},
-					{name: 'Satire', data: 2, state: false},
-					{name: 'Drama', data: 3, state: false},
-					{name: 'Action and Adventure', data: 4, state: false},
-					{name: 'Romance', data: 5, state: false},
-					{name: 'Mystery', data: 6, state: false},
-					{name: 'Horror', data: 7, state: false},
-					{name: 'Children\'s', data: 8, state: false},
-					{name: 'Trilogy', data: 9, state: false},
-					{name: 'Biography', data: 10, state: false},
-					{name: 'Fantasy', data: 11, state: false},
-					{name: 'Comics', data: 12, state: false},
-					{name: 'Diaries', data: 13, state: false},
-					{name: 'Journals', data: 14, state: false},
-					{name: 'Poetry', data: 15, state: false},
-					{name: 'Art', data: 16, state: false},
-					{name: 'Cook book', data: 17, state: false},
-					{name: 'Encyclopedy', data: 18, state: false},
-					{name: 'Dictionary', data: 19, state: false},
-					{name: 'History', data: 20, state: false}
-
-					]},
-				]],
-			[FilterByRulesComponent, [{name: 'Available', field: 'amount', value: 0}]]
+				components: new Map([
+					[FilterByLotsOfValuesComponent, [{name: 'publishing house', data: 'homePrinting'}]],
+					[FilterByDefinedValuesOfFieldComponent, [{name: 'genres', list: [
+						{name: 'Science fiction', data: 1, state: false},
+						{name: 'Satire', data: 2, state: false},
+						{name: 'Drama', data: 3, state: false},
+						{name: 'Action and Adventure', data: 4, state: false},
+						{name: 'Romance', data: 5, state: false},
+						{name: 'Mystery', data: 6, state: false},
+						{name: 'Horror', data: 7, state: false},
+						{name: 'Children\'s', data: 8, state: false},
+						{name: 'Trilogy', data: 9, state: false},
+						{name: 'Biography', data: 10, state: false},
+						{name: 'Fantasy', data: 11, state: false},
+						{name: 'Comics', data: 12, state: false},
+						{name: 'Diaries', data: 13, state: false},
+						{name: 'Journals', data: 14, state: false},
+						{name: 'Poetry', data: 15, state: false},
+						{name: 'Art', data: 16, state: false},
+						{name: 'Cook book', data: 17, state: false},
+						{name: 'Encyclopedy', data: 18, state: false},
+						{name: 'Dictionary', data: 19, state: false},
+						{name: 'History', data: 20, state: false}
+						]}]
+					],
+					[FilterByRulesComponent, [{name: 'Available', field: 'amount', value: 0}]]
 			])
 			},
 			rightColumn: {
-				components: []
+				components: new Map([[FilterByLotsOfValuesComponent, [{name: 'name', data: 'name'}]]])
 			},
 			listFields: [
 				{name: 'name', data: 'name', showColumn: true, filtrByValues: false},

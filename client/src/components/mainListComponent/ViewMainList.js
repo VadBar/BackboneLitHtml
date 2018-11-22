@@ -34,10 +34,23 @@ export class ViewMainList extends Backbone.View {
         this.generateComponents();
     }
     generateComponents() {
+        this.generateLeftColumn();
+        this.generateRightColumn();
+    }
+    generateLeftColumn() {
         var counter = String(Math.random() * 100);
         this.config.leftColumn.components.forEach((i, index) => {
             i.forEach((i) => {
                 this[counter] = new index(i, this.collection, '.leftColumn .body');
+                counter =+ String(Math.random() * 100);
+            })
+        })
+    }
+    generateRightColumn() {
+        var counter = String(Math.random() * 100);
+        this.config.rightColumn.components.forEach((i, index) => {
+            i.forEach((i) => {
+                this[counter] = new index(i, this.collection, '.rightColumn .body');
                 counter =+ String(Math.random() * 100);
             })
         })

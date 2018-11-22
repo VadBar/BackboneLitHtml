@@ -6,6 +6,11 @@
     border: 2px solid silver;
     margin: 20px auto;
 }
-.groupName input {
-    margin-left: 10%;
+.groupName li {
+    display: flex;
+    justify-content: space-between;
+}
+.groupName span {
+    width: 80%;
+    overflow: hidden;
 }

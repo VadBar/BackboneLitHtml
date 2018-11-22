@@ -13,7 +13,6 @@
 }
 .grid-container > div .headerL {
     height: 15%;
-    border: 1px solid black;
 }
 .body {
     min-height: 100vh;

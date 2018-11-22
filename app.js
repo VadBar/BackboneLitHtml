@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const keyConfig = require('./config/key.js');
 const mongoose = require('mongoose');
 const bookModul = require('./routes/book');
+const filterByLotsOfValues = require('./routes/filterByLotsOfValues');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/api/books', bookModul);
+app.use('/api/filterByLotsOfValues', filterByLotsOfValues);
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist/'));
     app.get('*', (req, res) => {
