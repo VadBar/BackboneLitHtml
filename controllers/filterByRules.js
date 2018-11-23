@@ -1,5 +1,5 @@
 const errorHandler = require('../utils/errorHandler');
-const filter = require('../models/filterByLotsOfValues');
+const filter = require('../models/filterByRules');
 module.exports.getAll = async (req, res) => {
     try{
         const list = await filter.find({});
@@ -22,7 +22,8 @@ module.exports.getById = async (req, res) => {
 module.exports.create = async (req, res) => {
     const filt = new filter({
         name: req.body.name,
-        list: req.body.list,
+        field: req.body.field,
+        state: req.body.state,
         id: req.body.id
     });
     try{

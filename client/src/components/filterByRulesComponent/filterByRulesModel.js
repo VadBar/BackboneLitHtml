@@ -1,9 +1,10 @@
-export class FilterByLotsOfValuesModel extends Backbone.Model {
+export class FilterByRulesModel extends Backbone.Model {
     constructor(attrs, options) {
         super();
         this.defaults = {
             name: '',
-            list: [],
+            field: '',
+            state: '',
             id: ''
             };
             this.idAttribute = "_id";
@@ -14,10 +15,8 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
     mySave() {
 		var id = this.idAttribute;
 		if(this.get(id)) {
-            console.log('update', this)
 			return this.sync('update', this);
 		} else {
-            console.log('create', this)
 			return this.sync('create', this);
 		}
     }
@@ -25,7 +24,7 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
 		switch(method) {
             case 'create': 
 				return new Promise((resolve, reject) => {
-					fetch('http://localhost:5000/api/filterByLotsOfValues', {
+					fetch('http://localhost:5000/api/filterByRules', {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -35,11 +34,12 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
                 .then((response, reject) => {
                     return response.json();
                 })
-                .then((book) => {
-                   model.set('name', book.name);
-                   model.set('list', book.list);
-                   model.set('_id', book._id);
-                   resolve(book);
+                .then((model) => {
+                   this.set('name', model.name);
+                   this.set('field', model.field);
+                   this.set('state',model.state)
+                   this.set('_id', model._id);
+                   resolve(model);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -48,7 +48,7 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
             break;
 			case 'update':
 				return new Promise((resolve, reject) => {
-					fetch(`http://localhost:5000/api/filterByLotsOfValues/${model.get('id')}`, {
+					fetch(`http://localhost:5000/api/filterByRules/${model.get('id')}`, {
                     method: 'PATCH',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -67,14 +67,6 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
 				})
             break;
         }
-    }
-    changeSteteAndPush(value) {
-        this.set('list', this.get('list').map((i) => {
-            if(i.name === value) {
-                i.state = !i.state;
-            }
-            return i;
-        }));
     }
     getFullListValuesByField(collection, field) {     
         var list = [];

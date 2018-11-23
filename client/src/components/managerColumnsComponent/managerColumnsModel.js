@@ -1,4 +1,4 @@
-export class FilterByLotsOfValuesModel extends Backbone.Model {
+export class ManagerColumnsModel extends Backbone.Model {
     constructor(attrs, options) {
         super();
         this.defaults = {
@@ -25,7 +25,7 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
 		switch(method) {
             case 'create': 
 				return new Promise((resolve, reject) => {
-					fetch('http://localhost:5000/api/filterByLotsOfValues', {
+					fetch('http://localhost:5000/api/managerColumns', {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -48,7 +48,7 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
             break;
 			case 'update':
 				return new Promise((resolve, reject) => {
-					fetch(`http://localhost:5000/api/filterByLotsOfValues/${model.get('id')}`, {
+					fetch(`http://localhost:5000/api/managerColumns/${model.get('id')}`, {
                     method: 'PATCH',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"

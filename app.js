@@ -4,6 +4,9 @@ const keyConfig = require('./config/key.js');
 const mongoose = require('mongoose');
 const bookModul = require('./routes/book');
 const filterByLotsOfValues = require('./routes/filterByLotsOfValues');
+const filterByDefinedValuesOfField = require('./routes/filterByDefinedValuesOfField');
+const filterByRules = require('./routes/filterByRules.js');
+const managerColumns = require('./routes/managerColumns.js');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
@@ -16,6 +19,9 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/api/books', bookModul);
 app.use('/api/filterByLotsOfValues', filterByLotsOfValues);
+app.use('/api/filterByDefinedValuesOfField', filterByDefinedValuesOfField);
+app.use('/api/filterByRules', filterByRules);
+app.use('/api/managerColumns', managerColumns);
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist/'));
     app.get('*', (req, res) => {

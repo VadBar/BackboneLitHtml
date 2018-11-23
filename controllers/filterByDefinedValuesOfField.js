@@ -1,5 +1,5 @@
 const errorHandler = require('../utils/errorHandler');
-const filter = require('../models/filterByLotsOfValues');
+const filter = require('../models/filterByDefinedValuesOfField');
 module.exports.getAll = async (req, res) => {
     try{
         const list = await filter.find({});

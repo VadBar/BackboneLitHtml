@@ -7,13 +7,13 @@ export class FilterByLotsOfValuesCollection extends Backbone.Collection {
         this.fetch = this.myFetch;
         Backbone.Collection.apply(this);
     }
-    myFetch(name) {
-		return this.sync('read', name);
+    myFetch(id) {
+		return this.sync('read', id);
 	}
-    overrideSync(method, name) {
+    overrideSync(method, id) {
 		if(method === 'read') {
 			return new Promise((resolve, reject) => {
-				fetch(`http://localhost:5000/api/filterByLotsOfValues/?name=${name}`, {
+				fetch(`http://localhost:5000/api/filterByLotsOfValues/${id}`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"

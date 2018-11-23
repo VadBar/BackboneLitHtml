@@ -6,9 +6,8 @@ export class FilterByLotsOfValuesComponent extends Backbone.View {
         super();
         this.collection = FilterByLotsOfValuesCollection.getSelf();
         this.collectionValues = collectionValues;  
-        this.dataField = data.data;
+        this.data = data;
         this.selector = selector;
-        this.name = data.name;
         this.model = new FilterByLotsOfValuesModel();
         this.listenerChangeStateFiltration = {
 			handleEvent(e) {
@@ -16,16 +15,18 @@ export class FilterByLotsOfValuesComponent extends Backbone.View {
                 this.model.save();
 			}
 		};
-        this.collection.fetch(data.name)
+        this.collection.fetch(this.data.id)
         .then((model) => {
             if(model.length > 0) {
                this.model.set('name', model[0].name);
                this.model.set('list', model[0].list);
+               this.model.set('id', model[0].id);
                this.model.set('_id', model[0]._id);
             } else {
-                let list = this.model.getFullListValuesByField(this.collectionValues, this.dataField);
-                this.model.set('name', this.name);
+                let list = this.model.getFullListValuesByField(this.collectionValues, this.data.data);
+                this.model.set('name', this.data.name);
                 this.model.set('list', list);
+                this.model.set('id', this.data.id);
                 this.model.save();
             }
             this.render();
@@ -38,7 +39,7 @@ export class FilterByLotsOfValuesComponent extends Backbone.View {
         $(this.selector).append(this.$el);
         return html`
             <ul class="groupName">
-            <h2>${this.name}</h2>
+            <h2>${this.data.name}</h2>
                 ${this.generateList()}
             </ul>
         `       
@@ -46,7 +47,7 @@ export class FilterByLotsOfValuesComponent extends Backbone.View {
     generateList() {
         let list = []; 
             this.model.get('list').forEach((i) => {
-                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.name} ?checked=${i.state}  @change=${this.listenerChangeStateFiltration.handleEvent.bind(this)} ></li>`)
+                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.name} ?checked=${i.state}  @change=${this.listenerChangeStateFiltration.handleEvent.bind(this)} ></li>`)
                 });
         return list;
     }

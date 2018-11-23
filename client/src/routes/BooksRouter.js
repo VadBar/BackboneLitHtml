@@ -7,6 +7,7 @@ import {ViewHeader} from '../views/ViewHeader.js';
 import {FilterByLotsOfValuesComponent} from '../components/filterByLotsOfValuesComponent/filterByLotsOfValuesComponent.js';
 import {FilterByDefinedValuesOfFieldComponent} from '../components/filterByDefinedValuesOfFieldComponent/filterByDefinedValuesOfFieldComponent.js';
 import {FilterByRulesComponent} from '../components/filterByRulesComponent/filterByRulesComponent.js';
+import {ManagerColumnsComponent} from '../components/managerColumnsComponent/managerColumnsComponent.js';
 export class RouterBooks extends Backbone.Router {
 	
 	constructor() {
@@ -55,7 +56,7 @@ export class RouterBooks extends Backbone.Router {
 		let config = {
 			leftColumn: {
 				components: new Map([
-					[FilterByLotsOfValuesComponent, [{name: 'publishing house', data: 'homePrinting'}]],
+					[FilterByLotsOfValuesComponent, [{name: 'publishing house', data: 'homePrinting', id: 'dlksdfsl'}]],
 					[FilterByDefinedValuesOfFieldComponent, [{name: 'genres', list: [
 						{name: 'Science fiction', data: 1, state: false},
 						{name: 'Satire', data: 2, state: false},
@@ -77,16 +78,28 @@ export class RouterBooks extends Backbone.Router {
 						{name: 'Encyclopedy', data: 18, state: false},
 						{name: 'Dictionary', data: 19, state: false},
 						{name: 'History', data: 20, state: false}
-						]}]
+						], id: 'lskafsldfk'}]
 					],
-					[FilterByRulesComponent, [{name: 'Available', field: 'amount', value: 0}]]
+					[FilterByRulesComponent, [{name: 'Available', field: 'amount', state: false, 
+					method: function(value) {
+						return !!value > 0;
+					},
+					id: 'ertrtwert'}]]
 			])
 			},
 			rightColumn: {
-				components: new Map([[FilterByLotsOfValuesComponent, [{name: 'name', data: 'name'}]]])
+				components: new Map([[ManagerColumnsComponent, [{name: 'columns', list: [
+				{name: 'name', data: 'name', state: true},
+				{name: 'author', data: 'author', state: true},
+				{name: 'year', data: 'year', state: true},
+				{name: 'count of pages', data: 'countOfPage', state: true},
+				{name: 'price', data: 'price', state: true}, 
+				{name: 'amount', data: 'amount', state: true}, 
+				{name: 'publishing house', data: 'homePrinting', state: true}, 
+				], id: 'lkdfsfddd'}]]])
 			},
 			listFields: [
-				{name: 'name', data: 'name', showColumn: true, filtrByValues: false},
+				{name: 'name', data: 'name', showColumn: true},
 				{name: 'author', data: 'author', showColumn: true},
 				{name: 'year', data: 'year', showColumn: true},
 				{name: 'count of pages', data: 'countOfPage', showColumn: true},

@@ -1,14 +1,14 @@
-import {html, render} from '../../../node_modules/lit-html/lit-html.js';
-import {FilterByDefinedValuesOfFieldModel} from './filterByDefinedValuesOfFieldModel.js';
-import {FilterByDefinedValuesOfFieldCollection} from './filterByDefinedValuesOfFieldCollection.js';
-export class FilterByDefinedValuesOfFieldComponent extends Backbone.View {
+import {html, render} from 'lit-html';
+import {ManagerColumnsModel} from './managerColumnsModel.js';
+import {ManagerColumnsCollection} from './managerColumnCollection.js';
+export class ManagerColumnsComponent extends Backbone.View {
     constructor(data, collectionValues, selector) {
         super();
-        this.collection = FilterByDefinedValuesOfFieldCollection.getSelf();
+        this.collection = ManagerColumnsCollection.getSelf();
         this.collectionValues = collectionValues;  
         this.data = data;
         this.selector = selector;
-        this.model = new FilterByDefinedValuesOfFieldModel();
+        this.model = new ManagerColumnsModel();
         this.listenerChangeStateFiltration = {
 			handleEvent(e) {
                 this.model.changeSteteAndPush(e.target.value);

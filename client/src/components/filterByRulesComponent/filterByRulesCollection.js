@@ -1,8 +1,8 @@
-import {FilterByDefinedValuesOfFieldModel} from './filterByDefinedValuesOfFieldModel.js';
-export class FilterByDefinedValuesOfFieldCollection extends Backbone.Collection {
+import {FilterByRulesModel} from './filterByRulesModel.js';
+export class FilterByRulesCollection extends Backbone.Collection {
     constructor() {
         super();
-        this.model = FilterByDefinedValuesOfFieldModel;
+        this.model = FilterByRulesModel;
         this.sync = this.overrideSync;
         this.fetch = this.myFetch;
         Backbone.Collection.apply(this);
@@ -13,7 +13,7 @@ export class FilterByDefinedValuesOfFieldCollection extends Backbone.Collection 
     overrideSync(method, id) {
 		if(method === 'read') {
 			return new Promise((resolve, reject) => {
-				fetch(`http://localhost:5000/api/filterByDefinedValuesOfField/${id}`, {
+				fetch(`http://localhost:5000/api/filterByRules/${id}`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"

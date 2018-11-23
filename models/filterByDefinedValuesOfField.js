@@ -26,4 +26,4 @@ const bookSchema = new Schema({
         required: true
     }
 });
-module.exports = mongoose.model('filtrByLotsOfValues', bookSchema);
+module.exports = mongoose.model('filterByDefinedValuesOfField', bookSchema);
