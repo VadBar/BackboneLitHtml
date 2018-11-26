@@ -1,16 +1,23 @@
 import {html, render} from 'lit-html';
 import {ViewDropDown} from '../dropDownComponent/ViewDropDown.js';
-export class ViewFiltrationBooks extends Backbone.View {
+import {FilterModel} from './filterModel';
+import {FilterCollection} from './filterCollection';
+import {Filtration} from '../mainListComponent/Filtration';
+export class ViewFiltrationBooks extends Filtration {
 	constructor(collection, lang, selector, listFields) {
 		super();
+		this.model = new FilterModel();
+		this.myCollection = FilterCollection.getSelf();
 		this.collection = collection;
+		this.defaultCollection = collection.models;
 		this.lang = lang;
 		this.el =  selector;
 		this.listFields = listFields;
 		this.listenTo(this.lang, 'change', this.render);
 		Backbone.View.apply(this);
 		this.listenerFiltration = {
-			handleEvent() {
+			handleEvent(e) {
+				this.setValue(e.target.value);
 				this.filtrationBooks();
 			}
 		};
@@ -21,14 +28,14 @@ export class ViewFiltrationBooks extends Backbone.View {
 	}
 	setListenerClickDropDown() {
 		document.querySelector('#drop .dropDownContent').addEventListener('click', (e) => {
-            var lang = document.querySelector('#lang input').getAttribute('data');
-            this.changeMethodFiltration(e);
+			var name = document.querySelector('#drop input').getAttribute('data');
+            this.changeMethodFiltration(name);
         })
 	}
 	prepareTemplate() {
 		this.template = () => html`
 		<div class="fltrationBooks">
-			<div id="drop"></div>
+			<div id="drop"></div>  
             <input id="valueFiltration" @change=${this.listenerFiltration.handleEvent.bind(this)} type="text" name="name"> 
         </div>
 		`
@@ -36,10 +43,14 @@ export class ViewFiltrationBooks extends Backbone.View {
 	render() {
 		render(this.template(), this.el);
 	}
-	changeMethodFiltration(e) {
-		document.querySelector('#valueFiltration').setAttribute('name', e.target.value);
+	changeMethodFiltration(value) {
+		console.log(value);
+		this.model.set('name', value);
+	}
+	setValue(value) {
+		this.model.set('value', value);
 	}
 	filtrationBooks() {
-		this.collection.trigger('filtration', {name: $('#drop .dropDown .dropDownInput').attr('data'), value: $('#valueFiltration').val()});
+		super.filtrationByUserValue(this.defaultCollection, this.collection, this.model.get('value'), this.model.get('name'));
 	}
 }

@@ -1,11 +1,13 @@
 import {html, render} from '../../../node_modules/lit-html/lit-html.js';
 import {FilterByLotsOfValuesModel} from './filterByLotsOfValuesModel.js';
 import {FilterByLotsOfValuesCollection} from './filterByLotsOfValuesCollection.js';
-export class FilterByLotsOfValuesComponent extends Backbone.View {
+import {Filtration} from '../mainListComponent/Filtration';
+export class FilterByLotsOfValuesComponent extends Filtration {
     constructor(data, collectionValues, selector) {
         super();
         this.collection = FilterByLotsOfValuesCollection.getSelf();
         this.collectionValues = collectionValues;  
+        this.defaultCollection = collectionValues.models;
         this.data = data;
         this.selector = selector;
         this.model = new FilterByLotsOfValuesModel();
@@ -22,6 +24,11 @@ export class FilterByLotsOfValuesComponent extends Backbone.View {
                this.model.set('list', model[0].list);
                this.model.set('id', model[0].id);
                this.model.set('_id', model[0]._id);
+               super.filtrationByValuesFiels(this.collectionValues, this.data.data, this.model.get('list').filter((i) => {
+                   if(i.state === true) {
+                       return true;
+                   }
+               }));
             } else {
                 let list = this.model.getFullListValuesByField(this.collectionValues, this.data.data);
                 this.model.set('name', this.data.name);
@@ -31,7 +38,17 @@ export class FilterByLotsOfValuesComponent extends Backbone.View {
             }
             this.render();
         })
-    }           
+    }   
+    changedField(e) {
+        this.model.changeSteteAndPush(e.target.value);
+        if(e.target.checked) {
+            super.filtrationByNewValueField(this.defaultCollection, this.collectionValues, this.data.data, e.target.value);
+        } else {
+            super.filtrationWithoutField(this.defaultCollection, this.collectionValues, this.data.data, e.target.value);
+        }
+       
+        this.model.save();
+    }              
     render() {
         render(this.prepareTemplate(), this.el);
     }
@@ -47,7 +64,7 @@ export class FilterByLotsOfValuesComponent extends Backbone.View {
     generateList() {
         let list = []; 
             this.model.get('list').forEach((i) => {
-                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.name} ?checked=${i.state}  @change=${this.listenerChangeStateFiltration.handleEvent.bind(this)} ></li>`)
+                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.name} ?checked=${i.state}  @change=${this.changedField.bind(this)} ></li>`)
                 });
         return list;
     }

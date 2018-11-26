@@ -8,7 +8,7 @@ export class PaginationComponent extends Backbone.View {
         this.selector = selector;
         this.collection = collection;
         this.listI = list;   
-        this.from = 1; 
+        this.from = 0; 
         this.to = this.step;
         Backbone.View.apply(this);
         this.listenerClickButtonPagination = {
@@ -46,15 +46,14 @@ export class PaginationComponent extends Backbone.View {
                 cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}</div></li>`)
             }
         } else {
-            for(var i = 1; i < this.count; i++) {
-                cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}<div></li>`);
+            for(var i = 0; i < this.count; i++) {
+                cells.push(html`<li><div name=${i+ 1}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i + 1}<div></li>`);
             }
         }
         return cells;
     }
     checkCount() {
-        this.count = parseInt((this.collection.models.length + 1) / this.step);
-        ((this.collection.models.length + 1) / this.step) % this.step ? '' : this.count++;
+        this.count = parseInt(Math.ceil((this.collection.models.length + 1) / this.step));
     }
     getValuesByNumberField(value) {
         if(value === 'next') {
@@ -68,7 +67,7 @@ export class PaginationComponent extends Backbone.View {
         } else {
             this.position = +value;
         } 
-        this.from = (this.step * this.position) - this.step + 1;
+        this.from = (this.step * this.position) - this.step;
         this.to = this.step * this.position;
         this.listI.render();
     }

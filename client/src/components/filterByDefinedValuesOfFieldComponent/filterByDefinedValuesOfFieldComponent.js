@@ -1,20 +1,17 @@
 import {html, render} from '../../../node_modules/lit-html/lit-html.js';
 import {FilterByDefinedValuesOfFieldModel} from './filterByDefinedValuesOfFieldModel.js';
 import {FilterByDefinedValuesOfFieldCollection} from './filterByDefinedValuesOfFieldCollection.js';
-export class FilterByDefinedValuesOfFieldComponent extends Backbone.View {
+import {Filtration} from '../mainListComponent/Filtration';
+import { relativeTimeThreshold } from 'moment';
+export class FilterByDefinedValuesOfFieldComponent extends Filtration {
     constructor(data, collectionValues, selector) {
         super();
         this.collection = FilterByDefinedValuesOfFieldCollection.getSelf();
-        this.collectionValues = collectionValues;  
+        this.defaultCollectionValues = collectionValues; 
+        this.collectionValues = collectionValues;
         this.data = data;
         this.selector = selector;
         this.model = new FilterByDefinedValuesOfFieldModel();
-        this.listenerChangeStateFiltration = {
-			handleEvent(e) {
-                this.model.changeSteteAndPush(e.target.value);
-                this.model.save();
-			}
-		};
         this.collection.fetch(this.data.id)
         .then((model) => {
             if(model.length > 0) {
@@ -30,12 +27,17 @@ export class FilterByDefinedValuesOfFieldComponent extends Backbone.View {
             }
             this.render();
         })
+    }
+    changedField(e) {
+        this.model.changeSteteAndPush(e.target.value);
+                super.filtrationByValueField(this.collectionValues, this.data.name, e.target.value);
+                this.model.save();
     }           
     render() {
         render(this.prepareTemplate(), this.el);
     }
     prepareTemplate() {
-        $(this.selector).append(this.$el);
+        $(this.selector).append(this.$el);  
         return html`
             <ul class="groupName">
             <h2>${this.data.name}</h2>
@@ -46,7 +48,7 @@ export class FilterByDefinedValuesOfFieldComponent extends Backbone.View {
     generateList() {
         let list = []; 
             this.model.get('list').forEach((i) => {
-                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.name} ?checked=${i.state}  @change=${this.listenerChangeStateFiltration.handleEvent.bind(this)} ></li>`)
+                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.name} ?checked=${i.state}  @change=${this.changedField.bind(this)} ></li>`)
                 });
         return list;
     }

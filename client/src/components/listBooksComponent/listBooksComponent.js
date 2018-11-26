@@ -13,7 +13,8 @@ export class ViewListBooks extends Backbone.View {
 		this.stateButtonShowMoreBook = true;
 		this.listenTo(this.lang, 'change', this.render);
 		this.listenTo(this.collection, 'remove', this.render);
-		this.listenTo(this.collection, 'reset', this.render);
+		this.listenTo(this.collection, 'reset', this.generateList);
+		this.listenTo(this.collection, 'update', this.generateList);
 		Backbone.View.apply(this);
 		this.listenerClickToEditBook = {
 			handleEvent(e) {
@@ -31,8 +32,17 @@ export class ViewListBooks extends Backbone.View {
 			}
 		}
 		this.prepareTemplate();
+		this.generateList();
 		this.render();
-		this.pagination = new PaginationComponent(collection, '#pagin', this);
+		
+	}
+	generateList() {
+		if(this.pagination) {
+			this.pagination.remove();
+			delete this.pagination;
+		}
+		this.pagination = new PaginationComponent(this.collection, '#pagin', this);
+		this.prepareList();
 		this.render();
 	}
 	prepareList() {
@@ -76,7 +86,7 @@ export class ViewListBooks extends Backbone.View {
 	}
 	renderBook(model) {
 			return html`<tr>
-			<td><div>${model[0].index}</div></td>
+			<td><div>${model[0].index + 1}</div></td>
 			${
 				this.listFields.map((i) => {
 					if(i.showColumn === true) {

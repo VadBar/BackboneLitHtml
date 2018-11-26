@@ -7,6 +7,10 @@ export class ViewMainList extends Backbone.View {
         this.elem = selector;
         this.collection = collection;
         this.config = config;
+        this.router = router;
+        this.lang = lang;
+        this.array = [];
+        this.listenTo(this.collection, 'reset', this.render)
         Backbone.View.apply(this);
         this.listenerClickButtonLeft = {
 			handleEvent() {
@@ -29,7 +33,7 @@ export class ViewMainList extends Backbone.View {
 			}
 		}
         this.render();
-        this.listBooks = new ViewListBooks(this.collection, router, lang, '.mainColumn .list', this.config.listFields);
+        this.listBooks = new ViewListBooks(this.collection, this.router, this.lang, '.mainColumn .list', this.config.listFields);
         this.filtrBooks = new ViewFiltrationBooks(this.collection, lang, '.mainColumn .filtrByValue', this.config.listFields, this.pagination); 
         this.generateComponents();
     }
@@ -38,20 +42,16 @@ export class ViewMainList extends Backbone.View {
         this.generateRightColumn();
     }
     generateLeftColumn() {
-        var counter = String(Math.random() * 100);
         this.config.leftColumn.components.forEach((i, index) => {
             i.forEach((i) => {
-                this[counter] = new index(i, this.collection, '.leftColumn .body');
-                counter =+ String(Math.random() * 100);
+                this.array.push(new index(i, this.collection, '.leftColumn .body'));
             })
         })
     }
     generateRightColumn() {
-        var counter = String(Math.random() * 100);
         this.config.rightColumn.components.forEach((i, index) => {
             i.forEach((i) => {
-                this[counter] = new index(i, this.collection, '.rightColumn .body');
-                counter =+ String(Math.random() * 100);
+                this.array.push(new index(i, this.collection, '.rightColumn .body')); 
             })
         })
     }

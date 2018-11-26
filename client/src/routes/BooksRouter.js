@@ -25,7 +25,7 @@ export class RouterBooks extends Backbone.Router {
 		this.coll = new CollectionBooks();
 		this.header = new ViewHeader(this.model);
 		this.lang = this.header.returnLanguage();
-		this.coll.fetch()
+		this.coll.fetch()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 		.then((allBooks) => {
 			this.coll.reset(allBooks);  
 			Backbone.history.start();
@@ -52,7 +52,15 @@ export class RouterBooks extends Backbone.Router {
 	}
 	listBooksPage() {
 		this.preperingWindow();
-		// FilterByDefinedValuesOfFieldComponent
+		this.listFields = [
+			{name: 'name', data: 'name', showColumn: true},
+			{name: 'author', data: 'author', showColumn: true},
+			{name: 'year', data: 'year', showColumn: true},
+			{name: 'count of pages', data: 'countOfPage', showColumn: true},
+			{name: 'price', data: 'price', showColumn: true}, 
+			{name: 'amount', data: 'amount', showColumn: true}, 
+			{name: 'publishing house', data: 'homePrinting', showColumn: true}, 
+		];
 		let config = {
 			leftColumn: {
 				components: new Map([
@@ -81,32 +89,16 @@ export class RouterBooks extends Backbone.Router {
 						], id: 'lskafsldfk'}]
 					],
 					[FilterByRulesComponent, [{name: 'Available', field: 'amount', state: false, 
-					method: function(value) {
-						return !!value > 0;
+					filtrationMethod: (value) => {
+						return value > 1;
 					},
 					id: 'ertrtwert'}]]
 			])
 			},
 			rightColumn: {
-				components: new Map([[ManagerColumnsComponent, [{name: 'columns', list: [
-				{name: 'name', data: 'name', state: true},
-				{name: 'author', data: 'author', state: true},
-				{name: 'year', data: 'year', state: true},
-				{name: 'count of pages', data: 'countOfPage', state: true},
-				{name: 'price', data: 'price', state: true}, 
-				{name: 'amount', data: 'amount', state: true}, 
-				{name: 'publishing house', data: 'homePrinting', state: true}, 
-				], id: 'lkdfsfddd'}]]])
+				components: new Map([[ManagerColumnsComponent, [{name: 'columns', list: this.listFields, id: 'lkdfsfddd'}]]])
 			},
-			listFields: [
-				{name: 'name', data: 'name', showColumn: true},
-				{name: 'author', data: 'author', showColumn: true},
-				{name: 'year', data: 'year', showColumn: true},
-				{name: 'count of pages', data: 'countOfPage', showColumn: true},
-				{name: 'price', data: 'price', showColumn: true}, 
-				{name: 'amount', data: 'amount', showColumn: true}, 
-				{name: 'publishing house', data: 'homePrinting', showColumn: true}, 
-			]
+			listFields: this.listFields
 		}
 		this.ViewMainList = new ViewMainList(this.router, this.lang, this.coll, config, '.content');
 	}

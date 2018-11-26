@@ -49,7 +49,7 @@ export class ViewDropDown {
         return html`
         <div class="dropDown">
             <input class="dropDownInput" type="text">
-            <div class="dropDownContent"></div>
+            <div class="dropDownContent"></div> 
         </div>
         `;
     }

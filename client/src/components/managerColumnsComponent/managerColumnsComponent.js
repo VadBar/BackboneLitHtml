@@ -4,17 +4,13 @@ import {ManagerColumnsCollection} from './managerColumnCollection.js';
 export class ManagerColumnsComponent extends Backbone.View {
     constructor(data, collectionValues, selector) {
         super();
+        this.listField = data.list;
+        // this.defaultListField = data.list;
         this.collection = ManagerColumnsCollection.getSelf();
         this.collectionValues = collectionValues;  
         this.data = data;
         this.selector = selector;
         this.model = new ManagerColumnsModel();
-        this.listenerChangeStateFiltration = {
-			handleEvent(e) {
-                this.model.changeSteteAndPush(e.target.value);
-                this.model.save();
-			}
-		};
         this.collection.fetch(this.data.id)
         .then((model) => {
             if(model.length > 0) {
@@ -43,10 +39,28 @@ export class ManagerColumnsComponent extends Backbone.View {
             </ul>
         `       
     }
+    changedField(e) {
+        this.model.changeSteteAndPush(e.target.value);
+        if(e.target.checked) {
+           this.listField.forEach((i) => {
+               if(i.data === e.target.vlue) {
+                   i.showColumn = true;
+               }
+           })
+        } else {
+            this.listField.forEach((i) => {
+                if(i.data === e.target.vlue) {
+                    i.showColumn = false;
+                }
+            })
+        }
+       console.log(this.listField)
+        this.model.save();
+    }     
     generateList() {
         let list = []; 
             this.model.get('list').forEach((i) => {
-                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.name} ?checked=${i.state}  @change=${this.listenerChangeStateFiltration.handleEvent.bind(this)} ></li>`)
+                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.data} name=${this.data.name} ?checked=${i.showColumn}  @change=${this.changedField.bind(this)} ></li>`)
                 });
         return list;
     }

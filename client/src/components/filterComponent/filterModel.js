@@ -1,9 +1,9 @@
-export class FilterByDefinedValuesOfFieldModel extends Backbone.Model {
+export class FilterModel extends Backbone.Model {
     constructor(attrs, options) {
         super();
         this.defaults = {
-            name: '',
-            list: [],
+            name: 'name',
+            value: '',
             id: ''
             };
             this.idAttribute = "_id";
@@ -23,7 +23,7 @@ export class FilterByDefinedValuesOfFieldModel extends Backbone.Model {
 		switch(method) {
             case 'create': 
 				return new Promise((resolve, reject) => {
-					fetch('http://localhost:5000/api/filterByDefinedValuesOfField', {
+					fetch('http://localhost:5000/api/filter', {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -46,7 +46,7 @@ export class FilterByDefinedValuesOfFieldModel extends Backbone.Model {
             break;
 			case 'update':
 				return new Promise((resolve, reject) => {
-					fetch(`http://localhost:5000/api/filterByDefinedValuesOfField/${model.get('id')}`, {
+					fetch(`http://localhost:5000/api/filter/${model.get('id')}`, {
                     method: 'PATCH',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -65,20 +65,5 @@ export class FilterByDefinedValuesOfFieldModel extends Backbone.Model {
 				})
             break;
         }
-    }
-    changeSteteAndPush(value) {
-        this.set('list', this.get('list').map((i) => {
-            if(i.name === value) {
-                i.state = !i.state;
-            }
-            return i;
-        }));
-    }
-    getFullListValuesByField(collection, field) {     
-        var list = [];
-        collection.models.forEach((i) => {
-            list.push({name: i.get(field), state: false, data: i.get('_id')});
-        });
-        return list;
     }
 }
