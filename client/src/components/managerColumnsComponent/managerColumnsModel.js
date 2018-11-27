@@ -69,8 +69,8 @@ export class ManagerColumnsModel extends Backbone.Model {
         }
     }
     changeSteteAndPush(value) {
-        this.set('list', this.get('list').map((i) => {
-            if(i.name === value) {
+        this.set('list', this.get('list').map((i) => {  
+            if(i.data === value) {
                 i.state = !i.state;
             }
             return i;

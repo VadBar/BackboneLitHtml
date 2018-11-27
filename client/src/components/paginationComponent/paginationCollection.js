@@ -1,11 +1,11 @@
-import {ManagerColumnsModel} from './managerColumnsModel.js';
-export class ManagerColumnsCollection extends Backbone.Collection {
+import {PaginationModel} from './paginationModel.js';
+export class PaginationCollection extends Backbone.Collection {
     constructor() {
         super();
-        this.model = ManagerColumnsModel;
+        this.model = PaginationModel;
         this.sync = this.overrideSync;
         this.fetch = this.myFetch;
-        Backbone.Collection.apply(this); 
+        Backbone.Collection.apply(this);
     }
     myFetch(id) {
 		return this.sync('read', id);
@@ -13,7 +13,7 @@ export class ManagerColumnsCollection extends Backbone.Collection {
     overrideSync(method, id) {
 		if(method === 'read') {
 			return new Promise((resolve, reject) => {
-				fetch(`http://localhost:5000/api/managerColumns/${id}`, {
+				fetch(`http://localhost:5000/api/pagination/${id}`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"

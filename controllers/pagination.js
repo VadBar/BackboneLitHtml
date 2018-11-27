@@ -1,5 +1,5 @@
 const errorHandler = require('../utils/errorHandler');
-const filter = require('../models/managerColumns');
+const filter = require('../models/pagination');
 module.exports.getAll = async (req, res) => {
     try{
         const list = await filter.find({});
@@ -21,8 +21,10 @@ module.exports.getById = async (req, res) => {
 };
 module.exports.create = async (req, res) => {
     const filt = new filter({ 
-        name: req.body.name,
-        list: req.body.list,
+        position: req.body.position,
+        step: req.body.step,
+        from: req.body.from,
+        to: req.body.to,
         id: req.body.id
     });
     try{

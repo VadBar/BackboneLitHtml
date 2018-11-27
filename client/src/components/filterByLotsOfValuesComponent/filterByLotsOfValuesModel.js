@@ -14,10 +14,8 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
     mySave() {
 		var id = this.idAttribute;
 		if(this.get(id)) {
-            console.log('update', this)
 			return this.sync('update', this);
 		} else {
-            console.log('create', this)
 			return this.sync('create', this);
 		}
     }

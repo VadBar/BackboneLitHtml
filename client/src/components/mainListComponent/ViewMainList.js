@@ -7,6 +7,7 @@ export class ViewMainList extends Backbone.View {
         this.elem = selector;
         this.collection = collection;
         this.config = config;
+        this.listFields = config.listFields;
         this.router = router;
         this.lang = lang;
         this.array = [];
@@ -33,9 +34,12 @@ export class ViewMainList extends Backbone.View {
 			}
 		}
         this.render();
-        this.listBooks = new ViewListBooks(this.collection, this.router, this.lang, '.mainColumn .list', this.config.listFields);
-        this.filtrBooks = new ViewFiltrationBooks(this.collection, lang, '.mainColumn .filtrByValue', this.config.listFields, this.pagination); 
+        this.listBooks = new ViewListBooks(this.collection, this.router, this.lang, '.mainColumn .list',this);
+        this.filtrBooks = new ViewFiltrationBooks(this.collection, lang, '.mainColumn .filtrByValue', this.listFields, 'kdssadfasdf'); 
         this.generateComponents();
+    }
+    renderList() {
+        this.listBooks.render();
     }
     generateComponents() {
         this.generateLeftColumn();
@@ -44,14 +48,14 @@ export class ViewMainList extends Backbone.View {
     generateLeftColumn() {
         this.config.leftColumn.components.forEach((i, index) => {
             i.forEach((i) => {
-                this.array.push(new index(i, this.collection, '.leftColumn .body'));
+                this.array.push(new index(i, this.collection, '.leftColumn .body', this));
             })
         })
     }
     generateRightColumn() {
         this.config.rightColumn.components.forEach((i, index) => {
             i.forEach((i) => {
-                this.array.push(new index(i, this.collection, '.rightColumn .body')); 
+                this.array.push(new index(i, this.collection, '.rightColumn .body', this)); 
             })
         })
     }
@@ -71,7 +75,7 @@ export class ViewMainList extends Backbone.View {
                 <div class="body">
                     <div class="headerL">
                     </div>
-                    <div class="filter">
+                    <div class="filter">          
                         <div class="filtrByValue"></div>
                         <div class="buttons">
                             <button class="showLeftColumn" @click="${this.listenerClickButtonLeft.handleEvent.bind(this)}">ShowLeft</button>

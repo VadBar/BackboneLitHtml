@@ -52,15 +52,6 @@ export class RouterBooks extends Backbone.Router {
 	}
 	listBooksPage() {
 		this.preperingWindow();
-		this.listFields = [
-			{name: 'name', data: 'name', showColumn: true},
-			{name: 'author', data: 'author', showColumn: true},
-			{name: 'year', data: 'year', showColumn: true},
-			{name: 'count of pages', data: 'countOfPage', showColumn: true},
-			{name: 'price', data: 'price', showColumn: true}, 
-			{name: 'amount', data: 'amount', showColumn: true}, 
-			{name: 'publishing house', data: 'homePrinting', showColumn: true}, 
-		];
 		let config = {
 			leftColumn: {
 				components: new Map([
@@ -96,9 +87,17 @@ export class RouterBooks extends Backbone.Router {
 			])
 			},
 			rightColumn: {
-				components: new Map([[ManagerColumnsComponent, [{name: 'columns', list: this.listFields, id: 'lkdfsfddd'}]]])
+				components: new Map([[ManagerColumnsComponent, [{name: 'columns',  id: 'lkdfsfddd'}]]])
 			},
-			listFields: this.listFields
+			listFields:  [
+				{name: 'name', data: 'name', state: true},
+				{name: 'author', data: 'author', state: true},
+				{name: 'year', data: 'year', state: true},
+				{name: 'count of pages', data: 'countOfPage', state: true},
+				{name: 'price', data: 'price', state: true}, 
+				{name: 'amount', data: 'amount', state: true}, 
+				{name: 'publishing house', data: 'homePrinting', state: true}, 
+			]
 		}
 		this.ViewMainList = new ViewMainList(this.router, this.lang, this.coll, config, '.content');
 	}

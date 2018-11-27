@@ -2,10 +2,10 @@ import {html, render} from 'lit-html';
 import {ManagerColumnsModel} from './managerColumnsModel.js';
 import {ManagerColumnsCollection} from './managerColumnCollection.js';
 export class ManagerColumnsComponent extends Backbone.View {
-    constructor(data, collectionValues, selector) {
+    constructor(data, collectionValues, selector, rootComponent) {
         super();
-        this.listField = data.list;
-        // this.defaultListField = data.list;
+        this.rootComponent = rootComponent;
+        this.listFields = this.rootComponent.listFields;
         this.collection = ManagerColumnsCollection.getSelf();
         this.collectionValues = collectionValues;  
         this.data = data;
@@ -18,9 +18,10 @@ export class ManagerColumnsComponent extends Backbone.View {
                this.model.set('list', model[0].list);
                this.model.set('id', model[0].id);
                this.model.set('_id', model[0]._id);
+               this.changeColumns();
             } else {
                 this.model.set('name', this.data.name);
-                this.model.set('list', this.data.list);
+                this.model.set('list', this.listFields);
                 this.model.set('id', this.data.id);
                 this.model.save();
             }
@@ -41,26 +42,17 @@ export class ManagerColumnsComponent extends Backbone.View {
     }
     changedField(e) {
         this.model.changeSteteAndPush(e.target.value);
-        if(e.target.checked) {
-           this.listField.forEach((i) => {
-               if(i.data === e.target.vlue) {
-                   i.showColumn = true;
-               }
-           })
-        } else {
-            this.listField.forEach((i) => {
-                if(i.data === e.target.vlue) {
-                    i.showColumn = false;
-                }
-            })
-        }
-       console.log(this.listField)
         this.model.save();
+        this.changeColumns();
     }     
+    changeColumns() {
+        this.rootComponent.listFields = this.model.get('list');
+        this.rootComponent.renderList();
+    }
     generateList() {
         let list = []; 
             this.model.get('list').forEach((i) => {
-                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.data} name=${this.data.name} ?checked=${i.showColumn}  @change=${this.changedField.bind(this)} ></li>`)
+                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.data} name=${this.data.name} ?checked=${i.state}  @change=${this.changedField.bind(this)} ></li>`)
                 });
         return list;
     }

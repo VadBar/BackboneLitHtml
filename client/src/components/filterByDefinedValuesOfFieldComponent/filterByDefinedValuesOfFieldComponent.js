@@ -29,7 +29,7 @@ export class FilterByDefinedValuesOfFieldComponent extends Filtration {
         })
     }
     changedField(e) {
-        this.model.changeSteteAndPush(e.target.value);
+                this.model.changeSteteAndPush(e.target.value);
                 super.filtrationByValueField(this.collectionValues, this.data.name, e.target.value);
                 this.model.save();
     }           

@@ -1,5 +1,5 @@
 const errorHandler = require('../utils/errorHandler');
-const filter = require('../models/managerColumns');
+const filter = require('../models/filter');
 module.exports.getAll = async (req, res) => {
     try{
         const list = await filter.find({});
@@ -20,9 +20,9 @@ module.exports.getById = async (req, res) => {
     }
 };
 module.exports.create = async (req, res) => {
-    const filt = new filter({ 
+    const filt = new filter({
         name: req.body.name,
-        list: req.body.list,
+        value: req.body.value,
         id: req.body.id
     });
     try{

@@ -53,12 +53,12 @@ export class Filtration extends Backbone.View{
         this.checkStateCollection(collection, defaultCollection);
     }
     checkStateCollection(collection, defaultCollection) {
-        if(collection.models.length <= 1) {
+        if(collection.models.length <= 0) {
             if(defaultCollection.length > 0) {
                 collection.reset(defaultCollection);
                 return false;
             } 
-        }
+        } 
     }
     filtration(collection, nameField, valueField) {
         return collection.filter((i) => {

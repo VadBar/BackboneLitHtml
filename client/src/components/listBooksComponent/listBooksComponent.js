@@ -2,14 +2,15 @@ import {html, render} from 'lit-html';
 import {PaginationComponent} from '../paginationComponent/paginationComponent';
 export class ViewListBooks extends Backbone.View {
 	
-	constructor(collection, router, lang, selector, listFields) {
+	constructor(collection, router, lang, selector, rootComponent) {
 		super();
 		this.collection = collection;
 		this.router = router;
 		this.lang = lang;
 		this.self = this;
-		this.listFields = listFields;
+		this.rootComponent = rootComponent;
 		this.el = selector;
+		this.list = false;
 		this.stateButtonShowMoreBook = true;
 		this.listenTo(this.lang, 'change', this.render);
 		this.listenTo(this.collection, 'remove', this.render);
@@ -31,26 +32,18 @@ export class ViewListBooks extends Backbone.View {
 				this.showMoreBooks();
 			}
 		}
-		this.prepareTemplate();
-		this.generateList();
 		this.render();
-		
+		this.pagination = new PaginationComponent(this.collection, '#pagin', 'dkfawrertywewret', this);
 	}
 	generateList() {
-		if(this.pagination) {
-			this.pagination.remove();
-			delete this.pagination;
-		}
-		this.pagination = new PaginationComponent(this.collection, '#pagin', this);
 		this.prepareList();
 		this.render();
 	}
 	prepareList() {
-		this.pagination ? this.pagination.render() : '';
-		this.list = this.pagination ? this.pagination.getList() : [];           
+		this.list = this.pagination ? this.pagination.getList() : [];     
 	}
 	prepareTemplate() {
-		this.template = (pagination) => html`
+		return html`
         	<table class="listBooks">
             	<caption>
                 	<h1>${this.lang.getData('listBooks.title')}</h1>
@@ -59,8 +52,8 @@ export class ViewListBooks extends Backbone.View {
             	<tr>   
 					<th><div>N</div></th>
 					${
-						this.listFields.map((i) => {
-							if(i.showColumn === true) {
+						this.rootComponent.listFields.map((i) => {
+							if(i.state === true) {
 								return html`<th><div>${this.lang.getData(`fields.${i.data}`)}</div></th>`;
 							}	
 						})
@@ -71,9 +64,9 @@ export class ViewListBooks extends Backbone.View {
             	</thead>
 				 <tbody id="bodyListBooks">
 				 	${
-						this.list.map((i) => {
+						 this.list ? this.list.map((i) => {
 							return this.renderBook(i)
-						})
+						}) : ''
 					 }
 				</tbody>
 			</table>
@@ -81,15 +74,14 @@ export class ViewListBooks extends Backbone.View {
 		`;
 	}
 	render() {
-		this.prepareList();
-		render(this.template(this.pagination), this.el);
+		render(this.prepareTemplate(), this.el);
 	}
 	renderBook(model) {
 			return html`<tr>
 			<td><div>${model[0].index + 1}</div></td>
 			${
-				this.listFields.map((i) => {
-					if(i.showColumn === true) {
+				this.rootComponent.listFields.map((i) => {
+					if(i.state === true) {
 						return html`<td><div>${model[1].get(i.data)}</div></td>`;
 					}
 				})

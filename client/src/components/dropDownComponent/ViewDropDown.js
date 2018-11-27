@@ -35,7 +35,7 @@ export class ViewDropDown {
 
         })
     }
-    setListenersClicksList(field, container) {
+    setListenersClicksList(field, container) {   
         container.addEventListener('click', (e) => {
             field.value = e.target.textContent;
             field.setAttribute('data', e.target.getAttribute('data'));
@@ -46,17 +46,17 @@ export class ViewDropDown {
         render(this.prepareField(), document.getElementById(Id));
     }
     prepareField() {
-        return html`
-        <div class="dropDown">
-            <input class="dropDownInput" type="text">
-            <div class="dropDownContent"></div> 
+        return html`     
+        <div class="dropDown">         
+            <input class="dropDownInput" type="text">  
+            <div class="dropDownContent"></div>     
         </div>
-        `;
+        `; 
     }
-    prepareDropDown(list) {
+    prepareDropDown(list) {  
         return html`
             ${
-                list.map((i) => {
+                list.map((i) => { 
                     return html`<div class="elementOfListDropDown" data=${i.data}>${i.name}</div>`;
                 })
             }

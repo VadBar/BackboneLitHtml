@@ -9,3 +9,13 @@
 .fltrationBooks #valueFiltration {
     max-height: 15px;
 }
+#drop .dropDownContent {
+    width: 240px;
+    left: 7px;
+}
+#drop .elementOfListDropDown {
+    background-color: rgb(28, 40, 51, 0.7);
+}
+#drop .elementOfListDropDown:hover {
+    background-color: rgb(28, 40, 51, 1);
+}
