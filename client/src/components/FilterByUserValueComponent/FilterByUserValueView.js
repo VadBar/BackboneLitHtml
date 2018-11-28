@@ -1,14 +1,16 @@
 import {html, render} from 'lit-html';
-import {ViewDropDown} from '../dropDownComponent/ViewDropDown.js';
-import {FilterModel} from './filterModel';
-import {FilterCollection} from './filterCollection';
-import {Filtration} from '../mainListComponent/Filtration';
-export class ViewFiltrationBooks extends Filtration {
+import {ViewDropDown} from '../DropDownComponent/ViewDropDown.js';
+import {FilterByUserValueModel} from './FilterByUserValueModel';
+import {FilterByUserValueCollection} from './FilterByUserValueCollection';
+import {FilterByUserValue} from './FilterByUserValue';
+export class FilterByUserValueComponent extends FilterByUserValue {
 	constructor(collection, lang, selector, listFields, id) {
 		super();
-		this.model = new FilterModel();
-		this.myCollection = FilterCollection.getSelf();
-		this.collection = collection;
+		this.type = 'filtr';
+		this.model = new FilterByUserValueModel();
+		this.myCollection = FilterByUserValueCollection.getSelf();
+		this.editableCollection = collection.clone();
+		this.editableCollection.set(collection.models); 
 		this.defaultCollection = collection.models;
 		this.lang = lang;
 		this.id = id;
@@ -19,23 +21,24 @@ export class ViewFiltrationBooks extends Filtration {
 		this.listenerFiltration = {
 			handleEvent(e) {
 				this.setValue(e.target.value);
-				this.filtrationBooks();
+				this.filtrBooks();
 			}
 		};
 		this.myCollection.fetch(this.id)
-        .then((model) => {
+        .then((model) => { 
             if(model.length > 0) {
                this.model.set('name', model[0].name);
                this.model.set('value', model[0].value);
                this.model.set('id', model[0].id);
 			   this.model.set('_id', model[0]._id);
-			   super.filtrationByUserValue(this.defaultCollection, this.collection, this.model.get('value'), this.model.get('name'));
+			   super.filtrByUserValue(this.defaultCollection, this.editableCollection, this.model.get('value'), this.model.get('name'));
+			   this.editableCollection.trigger('reset');
             } else {
                 this.model.set('name', 'name');
                 this.model.set('value', '');
 				this.model.set('id', this.id);
                 this.model.save();
-            }
+			}
         this.prepareTemplate();
 		this.render();
 		this.dropDown = new ViewDropDown('drop', this.listFields);
@@ -72,7 +75,7 @@ export class ViewFiltrationBooks extends Filtration {
 		this.model.set('value', value);
 		this.model.save();
 	}
-	filtrationBooks() {
-		super.filtrationByUserValue(this.defaultCollection, this.collection, this.model.get('value'), this.model.get('name'));
+	filtrBooks() {
+		super.filtrByUserValue(this.defaultCollection, this.editableCollection, this.model.get('value'), this.model.get('name'));
 	}
 }

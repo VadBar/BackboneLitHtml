@@ -1,4 +1,4 @@
-import {PaginationModel} from './paginationModel.js';
+import {PaginationModel} from './PaginationModel.js';
 export class PaginationCollection extends Backbone.Collection {
     constructor() {
         super();

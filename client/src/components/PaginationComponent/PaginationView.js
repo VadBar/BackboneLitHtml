@@ -1,7 +1,7 @@
 import { relativeTimeThreshold } from "moment";
 import {html, render} from 'lit-html';
-import {PaginationModel} from './paginationModel'; 
-import {PaginationCollection} from './paginationCollection';
+import {PaginationModel} from './PaginationModel'; 
+import {PaginationCollection} from './PaginationCollection';
 export class PaginationComponent extends Backbone.View {
     constructor(collection, selector, id, list=false, step=8, position=1) {
         super();
@@ -30,7 +30,6 @@ export class PaginationComponent extends Backbone.View {
                this.model.set('id', pagination[0].id);
                this.model.set('_id', pagination[0]._id);
                this.model.step = step;
-               console.log(this.model);
             } else {
                 this.model.set('position', position);
                 this.model.set('step', step);

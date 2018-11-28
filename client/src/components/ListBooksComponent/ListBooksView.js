@@ -1,5 +1,5 @@
 import {html, render} from 'lit-html';
-import {PaginationComponent} from '../paginationComponent/paginationComponent';
+import {PaginationComponent} from '../PaginationComponent/PaginationView';
 export class ViewListBooks extends Backbone.View {
 	
 	constructor(collection, router, lang, selector, rootComponent) {

@@ -1,4 +1,4 @@
-import {FilterByDefinedValuesOfFieldModel} from './filterByDefinedValuesOfFieldModel.js';
+import {FilterByDefinedValuesOfFieldModel} from './FilterByDefinedValuesOfFieldModel.js';
 export class FilterByDefinedValuesOfFieldCollection extends Backbone.Collection {
     constructor() {
         super();

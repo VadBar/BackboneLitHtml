@@ -1,4 +1,4 @@
-import {FilterByLotsOfValuesModel} from './filterByLotsOfValuesModel.js';
+import {FilterByLotsOfValuesModel} from './FilterByLotsOfValuesModel.js';
 export class FilterByLotsOfValuesCollection extends Backbone.Collection {
     constructor() {
         super();

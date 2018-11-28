@@ -1,4 +1,4 @@
-export class FilterModel extends Backbone.Model {
+export class FilterByUserValueModel extends Backbone.Model {
     constructor(attrs, options) {
         super();
         this.defaults = {

@@ -1,6 +1,7 @@
 import {html, render} from 'lit-html';
-import {ViewFiltrationBooks} from '../filterComponent/filterComponent';
-import {ViewListBooks} from '../listBooksComponent/listBooksComponent';   
+import {FilterByUserValueComponent} from '../FilterByUserValueComponent/FilterByUserValueView';
+import {ViewListBooks} from '../ListBooksComponent/ListBooksView';
+import {ComparatorFiltratedCollections} from './ComparatorFiltratedCollections';
 export class ViewMainList extends Backbone.View {
     constructor(router, lang, collection, config, selector) {
         super();
@@ -35,8 +36,9 @@ export class ViewMainList extends Backbone.View {
 		}
         this.render();
         this.listBooks = new ViewListBooks(this.collection, this.router, this.lang, '.mainColumn .list',this);
-        this.filtrBooks = new ViewFiltrationBooks(this.collection, lang, '.mainColumn .filtrByValue', this.listFields, 'kdssadfasdf'); 
+        this.filtrBooks = new FilterByUserValueComponent(this.collection, lang, '.mainColumn .filtrByValue', this.listFields, 'kdssadfasdf'); 
         this.generateComponents();
+        this.comparator = new ComparatorFiltratedCollections(this.array, this.collection, this);
     }
     renderList() {
         this.listBooks.render();

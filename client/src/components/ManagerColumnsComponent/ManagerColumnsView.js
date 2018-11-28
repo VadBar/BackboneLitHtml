@@ -1,6 +1,6 @@
 import {html, render} from 'lit-html';
-import {ManagerColumnsModel} from './managerColumnsModel.js';
-import {ManagerColumnsCollection} from './managerColumnCollection.js';
+import {ManagerColumnsModel} from './ManagerColumnsModel.js';
+import {ManagerColumnsCollection} from './ManagerColumnCollection.js';
 export class ManagerColumnsComponent extends Backbone.View {
     constructor(data, collectionValues, selector, rootComponent) {
         super();

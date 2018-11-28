@@ -1,8 +1,8 @@
-import {FilterModel} from './filterModel.js';
-export class FilterCollection extends Backbone.Collection {
+import {FilterByUserValueModel} from './FilterByUserValueModel.js';
+export class FilterByUserValueCollection extends Backbone.Collection {
     constructor() {
         super();
-        this.model = FilterModel;
+        this.model = FilterByUserValueModel;
         this.sync = this.overrideSync;
         this.fetch = this.myFetch;
         Backbone.Collection.apply(this);

@@ -1,4 +1,4 @@
-import {ManagerColumnsModel} from './managerColumnsModel.js';
+import {ManagerColumnsModel} from './ManagerColumnsModel.js';
 export class ManagerColumnsCollection extends Backbone.Collection {
     constructor() {
         super();

@@ -36,14 +36,14 @@ module.exports = {
             files: {
                 "vendor.css": [
                     './src/css/style.css',
-                    './src/components/dropDownComponent/style.css',
+                    './src/components/DropDownComponent/style.css',
                     './src/components/imgUploader/style.css',
-                    './src/components/listBooksComponent/style.css',
-                    './src/components/filterComponent/style.css',
-                    './src/components/mainListComponent/style.css',
-                    './src/components/paginationComponent/style.css',
-                    './src/components/filterByLotsOfValuesComponent/style.css',
-                    './src/components/filterByRulesComponent/style.css'
+                    './src/components/ListBooksComponent/style.css',
+                    './src/components/FilterByUserValueComponent/style.css',
+                    './src/components/MainListComponent/style.css',
+                    './src/components/PaginationComponent/style.css',
+                    './src/components/FilterByLotsOfValuesComponent/style.css',
+                    './src/components/FilterByRulesComponent/style.css'
                 ]
             }
         }),

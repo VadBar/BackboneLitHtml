@@ -1,4 +1,4 @@
-import {FilterByRulesModel} from './filterByRulesModel.js';
+import {FilterByRulesModel} from './FilterByRulesModel.js';
 export class FilterByRulesCollection extends Backbone.Collection {
     constructor() {
         super();

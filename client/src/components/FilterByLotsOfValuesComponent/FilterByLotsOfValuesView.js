@@ -1,12 +1,14 @@
-import {html, render} from '../../../node_modules/lit-html/lit-html.js';
-import {FilterByLotsOfValuesModel} from './filterByLotsOfValuesModel.js';
-import {FilterByLotsOfValuesCollection} from './filterByLotsOfValuesCollection.js';
-import {Filtration} from '../mainListComponent/Filtration';
-export class FilterByLotsOfValuesComponent extends Filtration {
+import {html, render} from 'lit-html';
+import {FilterByLotsOfValuesModel} from './FilterByLotsOfValuesModel.js';
+import {FilterByLotsOfValuesCollection} from './FilterByLotsOfValuesCollection.js';
+import {FilterByLotsOfValues} from './FilterByLotsOfValues';
+export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
     constructor(data, collectionValues, selector) {
         super();
+        this.type = 'filtr';
         this.collection = FilterByLotsOfValuesCollection.getSelf();
-        this.collectionValues = collectionValues;  
+        this.editableCollection = collectionValues.clone();
+        this.editableCollection.set(collectionValues.models);
         this.defaultCollection = collectionValues.models;
         this.data = data;
         this.selector = selector;
@@ -16,7 +18,7 @@ export class FilterByLotsOfValuesComponent extends Filtration {
                 this.model.changeSteteAndPush(e.target.value);
                 this.model.save();
 			}
-		};
+        };
         this.collection.fetch(this.data.id)
         .then((model) => {
             if(model.length > 0) {
@@ -24,13 +26,13 @@ export class FilterByLotsOfValuesComponent extends Filtration {
                this.model.set('list', model[0].list);
                this.model.set('id', model[0].id);
                this.model.set('_id', model[0]._id);
-               super.filtrationByValuesFiels(this.collectionValues, this.data.data, this.model.get('list').filter((i) => {
+               super.filtrByValuesFiels(this.editableCollection, this.data.data, this.model.get('list').filter((i) => {
                    if(i.state === true) {
                        return true;
                    }
                }));
             } else {
-                let list = this.model.getFullListValuesByField(this.collectionValues, this.data.data);
+                let list = this.model.getFullListValuesByField(this.editableCollection, this.data.data);
                 this.model.set('name', this.data.name);
                 this.model.set('list', list);
                 this.model.set('id', this.data.id);
@@ -42,11 +44,10 @@ export class FilterByLotsOfValuesComponent extends Filtration {
     changedField(e) {
         this.model.changeSteteAndPush(e.target.value);
         if(e.target.checked) {
-            super.filtrationByNewValueField(this.defaultCollection, this.collectionValues, this.data.data, e.target.value);
+            super.filtrByNewValueField(this.defaultCollection, this.editableCollection, this.data.data, e.target.value);
         } else {
-            super.filtrationWithoutField(this.defaultCollection, this.collectionValues, this.data.data, e.target.value);
+            super.removeUnMendetoryFields(this.defaultCollection, this.editableCollection, this.data.data, e.target.value);
         }
-       
         this.model.save();
     }              
     render() {

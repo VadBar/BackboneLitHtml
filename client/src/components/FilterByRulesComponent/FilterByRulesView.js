@@ -1,13 +1,14 @@
-import {html, render} from '../../../node_modules/lit-html/lit-html.js';
-import {FilterByRulesCollection} from './filterByRulesCollection.js';
-import {FilterByRulesModel} from './filterByRulesModel.js';
-import {Filtration} from '../mainListComponent/Filtration';
-export class FilterByRulesComponent extends Filtration{
+import {html, render} from 'lit-html';
+import {FilterByRulesCollection} from './FilterByRulesCollection.js';
+import {FilterByRulesModel} from './FilterByRulesModel.js';
+import {FilterByRules} from './FilterByRules';
+export class FilterByRulesComponent extends FilterByRules{
     constructor(data, collectionValues, selector) {
         super();
+        this.type = 'filtr';
         this.model = new FilterByRulesModel();
-        this.collectionValues = collectionValues; 
-        this.defaultCollection = collectionValues.models;   
+        this.editableCollection = collectionValues.clone();
+        this.editableCollection.set(collectionValues.models);   
         this.data = data;
         // this.listenTo(this.model, 'change', super.filtrationByRule(this.collectionValues, this.data.filtrationMethod, this.data.field));
         Backbone.View.apply(this);
@@ -15,7 +16,7 @@ export class FilterByRulesComponent extends Filtration{
         this.selector = selector;
         this.collection.fetch(this.data.id)
         .then((model) => {
-            if(model.length > 0) {
+            if(model.length > 0) { 
                this.model.set('name', model[0].name);
                this.model.set('field', model[0].field);
                this.model.set('state', model[0].state);
@@ -30,12 +31,12 @@ export class FilterByRulesComponent extends Filtration{
             }
             this.render();
         })
-    }    
+    }   
     listenerChangeStateFiltration(e) {
         let value = e.target.value === 'yes' ? e.target.checked ? true : false : e.target.checked ? false : true;
         this.model.set('state', value);
         this.model.save();
-        super.filtrationByRule(this.defaultCollection, this.collectionValues, this.data.filtrationMethod, this.model.get('field'), this.model.get('state'));
+        super.filtrByRule(this.defaultCollection, this.editableCollection, this.data.filtrationMethod, this.model.get('field'), this.model.get('state'));
     }       
     render() {
         render(this.prepareTemplate(), this.el);

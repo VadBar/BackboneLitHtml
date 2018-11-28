@@ -1,7 +1,7 @@
-import {html, render} from '../../../node_modules/lit-html/lit-html.js';
-import {FilterByDefinedValuesOfFieldModel} from './filterByDefinedValuesOfFieldModel.js';
-import {FilterByDefinedValuesOfFieldCollection} from './filterByDefinedValuesOfFieldCollection.js';
-import {Filtration} from '../mainListComponent/Filtration';
+import {html, render} from 'lit-html';
+import {FilterByDefinedValuesOfFieldModel} from './FilterByDefinedValuesOfFieldModel.js';
+import {FilterByDefinedValuesOfFieldCollection} from './FilterByDefinedValuesOfFieldCollection.js';
+import {Filtration} from '../MainListComponent/Filtration';
 import { relativeTimeThreshold } from 'moment';
 export class FilterByDefinedValuesOfFieldComponent extends Filtration {
     constructor(data, collectionValues, selector) {
@@ -20,7 +20,7 @@ export class FilterByDefinedValuesOfFieldComponent extends Filtration {
                this.model.set('id', model[0].id);
                this.model.set('_id', model[0]._id);
             } else {
-                this.model.set('name', this.data.name);
+                this.model.set('name', this.data.name); 
                 this.model.set('list', this.data.list);
                 this.model.set('id', this.data.id);
                 this.model.save();
@@ -30,7 +30,7 @@ export class FilterByDefinedValuesOfFieldComponent extends Filtration {
     }
     changedField(e) {
                 this.model.changeSteteAndPush(e.target.value);
-                super.filtrationByValueField(this.collectionValues, this.data.name, e.target.value);
+                super.filtrByValueField(this.collectionValues, this.data.name, e.target.value);
                 this.model.save();
     }           
     render() {
