@@ -4,18 +4,16 @@ import {FilterByUserValueModel} from './FilterByUserValueModel';
 import {FilterByUserValueCollection} from './FilterByUserValueCollection';
 import {FilterByUserValue} from './FilterByUserValue';
 export class FilterByUserValueComponent extends FilterByUserValue {
-	constructor(collection, lang, selector, listFields, id) {
+	constructor(data, collection, selector) {
 		super();
-		this.type = 'filtr';
 		this.model = new FilterByUserValueModel();
 		this.myCollection = FilterByUserValueCollection.getSelf();
-		this.editableCollection = collection.clone();
-		this.editableCollection.set(collection.models); 
+        this.editableCollection = collection;
 		this.defaultCollection = collection.models;
-		this.lang = lang;
-		this.id = id;
+		this.lang = data.lang;
+		this.id = data.id;
 		this.el =  selector;
-		this.listFields = listFields;
+		this.listFields = data.listFields;
 		this.listenTo(this.lang, 'change', this.render);
 		Backbone.View.apply(this);
 		this.listenerFiltration = {
@@ -47,6 +45,9 @@ export class FilterByUserValueComponent extends FilterByUserValue {
         })
 		
 	}
+    static getType() {
+        return 'filtr';
+    }
 	setListenerClickDropDown() {
 		document.querySelector('#drop .dropDownContent').addEventListener('click', (e) => {
 			var name = document.querySelector('#drop input').getAttribute('data');

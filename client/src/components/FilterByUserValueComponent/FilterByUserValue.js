@@ -6,8 +6,8 @@ export class FilterByUserValue extends Backbone.View{
     }
     filtrByUserValue(defaultCollection, collection, value, name) {
         if(value) {
-            collection.reset(collection.filter((i) => {
-                if(~i.get(name).indexOf(value)) {
+            collection.reset(defaultCollection.filter((i) => {
+                if(String(i.get(name)).indexOf(String(value)) !== -1) {
                     return true;
                 }
             }));

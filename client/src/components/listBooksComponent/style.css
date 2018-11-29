@@ -59,6 +59,7 @@
 .listBooks td, th {
     display: inline-grid;
     min-height: 100%;
+    z-index: 100;
 }
 .listBooks td, th > div {
     min-height: 100%;
@@ -66,6 +67,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 .listBooks td > div {
     text-overflow: ellipsis;

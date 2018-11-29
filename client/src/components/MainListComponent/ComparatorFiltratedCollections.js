@@ -2,40 +2,43 @@ export class ComparatorFiltratedCollections extends Backbone.View {
     constructor(listComponents, collection, parent) {
         super();
         this.collection = collection;
+        this.defaultCollection = collection.models;
         this.listComponents = listComponents;
+        this.listCreatedComponents = [];
         this.parent = parent;
         this.listCollections = [];
-        this.getAllEditableCollections();
-        console.log(this.listCollections)
-        this.setListenersForComponents();
+        this.generateCollections();
+        this.generateComponent();
         Backbone.View.apply(this);
     }
-    // compare() {
-    //     this.collection = this.listComponents.filter((i) => {
-    //         i.getList()
-    //     })
-    // }
-    checkStateCollectionOfComponent(i) {
-        console.log('iii')
-        // if(collection.models.length === this.collection.models.length) {
-        //     // this.compare();
-        // } else {
-        //     this.collection.set(collection.models);
-        // }
+    compare() {
+        this.collection.reset(this.defaultCollection.filter((i) => {
+           return this.checkSimilierBook(i.get('_id'));
+        }));
     }
-    getAllEditableCollections() {
-        this.listComponents.forEach((i) => {
-            if(i.type === 'filtr') {
-                console.log(i.editableCollection.length)
-                this.listCollections.push(i.editableCollection);
+    checkSimilierBook(id) {
+        return this.listCollections.every((i) => {
+            if(i.findWhere({_id: id})) {
+                return true;
             }
+            return false;
         })
     }
-    setListenersForComponents() {
-        for(var i = 0; i < this.listCollections.length; i++) {
-            // this.listenTo(this.listCollections[i], 'reset', this.checkStateCollectionOfComponent.call(this, this.listCollections[i]));
-            // this.listenTo(this.listCollections[i], 'update', this.checkStateCollectionOfComponent.call(this, this.listCollections[i]));
-            // this.listenTo(this.listComponents[i].editableCollection, 'update', this.checkStateCollectionOfComponent.call(this, i));
-        }
+    generateComponent() {
+        this.listComponents.forEach((i, index) => {
+            this.listCreatedComponents.push(new i.construct(i.value, this.listCollections[index], i.selector, i.parent));
+        })
+    }
+    generateCollections() {
+        this.listComponents.forEach((i) => {
+            let collection = this.collection.clone();
+            collection.set(this.collection.models);
+            this.setListenersForComponents(collection);
+            this.listCollections.push(collection);
+        })
+    }
+    setListenersForComponents(collection) {
+            this.listenTo(collection, 'reset', this.compare);
+            this.listenTo(collection, 'update', this.compare);
     }
 }

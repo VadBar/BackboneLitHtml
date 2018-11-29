@@ -33,7 +33,6 @@ module.exports.create = async (req, res) => {
     }
 };
 module.exports.update = async (req, res) => {
-    console.log(req.body)
     try{
          const filt = await filter.findOneAndUpdate(
              {

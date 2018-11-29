@@ -78,8 +78,9 @@ export class PaginationComponent extends Backbone.View {
         return cells;
     }
     getList() {
-        this.model.changeViewList(this.collection);
         this.model.checkCount(this.collection);
+        this.model.getValuesByNumberField(this.model.get('position')); 
+        this.model.changeViewList(this.collection);
         render(this.prepareTemplate(), this.el);
         this.drawStyle();
         return this.model.viewList;

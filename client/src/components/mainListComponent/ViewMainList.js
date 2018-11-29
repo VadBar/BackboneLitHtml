@@ -12,6 +12,7 @@ export class ViewMainList extends Backbone.View {
         this.router = router;
         this.lang = lang;
         this.array = [];
+        this.listComponents = [];
         this.listenTo(this.collection, 'reset', this.render)
         Backbone.View.apply(this);
         this.listenerClickButtonLeft = {
@@ -36,9 +37,9 @@ export class ViewMainList extends Backbone.View {
 		}
         this.render();
         this.listBooks = new ViewListBooks(this.collection, this.router, this.lang, '.mainColumn .list',this);
-        this.filtrBooks = new FilterByUserValueComponent(this.collection, lang, '.mainColumn .filtrByValue', this.listFields, 'kdssadfasdf'); 
         this.generateComponents();
-        this.comparator = new ComparatorFiltratedCollections(this.array, this.collection, this);
+        this.listComponents.push({value: {lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FilterByUserValueComponent, selector: '.mainColumn .filtrByValue', parent: this})
+        this.comparator = new ComparatorFiltratedCollections(this.listComponents, this.collection, this);
     }
     renderList() {
         this.listBooks.render();
@@ -49,15 +50,23 @@ export class ViewMainList extends Backbone.View {
     }
     generateLeftColumn() {
         this.config.leftColumn.components.forEach((i, index) => {
-            i.forEach((i) => {
-                this.array.push(new index(i, this.collection, '.leftColumn .body', this));
+            i.forEach((el) => {
+                if(index.getType() === 'filtr') {
+                    this.listComponents.push({value: el, construct: index, selector: '.leftColumn .body', parent: this});
+                } else {
+                    this.array.push(new index(el, this.collection, '.leftColumn .body', this));
+                }
             })
         })
     }
     generateRightColumn() {
         this.config.rightColumn.components.forEach((i, index) => {
-            i.forEach((i) => {
-                this.array.push(new index(i, this.collection, '.rightColumn .body', this)); 
+            i.forEach((el) => {
+                if(index.getType() === 'filtr') {
+                    this.listComponents.push({value: el, construct: index, selector: '.rightColumn .body', parent: this});
+                } else {
+                    this.array.push(new index(el, this.collection, '.rightColumn .body', this));
+                }
             })
         })
     }

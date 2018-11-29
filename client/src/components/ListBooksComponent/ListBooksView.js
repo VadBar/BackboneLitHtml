@@ -13,7 +13,6 @@ export class ViewListBooks extends Backbone.View {
 		this.list = false;
 		this.stateButtonShowMoreBook = true;
 		this.listenTo(this.lang, 'change', this.render);
-		this.listenTo(this.collection, 'remove', this.render);
 		this.listenTo(this.collection, 'reset', this.generateList);
 		this.listenTo(this.collection, 'update', this.generateList);
 		Backbone.View.apply(this);
@@ -47,10 +46,10 @@ export class ViewListBooks extends Backbone.View {
         	<table class="listBooks">
             	<caption>
                 	<h1>${this.lang.getData('listBooks.title')}</h1>
-           	 </caption>
+           	 	</caption>
             	<thead>
             	<tr>   
-					<th><div>N</div></th>
+					<th><div>N</div></th> 
 					${
 						this.rootComponent.listFields.map((i) => {
 							if(i.state === true) {

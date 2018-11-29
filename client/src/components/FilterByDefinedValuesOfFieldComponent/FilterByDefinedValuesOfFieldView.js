@@ -1,14 +1,14 @@
 import {html, render} from 'lit-html';
 import {FilterByDefinedValuesOfFieldModel} from './FilterByDefinedValuesOfFieldModel.js';
 import {FilterByDefinedValuesOfFieldCollection} from './FilterByDefinedValuesOfFieldCollection.js';
-import {Filtration} from '../MainListComponent/Filtration';
+import {FilterByDefinedValuesOfField} from './FilterByDefinedValuesOfField';
 import { relativeTimeThreshold } from 'moment';
-export class FilterByDefinedValuesOfFieldComponent extends Filtration {
+export class FilterByDefinedValuesOfFieldComponent extends FilterByDefinedValuesOfField {
     constructor(data, collectionValues, selector) {
         super();
         this.collection = FilterByDefinedValuesOfFieldCollection.getSelf();
         this.defaultCollectionValues = collectionValues; 
-        this.collectionValues = collectionValues;
+        this.editableCollection = collectionValues;
         this.data = data;
         this.selector = selector;
         this.model = new FilterByDefinedValuesOfFieldModel();
@@ -19,6 +19,11 @@ export class FilterByDefinedValuesOfFieldComponent extends Filtration {
                this.model.set('list', model[0].list);
                this.model.set('id', model[0].id);
                this.model.set('_id', model[0]._id);
+               super.filtrByValuesFiels(this.editableCollection, this.data.name, this.model.get('list').filter((i) => {
+                if(i.state === true) {
+                    return true;
+                }
+            }));
             } else {
                 this.model.set('name', this.data.name); 
                 this.model.set('list', this.data.list);
@@ -29,12 +34,19 @@ export class FilterByDefinedValuesOfFieldComponent extends Filtration {
         })
     }
     changedField(e) {
-                this.model.changeSteteAndPush(e.target.value);
-                super.filtrByValueField(this.collectionValues, this.data.name, e.target.value);
-                this.model.save();
-    }           
+        this.model.changeSteteAndPush(e.target.value);
+        if(e.target.checked) {
+            super.filtrByNewValueField(this.defaultCollection, this.editableCollection, this.data.name, e.target.value);
+        } else {
+            super.removeUnMendetoryFields(this.defaultCollection, this.editableCollection, this.data.name, e.target.value);
+        }
+        this.model.save();
+    }        
     render() {
         render(this.prepareTemplate(), this.el);
+    }
+    static getType() {
+        return 'filtr';
     }
     prepareTemplate() {
         $(this.selector).append(this.$el);  

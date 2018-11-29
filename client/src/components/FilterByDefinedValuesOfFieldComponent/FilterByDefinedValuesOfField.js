@@ -1,26 +1,13 @@
-import { ManagerColumnsModel } from "../managerColumnsComponent/managerColumnsModel";
-
-export class Filtration extends Backbone.View{
+export class FilterByDefinedValuesOfField extends Backbone.View{
     constructor() {
         super();
-    }
-    filtrByRule(defaultCollection, collection, method, field, state) {
-        if(state) {
-            collection.reset(collection.filter((i) => {
-                if(method(i.get(field))) {
-                    return true;
-                }
-            }))
-        } else {
-            collection.reset(defaultCollection);
-        }
     }
     filtrByValuesFiels(collection, nameField, valueField) {
         collection.reset(collection.filter((i) => {
                 if(Array.isArray(valueField)) {
                     if(valueField.length > 0) {
                         return valueField.some((el) => {
-                            if(i.get(nameField) === el.name) {
+                            if(i.get(nameField).indexOf(el.name) !== -1) {
                                 return true;
                             }
                         })
@@ -32,20 +19,10 @@ export class Filtration extends Backbone.View{
                 }
         }));
     }
-    filtrByUserValue(defaultCollection, collection, value, name) {
-        if(value) {
-            collection.reset(collection.filter((i) => {
-                if(~i.get(name).indexOf(value)) {
-                    return true;
-                }
-            }));
-        } else {
-            collection.reset(defaultCollection);
-        } 
-    }
-    filtrWithoutField(defaultCollection, collection, nameField, valueField) { 
+    removeUnMendetoryFields(defaultCollection, collection, nameField, valueField) { 
+        console.log(defaultCollection, collection, nameField, valueField)
         collection.reset(collection.filter((i) => {
-            if(i.get(nameField) === valueField) {
+            if(i.get(nameField).indexOf(valueField) !== -1) {
                 return false;
             }
             return true;
@@ -62,7 +39,7 @@ export class Filtration extends Backbone.View{
     }
     filtr(collection, nameField, valueField) {
         return collection.filter((i) => {
-            if(i.get(nameField) === valueField) {
+            if(i.get(nameField).indexOf(valueField) !== -1) {
                 return true
             }
         });

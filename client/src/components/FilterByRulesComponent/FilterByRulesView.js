@@ -5,12 +5,10 @@ import {FilterByRules} from './FilterByRules';
 export class FilterByRulesComponent extends FilterByRules{
     constructor(data, collectionValues, selector) {
         super();
-        this.type = 'filtr';
         this.model = new FilterByRulesModel();
-        this.editableCollection = collectionValues.clone();
-        this.editableCollection.set(collectionValues.models);   
+        this.editableCollection = collectionValues;
+        this.defaultCollection = collectionValues.models;
         this.data = data;
-        // this.listenTo(this.model, 'change', super.filtrationByRule(this.collectionValues, this.data.filtrationMethod, this.data.field));
         Backbone.View.apply(this);
         this.collection = FilterByRulesCollection.getSelf();   
         this.selector = selector;
@@ -40,6 +38,9 @@ export class FilterByRulesComponent extends FilterByRules{
     }       
     render() {
         render(this.prepareTemplate(), this.el);
+    }
+    static getType() {
+        return 'filtr';
     }
     prepareTemplate() {
         $(this.selector).append(this.$el);

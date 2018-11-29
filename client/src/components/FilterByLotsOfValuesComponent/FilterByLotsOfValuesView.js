@@ -5,10 +5,8 @@ import {FilterByLotsOfValues} from './FilterByLotsOfValues';
 export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
     constructor(data, collectionValues, selector) {
         super();
-        this.type = 'filtr';
         this.collection = FilterByLotsOfValuesCollection.getSelf();
-        this.editableCollection = collectionValues.clone();
-        this.editableCollection.set(collectionValues.models);
+        this.editableCollection = collectionValues;
         this.defaultCollection = collectionValues.models;
         this.data = data;
         this.selector = selector;
@@ -40,7 +38,7 @@ export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
             }
             this.render();
         })
-    }   
+    }
     changedField(e) {
         this.model.changeSteteAndPush(e.target.value);
         if(e.target.checked) {
@@ -49,7 +47,10 @@ export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
             super.removeUnMendetoryFields(this.defaultCollection, this.editableCollection, this.data.data, e.target.value);
         }
         this.model.save();
-    }              
+    }
+    static getType() {
+        return 'filtr';
+    }
     render() {
         render(this.prepareTemplate(), this.el);
     }

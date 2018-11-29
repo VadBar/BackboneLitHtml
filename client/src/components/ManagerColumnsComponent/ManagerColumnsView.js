@@ -40,6 +40,9 @@ export class ManagerColumnsComponent extends Backbone.View {
             </ul>
         `       
     }
+    static getType() {
+        return 'none';
+    }
     changedField(e) {
         this.model.changeSteteAndPush(e.target.value);
         this.model.save();
