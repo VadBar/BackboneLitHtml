@@ -1,6 +1,6 @@
 export class dragAndDrop {
     constructor({areaSelector=false, activeDragMethod=false, disactiveDragMethod=false, dropMethod=false, dragElementSelector=false, 
-        dragElementMethod=false, dragStartElementMethod=false, dragEndElementMethod=false}) {
+        dragElementMethod=false, dragStartElementMethod=false, dragEndElementMethod=false, mouseMoveMethod=false, mouseDownMethod=false}) {
         this.areaSelector = areaSelector;
         this.activeDragMethod = activeDragMethod;
         this.disactiveDragMethod = disactiveDragMethod;
@@ -9,6 +9,8 @@ export class dragAndDrop {
         this.dragElementMethod = dragElementMethod;
         this.dragStartElementMethod = dragStartElementMethod;
         this.dragEndElementMethod = dragEndElementMethod;
+        // this.mouseMoveMethod = mouseMoveMethod;
+        // this.mouseDownMethod = mouseDownMethod;
         if(this.areaSelector) {
             if(this.activeDragMethod) {
                 this.setListenerActiveDragAndDrop();
@@ -28,16 +30,31 @@ export class dragAndDrop {
             if(this.dragEndElementMethod) {
                 this.setListenerEndDraggingElement();
             }
+            // if(this.mouseMoveMethod) {
+            //     this.setListenerMouseMove();
+            // }
+            // if(this.mouseDownMethod) {
+            //     this.setListenerMouseDown();
+            // }
         }  
     }
     setListenerStartDraggingElement() {
-        document.querySelector(this.dragElementSelector).addEventListener('dragstart', this.dragStartElementMethod, false);
+        let list = document.querySelectorAll(this.dragElementSelector);
+        [].forEach.call(list, (i) => {
+            i.addEventListener('dragstart', this.dragStartElementMethod, false);
+        })
     }
     setListenerEndDraggingElement() {
-        document.querySelector(this.dragElementSelector).addEventListener('dragend', this.dragEndElementMethod, false);
+        let list = document.querySelectorAll(this.dragElementSelector);
+        [].forEach.call(list, (i) => {
+            i.addEventListener('dragend', this.dragEndElementMethod, false);
+        })
     }
-    setListenerDraggingElement() {
-        document.querySelector(this.dragElementSelector).addEventListener('drag', this.dragElementMethod, false);
+    setListenerDraggingElement() { 
+        let list = document.querySelectorAll(this.dragElementSelector);
+        [].forEach.call(list, (i) => {
+            i.addEventListener('drag', this.dragElementMethod, false);
+        })
     }
     setListenerActiveDragAndDrop() {
         ['dragenter', 'dragover'].forEach((i) => {
@@ -52,4 +69,10 @@ export class dragAndDrop {
     setListenerDropEvent() {
         document.querySelector(this.areaSelector).addEventListener('drop', this.dropMethod, false);
     }
+    // setListenerMouseMove() {
+    //     document.querySelector(this.dragElementSelector).addEventListener('mousemove', this.mouseMoveMethod, false);
+    // }
+    // setListenerMouseDown() {
+    //     document.querySelector(this.dragElementSelector).addEventListener('mousedown', this.MouseDownMethod, false);
+    // }
 }
