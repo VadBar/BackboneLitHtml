@@ -8,20 +8,20 @@ export class ViewImgUploader {
         this.model = new ModelImgUploader();
         this.lang = lang;
         this.drawUploader(Id);
-        this.field =  document.querySelector(`#${Id} .image .menu input`);
-        this.body = document.querySelector(`#${Id} .image .body`);
+        this.field =  document.querySelector(`#${Id} .FormImage .menu input`);
+        this.body = document.querySelector(`#${Id} .FormImage .bodyOfFormImage`);
         this.setListenerChangeImg();
         this.dragObj = {
-            areaSelector: `#${Id} .image .body`,
+            areaSelector: `#${Id} .FormImage .bodyOfFormImage`,
             activeDragMethod: function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                document.querySelector(`#${Id} .image .body`).classList.add('activeDrag');
+                document.querySelector(`#${Id} .FormImage .bodyOfFormImage`).classList.add('activeDrag');
             }, 
             disactiveDragMethod: function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                document.querySelector(`#${Id} .image .body`).classList.remove('activeDrag');
+                document.querySelector(`#${Id} .FormImage .bodyOfFormImage`).classList.remove('activeDrag');
             },
             dropMethod: function(e) {
                 e.stopPropagation();
@@ -41,11 +41,11 @@ export class ViewImgUploader {
         this.mainModel.set(this.fieldImg, image);
     }
     showDefaultBody() {
-        document.querySelector('.uploadImg').style.display = 'block';
+        document.querySelector('.FormImage .bodyOfFormImage .uploadImg').style.display = 'block';
         this.body.style.outline = '4px doshed silver';
     }
     hideDefaultBody() { 
-        document.querySelector('.uploadImg').style.display = 'none';
+        document.querySelector('.FormImage .bodyOfFormImage .uploadImg').style.display = 'none';
         this.body.style.outline = 'none';
     }
     setImg(imageUrl) {
@@ -87,17 +87,15 @@ export class ViewImgUploader {
     }
     prepareUploader() {
         return html`
-        <div class="image" name="image">
-        <div class="body">
-            <div class="uploadImg"></div>
+        <span class="FormImage" name="image">  
+        <div class="bodyOfFormImage">
+            <div class="uploadImg"></div> 
         </div>
-        <div class="menu">
-            <label class="loadImg">
-                ${this.lang.getData('loadImg.title')}
-                <input type="file" name="image">
-            <label>
-        </div>
-    </div>
+        <div class="menu">    
+                <span>${this.lang.getData('loadImg.title')} </span>
+                <input type="file" name="image">     
+        </div>  
+    </span>    
         `
     }
 }

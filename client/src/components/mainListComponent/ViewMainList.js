@@ -35,6 +35,7 @@ export class ViewMainList extends Backbone.View {
 				this.hideRightColumn();
 			}
 		}
+		console.log(router);
         this.render();
         this.listBooks = new ViewListBooks(this.collection, this.router, this.lang, '.mainColumn .list',this);
         this.generateComponents();

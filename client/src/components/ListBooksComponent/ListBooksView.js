@@ -7,6 +7,7 @@ export class ViewListBooks extends Backbone.View {
 		super();
 		this.collection = collection;
 		this.router = router;
+		console.log(this.router);
 		this.lang = lang;
 		this.self = this;
 		this.rootComponent = rootComponent;

@@ -98,8 +98,8 @@ export class RouterBooks extends Backbone.Router {
 				{name: 'amount', data: 'amount', state: true}, 
 				{name: 'publishing house', data: 'homePrinting', state: true}, 
 			]
-		}
-		this.ViewMainList = new ViewMainList(this.router, this.lang, this.coll, config, '.content');
+		};
+		this.ViewMainList = new ViewMainList(this, this.lang, this.coll, config, '.content');
 	}
 	addBookPage() {
 		this.preperingWindow();
