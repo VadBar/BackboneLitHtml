@@ -15,7 +15,7 @@ const bookSchema = new Schema({
                 type: String,
                 required: true
             },
-            state: {
+            visible: {
                 type: Boolean,
                 required: true
             },

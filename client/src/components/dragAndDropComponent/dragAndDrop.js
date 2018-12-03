@@ -1,4 +1,4 @@
-export class dragAndDrop {
+export class DragAndDrop {
     constructor({areaSelector=false, activeDragMethod=false, disactiveDragMethod=false, dropMethod=false, dragElementSelector=false, 
         dragElementMethod=false, dragStartElementMethod=false, dragEndElementMethod=false, mouseMoveMethod=false, mouseDownMethod=false}) {
         this.areaSelector = areaSelector;
@@ -23,7 +23,7 @@ export class dragAndDrop {
         if(this.dragElementSelector) {
             if(this.dragElementMethod) {
                 this.setListenerDraggingElement();
-            }
+            } 
             if(this.dragStartElementMethod) {
                 this.setListenerStartDraggingElement();
             }

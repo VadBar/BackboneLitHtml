@@ -1,6 +1,6 @@
 import {html, render} from 'lit-html';
 import {ModelImgUploader} from './ModelImgUploader';
-import {dragAndDrop} from  '../dragAndDropComponent/dragAndDrop';
+import {DragAndDrop} from  '../DragAndDropComponent/DragAndDrop';
 export class ViewImgUploader {
     constructor(Id, lang, model, field) {
         this.mainModel = model;
@@ -32,7 +32,7 @@ export class ViewImgUploader {
                 this.showImg(files[0]);
             }.bind(this)
         }
-        this.drag = new dragAndDrop(this.dragObj);
+        this.drag = new DragAndDrop(this.dragObj);
     }
     setListenerChangeImg() {
         this.field.addEventListener('change', this.showImg.bind(this));

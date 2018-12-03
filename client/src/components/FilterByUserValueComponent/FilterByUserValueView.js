@@ -4,13 +4,13 @@ import {FilterByUserValueModel} from './FilterByUserValueModel';
 import {FilterByUserValueCollection} from './FilterByUserValueCollection';
 import {FilterByUserValue} from './FilterByUserValue';
 export class FilterByUserValueComponent extends FilterByUserValue {
-	constructor(data, collection, selector) {
+	constructor(data, collection, lang, selector) {
 		super();
 		this.model = new FilterByUserValueModel();
 		this.myCollection = FilterByUserValueCollection.getSelf();
         this.editableCollection = collection;
 		this.defaultCollection = collection.models;
-		this.lang = data.lang;
+		this.lang = lang;
 		this.id = data.id;
 		this.el =  selector;
 		this.listFields = data.listFields;

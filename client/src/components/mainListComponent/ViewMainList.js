@@ -11,12 +11,13 @@ export class ViewMainList extends Backbone.View {
         this.listFields = config.listFields;
         this.router = router;
         this.lang = lang;
+        this.listenTo(this.lang, 'change', this.render);
         this.array = [];
         this.listComponents = [];
         this.listenTo(this.collection, 'reset', this.render)
         Backbone.View.apply(this);
         this.listenerClickButtonLeft = {
-			handleEvent() {
+			handleEvent() {   
 				this.showLeftColumn();
 			}
         }
@@ -35,12 +36,11 @@ export class ViewMainList extends Backbone.View {
 				this.hideRightColumn();
 			}
 		}
-		console.log(router);
         this.render();
         this.listBooks = new ViewListBooks(this.collection, this.router, this.lang, '.mainColumn .list',this);
         this.generateComponents();
         this.listComponents.push({value: {lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FilterByUserValueComponent, selector: '.mainColumn .filtrByValue', parent: this})
-        this.comparator = new ComparatorFiltratedCollections(this.listComponents, this.collection, this);
+        this.comparator = new ComparatorFiltratedCollections(this.listComponents, this.collection, this.lang, this);
     }
     renderList() {
         this.listBooks.render();
@@ -49,13 +49,19 @@ export class ViewMainList extends Backbone.View {
         this.generateLeftColumn();
         this.generateRightColumn();
     }
+    removeChild() {
+        this.listBooks.remove();
+        // for(let i = 0; i < this.listComponents.length; i++) {
+        //     this.listComponents[i].remove();
+        // }
+    }
     generateLeftColumn() {
         this.config.leftColumn.components.forEach((i, index) => {
             i.forEach((el) => {
                 if(index.getType() === 'filtr') {
                     this.listComponents.push({value: el, construct: index, selector: '.leftColumn .body', parent: this});
                 } else {
-                    this.array.push(new index(el, this.collection, '.leftColumn .body', this));
+                    this.array.push(new index(el, this.collection, this.lang, '.leftColumn .body', this));
                 }
             })
         })
@@ -66,7 +72,7 @@ export class ViewMainList extends Backbone.View {
                 if(index.getType() === 'filtr') {
                     this.listComponents.push({value: el, construct: index, selector: '.rightColumn .body', parent: this});
                 } else {
-                    this.array.push(new index(el, this.collection, '.rightColumn .body', this));
+                    this.array.push(new index(el, this.collection, this.lang, '.rightColumn .body', this));
                 }
             })
         })
@@ -79,7 +85,7 @@ export class ViewMainList extends Backbone.View {
                 <div class="body">
                     <div class="headerL">
                         <div class="closeImg" @click=${this.listenerClickHideLeft.handleEvent.bind(this)}><img src="./image/baseline-clear-24px.svg" class="closeColumn"></div>
-                        <div class="titleColumn"><h2>Filters</h2></div>  
+                        <div class="titleColumn"><h2></h2></div>  
                     </div>
                 </div>
             </div>
@@ -90,18 +96,18 @@ export class ViewMainList extends Backbone.View {
                     <div class="filter">          
                         <div class="filtrByValue"></div>
                         <div class="buttons">
-                            <button class="showLeftColumn" @click="${this.listenerClickButtonLeft.handleEvent.bind(this)}">ShowLeft</button>
-                            <button class="showRightColumn" @click="${this.listenerClickButtonRight.handleEvent.bind(this)}">ShowRight</button>
+                            <button class="showLeftColumn" @click="${this.listenerClickButtonLeft.handleEvent.bind(this)}">${this.lang.getData('filtration.buttons.left')}</button>
+                            <button class="showRightColumn" @click="${this.listenerClickButtonRight.handleEvent.bind(this)}">${this.lang.getData('filtration.buttons.right')}</button>
                         </div>
                     </div>
                     <div class="list"></div>
                 </div>
-            </div>
+            </div> 
             <div class="rightColumn">
                 <div class="body">
                     <div class="headerL">
                         <div class="closeImg" @click=${this.listenerClickHideRight.handleEvent.bind(this)}><img src="./image/baseline-clear-24px.svg" class="closeColumn"></div>
-                        <div class="titleColumn"><h2>Columns</h2></div>  
+                        <div class="titleColumn"><h2></h2></div>  
                     </div>
                 </div>
             </div>
@@ -116,7 +122,7 @@ export class ViewMainList extends Backbone.View {
     }
     showRightColumn() {
         if(document.querySelector('.rightColumn').classList.contains('hideRight')) {
-            document.querySelector('.rightColumn').classList.remove('hideRight');
+            document.querySelector('.rightColumn').classList.remove('hideRight'); 
         }
         document.querySelector('.rightColumn').classList.add('showRight');
     }

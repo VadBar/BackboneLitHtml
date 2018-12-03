@@ -1,3 +1,10 @@
+:root[theme='first'] {
+    --text-color: white;
+   
+}
+:root[theme='second'] {
+    --text-color: #0e613a;
+}
 .pagination {
     list-style: none;
     width: 100%;
@@ -6,6 +13,7 @@
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+    color: var(--text-color);
 }
 .pagination > li {
     height: 50px;

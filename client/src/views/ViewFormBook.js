@@ -7,7 +7,6 @@ export class ViewFormBook extends ViewBinding {
 		this.collection = obj.collection;
 		this.router = obj.router;
 		this.lang = obj.lang;
-		console.log(obj)
 		this.defineWindow(obj);
 		this.listenTo(this.lang, 'change', this.render);
 		this.listenTo(this.collection, 'add', this.blockButton);

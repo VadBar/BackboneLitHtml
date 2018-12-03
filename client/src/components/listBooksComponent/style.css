@@ -48,22 +48,17 @@
     width: 100%;
     min-width: 100%;
     max-width: 100%;
-}
-.listBooks caption {
-    margin-bottom: 20px;
-}
-.listBooks tr {
     display: grid;
     grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-    grid-template-rows: 100%;
     align-content: stretch;
-    height: 60px;
-    min-width: 100%;
-    width: 100%;
 }
-.listBooks td {
+.listBooks > .itemList {
     border-top: 1px solid gray;
     border-right: 1px solid gray;
+}
+.listBooks > .headerList {
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
 }
 .listBooks tbody tr {
     opacity: var(--list-tr-active-opacity);
@@ -72,28 +67,28 @@
     opacity: var(--list-tr-active-opacity);
     background-color: var(--list-tr-active-background);
 }
-.listBooks td, th {
+.listBooks > div {
     display: inline-grid;
-    min-height: 100%;
+    min-height: 60px;
     z-index: 100;
 }
-.listBooks td, th > div {
+.listBooks > div > div {
     min-height: 100%;
     min-width: 100%;
     display: flex;
+    flex-flow: column wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     z-index: 10;
-}
-.listBooks td > div {
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 .editBookButton {
     background: var(--button-edit-background);
     color: var(--button-edit-default-text-color);
     flex: 1 1 50%;
+    max-height: 50%;
 }
 .editBookButton:hover {
     background: var(--button-edit-active-background);
@@ -103,6 +98,7 @@
     background: var(--button-delete-background);
     color: var(--button-delete-default-text-color);
     flex: 1 1 50%;
+    max-height: 50%;
 }
 .deleteBookButton:hover {
     background: var(--button-delete-active-background);
@@ -112,10 +108,11 @@
     max-height: 10%;
 }
 .side {
-    width: 2%;
+    display: block;
+    width: 2px;
     height: 100%;
-    background-color: black;
-    margin-left: auto;
+    align-self: flex-end;
+    /* background-color: black; */
 }
 .side:hover {
     cursor: col-resize;

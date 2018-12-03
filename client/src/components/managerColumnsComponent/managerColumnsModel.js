@@ -71,16 +71,9 @@ export class ManagerColumnsModel extends Backbone.Model {
     changeSteteAndPush(value) {
         this.set('list', this.get('list').map((i) => {  
             if(i.data === value) {
-                i.state = !i.state;
+                i.visible = !i.visible;
             }
             return i;
         }));
-    }
-    getFullListValuesByField(collection, field) {     
-        var list = [];
-        collection.models.forEach((i) => {
-            list.push({name: i.get(field), state: false, data: i.get('_id')});
-        });
-        return list;
     }
 }

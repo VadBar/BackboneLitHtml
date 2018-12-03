@@ -16,8 +16,9 @@ export class PaginationComponent extends Backbone.View {
 			handleEvent(e) {
                 this.model.getValuesByNumberField(e.target.getAttribute('name'));
                 this.model.changeViewList(this.collection);
-                this.drawStyle();
                 this.listI.generateList(); 
+                // this.drawStyle();
+               
 			}
         };   
         this.myCollection.fetch(this.id)
@@ -62,7 +63,7 @@ export class PaginationComponent extends Backbone.View {
     }
     prepareCells() {
         let cells = [];
-        if(this.model.count > this.model.get('step')) {
+        if((this.model.count - this.model.get('position') + 1) > 6) {
             for(var i = this.model.get('position'); i < this.model.get('position') + 3; i++) {
                 cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}<div></li>`);
             }
@@ -71,12 +72,12 @@ export class PaginationComponent extends Backbone.View {
                 cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}</div></li>`)
             }
         } else {
-            for(var i = 0; i < this.model.count; i++) {
-                cells.push(html`<li><div name=${i+ 1}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i + 1}<div></li>`);
+            for(var i = this.model.count - 6; i < this.model.count; i++) {
+                cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}<div></li>`);
             }
-        }
+        } 
         return cells;
-    }
+    }     
     getList() {
         this.model.checkCount(this.collection);
         this.model.getValuesByNumberField(this.model.get('position')); 

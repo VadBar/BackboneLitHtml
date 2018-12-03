@@ -5,7 +5,15 @@
     },
     "filtration": {
         "title": "Filtration",
-        "buttonFiltration": "Filtration"
+        "buttonFiltration": "Filtration",
+        "available": "Available",
+        "yes": "Yes",
+        "no": "No",
+        "columns": "Columns",
+        "buttons": {
+            "left": "Show left",
+            "right": "Show right"
+        }
     },
     "listBooks": {
         "title": "List books",

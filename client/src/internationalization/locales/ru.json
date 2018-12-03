@@ -5,7 +5,15 @@
     },
     "filtration": {
         "title": "Фильтрация",
-        "buttonFiltration": "Фильтрация"
+        "buttonFiltration": "Фильтрация",
+        "available": "Доступен",
+        "yes": "Да",
+        "no": "Нет",
+        "columns": "Колонки",
+        "buttons": {
+            "left": "Показать левую",
+            "right": "Показать правую"
+        }
     },
     "listBooks": {
         "title": "Список книг",

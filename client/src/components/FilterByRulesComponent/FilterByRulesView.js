@@ -3,11 +3,14 @@ import {FilterByRulesCollection} from './FilterByRulesCollection.js';
 import {FilterByRulesModel} from './FilterByRulesModel.js';
 import {FilterByRules} from './FilterByRules';
 export class FilterByRulesComponent extends FilterByRules{
-    constructor(data, collectionValues, selector) {
+    constructor(data, collectionValues, lang, selector) {
         super();
         this.model = new FilterByRulesModel();
         this.editableCollection = collectionValues;
         this.defaultCollection = collectionValues.models;
+        this.lang = lang;
+        this.listenTo(this.lang, 'change', this.render);
+        Backbone.View.apply(this);
         this.data = data;
         Backbone.View.apply(this);
         this.collection = FilterByRulesCollection.getSelf();   
@@ -46,9 +49,9 @@ export class FilterByRulesComponent extends FilterByRules{
         $(this.selector).append(this.$el);
         return html`
             <ul class="groupRadio">
-            <h2>${this.data.name}</h2>
-               <li><label>Yes<input type="radio" name=${this.data.name} value="yes" ?checked=${this.model.get('state')} @click=${this.listenerChangeStateFiltration.bind(this)}></label></li>
-               <li><label>No<input type="radio" name=${this.data.name} value="no" ?checked=${!this.model.get('state')}  @click=${this.listenerChangeStateFiltration.bind(this)}></label></li>
+            <h2>${this.lang.getData(`filtration.${this.data.data}`)}</h2>
+               <li><label>${this.lang.getData(`filtration.yes`)}<input type="radio" name=${this.data.name} value="yes" ?checked=${this.model.get('state')} @click=${this.listenerChangeStateFiltration.bind(this)}></label></li>
+               <li><label>${this.lang.getData(`filtration.no`)}<input type="radio" name=${this.data.name} value="no" ?checked=${!this.model.get('state')}  @click=${this.listenerChangeStateFiltration.bind(this)}></label></li>
             </ul>
         `;
     }

@@ -33,6 +33,9 @@ export class RouterBooks extends Backbone.Router {
 		Backbone.Router.apply(this); 
 	}
 	preperingWindow() {
+		if(this.ViewMainList) {
+			this.ViewMainList.removeChild();
+		}
 		for(var el in this) {
 			if(this.hasOwnProperty(el)){ 
 				if(el !== 'routes' && el !== 'model' && el !== 'coll' && el !== '_events' && el !== 'lang' && el !== 'header' && el !== 'override') {
@@ -79,7 +82,7 @@ export class RouterBooks extends Backbone.Router {
 					// 	{name: 'History', data: 20, state: false}
 					// 	], id: 'lskafsldfk'}]
 					// ],
-					[FilterByRulesComponent, [{name: 'Available', field: 'amount', state: false, 
+					[FilterByRulesComponent, [{name: 'Available', data: 'available', field: 'amount', state: false, 
 					filtrationMethod: (value) => {
 						return value > 1;
 					},
@@ -87,16 +90,16 @@ export class RouterBooks extends Backbone.Router {
 			])
 			},
 			rightColumn: {
-				components: new Map([[ManagerColumnsComponent, [{name: 'columns',  id: 'lkdfsfddd'}]]])
+				components: new Map([[ManagerColumnsComponent, [{name: 'columns', data: 'columns',  id: 'lkdfsfddd'}]]])
 			},
 			listFields:  [
-				{name: 'name', data: 'name', state: true},
-				{name: 'author', data: 'author', state: true},
-				{name: 'year', data: 'year', state: true},
-				{name: 'count of pages', data: 'countOfPage', state: true},
-				{name: 'price', data: 'price', state: true}, 
-				{name: 'amount', data: 'amount', state: true}, 
-				{name: 'publishing house', data: 'homePrinting', state: true}, 
+				{name: 'name', data: 'name', visible: true},
+				{name: 'author', data: 'author', visible: true},
+				{name: 'year', data: 'year', visible: true},
+				{name: 'count of pages', data: 'countOfPage', visible: true},
+				{name: 'price', data: 'price', visible: true}, 
+				{name: 'amount', data: 'amount', visible: true}, 
+				{name: 'publishing house', data: 'homePrinting', visible: true}, 
 			]
 		};
 		this.ViewMainList = new ViewMainList(this, this.lang, this.coll, config, '.content');

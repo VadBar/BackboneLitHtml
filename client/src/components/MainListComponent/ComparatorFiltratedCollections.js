@@ -1,7 +1,8 @@
 export class ComparatorFiltratedCollections extends Backbone.View {
-    constructor(listComponents, collection, parent) {
+    constructor(listComponents, collection, lang, parent) {
         super();
         this.collection = collection;
+        this.lang = lang;
         this.defaultCollection = collection.models;
         this.listComponents = listComponents;
         this.listCreatedComponents = [];
@@ -21,12 +22,12 @@ export class ComparatorFiltratedCollections extends Backbone.View {
             if(i.findWhere({_id: id})) {
                 return true;
             }
-            return false;
+            return false; 
         })
     }
     generateComponent() {
         this.listComponents.forEach((i, index) => {
-            this.listCreatedComponents.push(new i.construct(i.value, this.listCollections[index], i.selector, i.parent));
+            this.listCreatedComponents.push(new i.construct(i.value, this.listCollections[index], this.lang,  i.selector, i.parent));
         })
     }
     generateCollections() {

@@ -1,3 +1,10 @@
+:root[theme='first'] {
+    --columns-color: black;
+   
+}
+:root[theme='second'] {
+    --columns-color: #68940f;
+}
 .grid-container {
     margin: 0 auto;
     display: grid;
@@ -51,7 +58,7 @@
     width: 30%;
 }
 .leftColumn, .rightColumn {
-   background-color: black;
+   background-color: var(--columns-color);
 }
 .leftColumn {
     margin-left: 100%;

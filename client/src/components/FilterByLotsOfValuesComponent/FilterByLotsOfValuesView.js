@@ -3,11 +3,15 @@ import {FilterByLotsOfValuesModel} from './FilterByLotsOfValuesModel.js';
 import {FilterByLotsOfValuesCollection} from './FilterByLotsOfValuesCollection.js';
 import {FilterByLotsOfValues} from './FilterByLotsOfValues';
 export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
-    constructor(data, collectionValues, selector) {
+    constructor(data, collectionValues, lang, selector) {
         super();
+
         this.collection = FilterByLotsOfValuesCollection.getSelf();
         this.editableCollection = collectionValues;
         this.defaultCollection = collectionValues.models;
+        this.lang = lang;
+        this.listenTo(this.lang, 'change', this.render);
+        Backbone.View.apply(this);
         this.data = data;
         this.selector = selector;
         this.model = new FilterByLotsOfValuesModel();
@@ -58,7 +62,7 @@ export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
         $(this.selector).append(this.$el);
         return html`
             <ul class="groupName">
-            <h2>${this.data.name}</h2>
+            <h2>${this.lang.getData(`fields.${this.data.data}`)}</h2>
                 ${this.generateList()}
             </ul>
         `       
@@ -66,7 +70,7 @@ export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
     generateList() {
         let list = []; 
             this.model.get('list').forEach((i) => {
-                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.name} ?checked=${i.state}  @change=${this.changedField.bind(this)} ></li>`)
+                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.name} name=${this.data.data} ?checked=${i.state}  @change=${this.changedField.bind(this)} ></li>`)
                 });
         return list;
     }

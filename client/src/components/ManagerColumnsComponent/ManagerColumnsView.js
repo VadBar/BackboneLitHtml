@@ -2,12 +2,15 @@ import {html, render} from 'lit-html';
 import {ManagerColumnsModel} from './ManagerColumnsModel.js';
 import {ManagerColumnsCollection} from './ManagerColumnCollection.js';
 export class ManagerColumnsComponent extends Backbone.View {
-    constructor(data, collectionValues, selector, rootComponent) {
+    constructor(data, collectionValues, lang, selector, rootComponent) {
         super();
         this.rootComponent = rootComponent;
         this.listFields = this.rootComponent.listFields;
         this.collection = ManagerColumnsCollection.getSelf();
         this.collectionValues = collectionValues;  
+        this.lang = lang;
+        this.listenTo(this.lang, 'change', this.render);
+        Backbone.View.apply(this);
         this.data = data;
         this.selector = selector;
         this.model = new ManagerColumnsModel();
@@ -35,7 +38,7 @@ export class ManagerColumnsComponent extends Backbone.View {
         $(this.selector).append(this.$el);
         return html`
             <ul class="groupName">
-            <h2>${this.data.name}</h2>
+            <h2>${this.lang.getData(`filtration.${this.data.data}`)}</h2>
                 ${this.generateList()}
             </ul>
         `       
@@ -55,7 +58,7 @@ export class ManagerColumnsComponent extends Backbone.View {
     generateList() {
         let list = []; 
             this.model.get('list').forEach((i) => {
-                list.push(html`<li><span>${i.name}</span><input type="checkbox" .value=${i.data} name=${this.data.name} ?checked=${i.state}  @change=${this.changedField.bind(this)} ></li>`)
+                list.push(html`<li><span>${this.lang.getData(`fields.${i.data}`)}</span><input type="checkbox" .value=${i.data} name=${this.data.name} ?checked=${i.visible}  @change=${this.changedField.bind(this)} ></li>`)
                 });
         return list;
     }
