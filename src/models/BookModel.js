@@ -1,27 +1,30 @@
 import { isArray } from "util";
 
-export class ModelBook extends Backbone.Model {
+export class BookModel extends Backbone.Model {
 	
 	constructor(attrs, options) {
 		super();
-		this.defaults = {
-				name: '',
-				author: '',
-				year:  new Date().getFullYear(),
-				countOfPage: 1,
-				price: 1,
-				amount: 1,
-				homePrinting: '',
-				genres: [],
-				image: ''
-				};
-		this.on('pushCheckedGenres', this.pushCheckedGenres);
-		this.idAttribute = "_id";
 		Backbone.Model.apply(this, [attrs, options]);
 		this.prepareValidationList();
 		this.prepareFiltrationList();
 		this.prepareLanguageList();
 		this.prepareThemeList();
+	}
+	get defaults() {
+		return {
+			name: '',
+			author: '',
+			year:  new Date().getFullYear(),
+			countOfPage: 1,
+			price: 1,
+			amount: 1,
+			homePrinting: '',
+			genres: [],
+			image: ''
+			};
+	}
+	get idAttribute() {
+		return "_id";
 	}
 	save() {
 		var id = this.idAttribute;

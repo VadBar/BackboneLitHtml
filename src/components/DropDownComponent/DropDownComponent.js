@@ -1,6 +1,9 @@
 import {html, render} from 'lit-html';
 import {ModelDropDown} from './ModelDropDown.js';
 export class DropDownComponent {
+    /**@param {string} Id - indeficator of element where DropDownComponent will be pushed
+     * @param {object.<string, string>} list - list of objects for drawing DropDownComponent;
+     */
     constructor(Id, list) {
         this.model = new ModelDropDown();
         this.drawField(Id);
@@ -13,6 +16,7 @@ export class DropDownComponent {
         this.setListenersClicksList(field, container);
         this.setListenerMoveOutFromDropDown(dropDown, container, field);
     }
+    /**@description this method set type of filtr for attribute of input*/
     initializeField(field, value) {
         field.value = value.name;
         field.setAttribute('data', value.data);
@@ -42,9 +46,11 @@ export class DropDownComponent {
             render('', container);
         });
     }
+    /**@description this method execute rendering html template DropDownComponent */
     drawField(Id) {
         render(this.prepareField(), document.getElementById(Id));
     }
+    /**@description this method execute prepering html template for rendering */
     prepareField() {
         return html`     
         <div class="dropDown">         
@@ -53,6 +59,7 @@ export class DropDownComponent {
         </div>
         `; 
     }
+    /**@description this method execute prepering template of each element of list values  */
     prepareDropDown(list) {  
         return html`
             ${

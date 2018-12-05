@@ -1,5 +1,5 @@
 import {html, render} from 'lit-html';
-import {DropDownComponent} from '../../DropDownComponent/DropDownComponent.js';
+import {DropDownComponent} from '../../../DropDownComponent/DropDownComponent.js';
 import {FilterByUserValueModel} from './FilterByUserValueModel';
 import {FilterByUserValueCollection} from './FilterByUserValueCollection';
 import {FilterByUserValue} from './FilterByUserValue';

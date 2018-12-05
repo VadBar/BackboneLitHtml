@@ -2,6 +2,11 @@ import {html, render} from 'lit-html';
 import {ModelImgUploader} from './ModelImgUploader';
 import {DragAndDrop} from  '../../intarfaces/DragAndDrop';
 export class ImgUploaderComponent {
+    /**@param {string} Id - indificator of element where this component will be inserted
+     * @param {Lang} lang - internationalization module
+     * @param {BookModel} model - model of book
+     * @param {string} field - name field of model where image will be pushed
+     */
     constructor(Id, lang, model, field) {
         this.mainModel = model;
         this.fieldImg = field;

@@ -1,5 +1,5 @@
 import {html, render} from 'lit-html';
-import {FilterByUserValueComponent} from '../../Filtrs/FilterByUserValueComponent/FilterByUserValueComponent';
+import {FilterByUserValueComponent} from '../Filtrs/FilterByUserValueComponent/FilterByUserValueComponent';
 import {ListBooksComponent} from '../ListBooksComponent/ListBooksComponent';
 import {ComparatorFiltratedCollections} from './ComparatorFiltratedCollections';
 export class AdvancedTableComponent extends Backbone.View {

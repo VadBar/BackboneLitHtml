@@ -2,15 +2,14 @@ import {PaginationModel} from './PaginationModel.js';
 export class PaginationCollection extends Backbone.Collection {
     constructor() {
         super();
-        this.model = PaginationModel;
-        this.sync = this.overrideSync;
-        this.fetch = this.myFetch;
-        Backbone.Collection.apply(this);
     }
-    myFetch(id) {
+    get model() {
+        return PaginationModel;
+    }
+    fetch(id) {
 		return this.sync('read', id);
 	}
-    overrideSync(method, id) {
+    sync(method, id) {
 		if(method === 'read') {
 			return new Promise((resolve, reject) => {
 				fetch(`http://localhost:5000/api/pagination/${id}`, {
@@ -30,7 +29,10 @@ export class PaginationCollection extends Backbone.Collection {
                 })
 			})
 		}
-	}
+    }
+    /**@static
+     * @returns this method return object collection
+     */
     static getSelf() {
         this.self = this.self ? this.self:  new this();
         return this.self;

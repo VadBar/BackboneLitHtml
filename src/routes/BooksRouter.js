@@ -1,13 +1,13 @@
-import {ModelBook} from '../models/ModelBook.js';
+import {BookModel} from '../models/BookModel.js';
 import {BooksCollection} from '../collections/BooksCollection.js';
 import {BookForm} from '../pages/BookForm.js';   
 import {AdvancedTableComponent} from '../components/AdvancedTable/AdvancedTableComponent/AdvancedTableComponent.js';
 import {ListOfGenres} from '../pages/ListOfGenres.js';
-import {HeaderOfPage} from '../pages/HeaderOfPage.js';
-import {FilterByLotsOfValuesComponent} from '../components/Filtrs/FilterByLotsOfValuesComponent/FilterByLotsOfValuesComponent.js';
-import {FilterByRulesComponent} from '../components/Filtrs/FilterByRulesComponent/FilterByRulesComponent.js';
+import {HeaderOfPage} from '../shared/HeaderOfPage.js';
+import {FilterByLotsOfValuesComponent} from '../components/AdvancedTable/Filtrs/FilterByLotsOfValuesComponent/FilterByLotsOfValuesComponent.js';
+import {FilterByRulesComponent} from '../components/AdvancedTable/Filtrs/FilterByRulesComponent/FilterByRulesComponent.js';
 import {ManagerColumnsComponent} from '../components/AdvancedTable/ManagerColumnsComponent/ManagerColumnsComponent.js';
-export class RouterBooks extends Backbone.Router {
+export class BooksRouter extends Backbone.Router {
 	
 	constructor() {
 		super();     
@@ -20,8 +20,9 @@ export class RouterBooks extends Backbone.Router {
 			"check/:id":"changeCheckedGenres",
 			"fromForm": "clearViewForm"
 		};
-		this.model = new ModelBook(); 
+		this.model = new BookModel(); 
 		this.coll = new BooksCollection();
+		console.dir(this.model.__proto__);
 		this.header = new HeaderOfPage(this.model);
 		this.lang = this.header.returnLanguage();
 		this.coll.fetch()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
