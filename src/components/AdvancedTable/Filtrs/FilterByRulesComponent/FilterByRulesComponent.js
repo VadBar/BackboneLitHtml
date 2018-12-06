@@ -3,7 +3,7 @@ import {FilterByRulesCollection} from './FilterByRulesCollection.js';
 import {FilterByRulesModel} from './FilterByRulesModel.js';
 import {FilterByRules} from './FilterByRules';
 export class FilterByRulesComponent extends FilterByRules{
-    constructor(data, collectionValues, lang, selector) {
+    constructor(data, collectionValues, lang, selector, AdvanceTableCollection) {
         super();
         this.model = new FilterByRulesModel();
         this.editableCollection = collectionValues;

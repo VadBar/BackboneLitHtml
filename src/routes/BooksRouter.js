@@ -8,7 +8,6 @@ import {FilterByLotsOfValuesComponent} from '../components/AdvancedTable/Filtrs/
 import {FilterByRulesComponent} from '../components/AdvancedTable/Filtrs/FilterByRulesComponent/FilterByRulesComponent.js';
 import {ManagerColumnsComponent} from '../components/AdvancedTable/ManagerColumnsComponent/ManagerColumnsComponent.js';
 export class BooksRouter extends Backbone.Router {
-	
 	constructor() {
 		super();     
 		this.routes = {
@@ -22,7 +21,6 @@ export class BooksRouter extends Backbone.Router {
 		};
 		this.model = new BookModel(); 
 		this.coll = new BooksCollection();
-		console.dir(this.model.__proto__);
 		this.header = new HeaderOfPage(this.model);
 		this.lang = this.header.returnLanguage();
 		this.coll.fetch()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
@@ -32,6 +30,9 @@ export class BooksRouter extends Backbone.Router {
 		});
 		Backbone.Router.apply(this); 
 	}
+	/**
+	 * @description the method deletes all component
+	 */
 	preperingWindow() {
 		if(this.ViewMainList) {
 			this.ViewMainList.removeChild();
@@ -49,10 +50,16 @@ export class BooksRouter extends Backbone.Router {
 		this.createNewModel();
 		this.navigate('list', {trigger: true});
 	}
+	/**
+	 * @description the method create new model of book
+	 */
 	createNewModel() {
 		delete this.model;
 		this.model = new ModelBook();
 	}
+	/**
+	 * @description the method create AdvancedTableComponent
+	 */
 	listBooksPage() {
 		this.preperingWindow();
 		let config = {
@@ -104,18 +111,32 @@ export class BooksRouter extends Backbone.Router {
 		};
 		this.AdvancedTable = new AdvancedTableComponent(this, this.lang, this.coll, config, '.content');
 	}
+	/**
+	 * @description the method create page 'ADD BOOK'
+	 */
 	addBookPage() {
 		this.preperingWindow();
 		this.BookForm = new BookForm({model: this.model, collection:this.coll, router: this, lang: this.lang});
 	}
-	editBookPage(params) {
+	/**
+	 * 
+	 * @param {string} id - the identificator of editable book 
+	 * @description the method create page 'EDIT BOOK'
+	 */
+	editBookPage(id) {
 		this.preperingWindow();
-		this.BookFormEdit = new BookForm({collection:this.coll, router: this, lang: this.lang, id: params});
+		this.BookFormEdit = new BookForm({collection:this.coll, router: this, lang: this.lang, id});
 	}
+	/**
+	 * @description the method create page 'SELECT GENRES'
+	 */
 	checkGenres() {
 		this.preperingWindow();
 		this.ListOfGenres = new ListOfGenres({model:this.model, router: this, lang: this.lang});
 	}
+	/**
+	 * @description the method create page 'CHANGE LIST OF GANRES'
+	 */
 	changeCheckedGenres() {
 		this.preperingWindow();
 		this.ViewListGenres = new ViewListGenres({collection:this.coll, router: this, lang: this.lang});

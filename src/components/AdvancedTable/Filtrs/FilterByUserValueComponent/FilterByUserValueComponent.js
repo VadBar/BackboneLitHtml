@@ -4,7 +4,7 @@ import {FilterByUserValueModel} from './FilterByUserValueModel';
 import {FilterByUserValueCollection} from './FilterByUserValueCollection';
 import {FilterByUserValue} from './FilterByUserValue';
 export class FilterByUserValueComponent extends FilterByUserValue {
-	constructor(data, collection, lang, selector) {
+	constructor(data, collection, lang, selector, AdvanceTableCollection) {
 		super();
 		this.model = new FilterByUserValueModel();
 		this.myCollection = FilterByUserValueCollection.getSelf();

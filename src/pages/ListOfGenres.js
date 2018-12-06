@@ -1,6 +1,5 @@
 import {html, render} from 'lit-html';
 export class ListOfGenres extends Backbone.View {
-	
 	constructor(obj){
 		super();
 		this.model = obj.model;

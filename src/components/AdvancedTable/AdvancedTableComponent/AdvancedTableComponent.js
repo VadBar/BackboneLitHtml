@@ -2,6 +2,8 @@ import {html, render} from 'lit-html';
 import {FilterByUserValueComponent} from '../Filtrs/FilterByUserValueComponent/FilterByUserValueComponent';
 import {ListBooksComponent} from '../ListBooksComponent/ListBooksComponent';
 import {ComparatorFiltratedCollections} from './ComparatorFiltratedCollections';
+import {AdvancedTableModel} from './AdvancedTableModel';
+import {AdvancedTableCollection} from './AdvancedTableCollection';
 export class AdvancedTableComponent extends Backbone.View {
     constructor(router, lang, collection, config, selector) {
         super();
@@ -15,6 +17,8 @@ export class AdvancedTableComponent extends Backbone.View {
         this.array = [];
         this.listComponents = [];
         this.listenTo(this.collection, 'reset', this.render)
+        this.AdvancedTableModel = new AdvancedTableModel();
+        this.AdvancedTableCollection = new AdvancedTableCollection();
         Backbone.View.apply(this);
         this.listenerClickButtonLeft = {
 			handleEvent() {   
@@ -38,9 +42,15 @@ export class AdvancedTableComponent extends Backbone.View {
 		}
         this.render();
         this.listBooks = new ListBooksComponent(this.collection, this.router, this.lang, '.mainColumn .list',this);
-        this.generateComponents();
-        this.listComponents.push({value: {lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FilterByUserValueComponent, selector: '.mainColumn .filtrByValue', parent: this})
-        this.comparator = new ComparatorFiltratedCollections(this.listComponents, this.collection, this.lang, this);
+        this.AdvancedTableCollection.fetch()
+        .then((data) => {
+            if(data) {
+                this.AdvancedTableModel.set(data);
+            }
+            this.generateComponents();
+            this.listComponents.push({value: {lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FilterByUserValueComponent, selector: '.mainColumn .filtrByValue', AdvanceTableModel: this.AdvancedTableModel, parent: this})
+            this.comparator = new ComparatorFiltratedCollections(this.listComponents, this.collection, this.lang, this);
+        })
     }
     renderList() {
         this.listBooks.render();
@@ -59,9 +69,9 @@ export class AdvancedTableComponent extends Backbone.View {
         this.config.leftColumn.components.forEach((i, index) => {
             i.forEach((el) => {
                 if(index.getType() === 'filtr') {
-                    this.listComponents.push({value: el, construct: index, selector: '.leftColumn .body', parent: this});
+                    this.listComponents.push({value: el, construct: index, selector: '.leftColumn .body', AdvanceTableModel: this.AdvancedTableModel, parent: this});
                 } else {
-                    this.array.push(new index(el, this.collection, this.lang, '.leftColumn .body', this));
+                    this.array.push(new index(el, this.collection, this.lang, '.leftColumn .body', this.AdvancedTableModel, this));
                 }
             })
         })
@@ -70,9 +80,9 @@ export class AdvancedTableComponent extends Backbone.View {
         this.config.rightColumn.components.forEach((i, index) => {
             i.forEach((el) => {
                 if(index.getType() === 'filtr') {
-                    this.listComponents.push({value: el, construct: index, selector: '.rightColumn .body', parent: this});
+                    this.listComponents.push({value: el, construct: index, selector: '.rightColumn .body', AdvanceTableModel: this.AdvancedTableModel, parent: this});
                 } else {
-                    this.array.push(new index(el, this.collection, this.lang, '.rightColumn .body', this));
+                    this.array.push(new index(el, this.collection, this.lang, '.rightColumn .body', this.AdvancedTableModel, this));
                 }
             })
         })

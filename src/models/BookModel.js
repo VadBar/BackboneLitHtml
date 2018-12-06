@@ -1,15 +1,22 @@
 import { isArray } from "util";
 
 export class BookModel extends Backbone.Model {
-	
+	/**
+	 * 
+	 * @param {*} attrs 
+	 * @param {*} options 
+	 */
 	constructor(attrs, options) {
 		super();
 		Backbone.Model.apply(this, [attrs, options]);
 		this.prepareValidationList();
-		this.prepareFiltrationList();
+		// this.prepareFiltrationList();
 		this.prepareLanguageList();
 		this.prepareThemeList();
 	}
+	/**
+	 * @returns the getter returns default list of attrubues of the model
+	 */
 	get defaults() {
 		return {
 			name: '',
@@ -23,9 +30,16 @@ export class BookModel extends Backbone.Model {
 			image: ''
 			};
 	}
+	/**
+	 * @returns the getter returns the field of identificator name
+	 */
 	get idAttribute() {
 		return "_id";
 	}
+	/**@override
+	 * @description the method call sync method
+	 * @returns promise
+	 */
 	save() {
 		var id = this.idAttribute;
 		if(this.get(id)) {
@@ -34,9 +48,18 @@ export class BookModel extends Backbone.Model {
 			return this.sync('create', this);
 		}
 	}
+	/**
+	 * @override
+	 * @description the method call sync method
+	 * @returns promise
+	 */
 	destroy() {
 		return this.sync('delete', this);
 	}
+	/**@override
+	 * @description the method fulfil request to server
+	 * @returns promise
+	 */
 	sync(method, model) {
 		switch(method) {
 			case 'create': 
@@ -114,29 +137,40 @@ export class BookModel extends Backbone.Model {
             break;
         }
 	}
+	/**
+	 * @description the method prepare list of theme
+	 */
 	prepareThemeList() {
 		this.themsList = [
 			{name: 'first', data: 'first'},
 			{name: 'second', data: 'second'}
 		]
 	}
+	/**
+	 * @description the method prepare list of language
+	 */
 	prepareLanguageList() {
 		this.languageList = [
 			{name: "English", data: "en"},
 			{name: "Russion", data: 'ru'}
 		];
 	}
-	prepareFiltrationList() {
-		this.filtrationList = [
-		{name: 'name', data: 'name'},
-		{name: 'author', data: 'athor'},
-		{name: 'year', data: 'year'},
-		{name: 'count of pages', data: 'countOfPage'},
-		{name: 'price', data: 'price'}, 
-		{name: 'amount', data: 'amount'}, 
-		{name: 'publishing house', data: 'homePrinting'}, 
-	];
-	}
+	// prepareFiltrationList() {
+	// 	this.filtrationList = [
+	// 	{name: 'name', data: 'name'},
+	// 	{name: 'author', data: 'athor'},
+	// 	{name: 'year', data: 'year'},
+	// 	{name: 'count of pages', data: 'countOfPage'},
+	// 	{name: 'price', data: 'price'}, 
+	// 	{name: 'amount', data: 'amount'}, 
+	// 	{name: 'publishing house', data: 'homePrinting'}, 
+	// ];
+	// }
+	/**
+	 * 
+	 * @param {object<string>} checked - identificator of selected genre
+	 * @description the method add identificator of selected genre to array of selected identificators
+	 */
 	pushCheckedGenres(checked){
 		var genres = this.get('genres').filter(function(i) {
 			return i !== checked.value;
@@ -147,6 +181,13 @@ export class BookModel extends Backbone.Model {
 		}
 		this.set('genres', genres);
 	}
+	/**
+	 * 
+	 * @param {string} nameField - name field for printing error
+	 * @param {string} type - type of error
+	 * @param {Array.<object<string, string>>} arrayErrors - if mistake was done just then print it else add the error to array of errors
+	 * @returns error or array of errors
+	 */
 	generateError(nameField, type, arrayErrors) {
 		var objError = {
 			name: nameField,
@@ -158,6 +199,13 @@ export class BookModel extends Backbone.Model {
 			return arrayErrors.push(objError);
 		}
 	}
+	/**
+	 * 
+	 * @param {Array.<object<string, string>>} arrayErrors - array of errors
+	 * @param {string} value - value of checking field
+	 * @param {string} nameField - neme of checking field
+	 * @returns error or array of errors
+	 */
 	validateStringField(arrayErrors, value, nameField) {
 		if(!value) {
 			return this.generateError(nameField, 'required', arrayErrors);
@@ -167,6 +215,13 @@ export class BookModel extends Backbone.Model {
 			return false;
 		}
 	}
+	/**
+	 * 
+	 * @param {Array.<object<string, string>>} arrayErrors - array of errors
+	 * @param {string} value - value of checking field
+	 * @param {string} nameField -neme of checking field
+	 * @returns error or array of errors
+	 */
 	validateNumberField(arrayErrors, value, nameField) {
 		if(!+value && +value !== 0) {
 			return this.generateError(nameField, 'required', arrayErrors);
@@ -176,6 +231,12 @@ export class BookModel extends Backbone.Model {
 			return false;
 		}
 	}
+	/**
+	 * @param {Array.<object<string, string>>} arrayErrors - array of errors
+	 * @param {string} value - value of checking field
+	 * @param {string} nameField -neme of checking field
+	 * @returns error or array of errors
+	 */
 	validateYearField(arrayErrors, value, nameField) {
 		if(!+value) {
 			return this.generateError(nameField, 'required', arrayErrors);
@@ -187,6 +248,9 @@ export class BookModel extends Backbone.Model {
 			return false;
 		}
 	}
+	/**
+	 * @description the method prepare list of validation logics for each field
+	 */
 	prepareValidationList() {
 		this.validationList = new Map([
 			['name', {
@@ -212,7 +276,12 @@ export class BookModel extends Backbone.Model {
 			}]
 		]);
 	}
-	validate(attrs, message) {
+	/**
+	 * 
+	 * @param {*} attrs - list of attributes of the model
+	 * @returns string or error or array of errors
+	 */
+	validate(attrs) {
 		let arrayErrors = [];
 		for(let [key, value] of this.validationList) {
 			let error = value.validationField.call(this, arrayErrors, attrs[key], key);

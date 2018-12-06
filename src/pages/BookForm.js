@@ -172,6 +172,9 @@ export class BookForm extends ViewBinding {
 			render(this.template(Object.assign(this.model.toJSON(), {title: this.lang.getData('formAddBook.title')}, {btnValue: this.lang.getData('formAddBook.butttonAddBook')})), this.el);
 		}
 	}
+	/**
+	 * @description if validation finish without errors then button 'save book' is enable
+	 */
 	validateForm() {
 		if(this.model.isValid()) {
 			if($('.addBookButton').attr('disabled')) {
@@ -181,6 +184,11 @@ export class BookForm extends ViewBinding {
 			$('.addBookButton').attr('disabled', true);
 		}
 	}
+	/**
+	 * 
+	 * @param {*} obj 
+	 * @description the method checks which page have to be opened
+	 */
 	defineWindow(obj) {
 		if(obj.hasOwnProperty('model')) {
 			this.stateAdd = true;
@@ -190,6 +198,11 @@ export class BookForm extends ViewBinding {
 			this.model = this.collection.currentEditableModel;
 		}
 	}
+	/**
+	 * 
+	 * @param {*} model 
+	 * @param {object<string, string>} error 
+	 */
 	showError(model, error) {
 		let el = document.querySelector(`span[name="${error.name}.${error.type}"]`);
 		if(typeof error === 'object') {
@@ -201,6 +214,9 @@ export class BookForm extends ViewBinding {
 		}, 3000);
 		}
 	}
+	/**
+	 * @description the method save the book to the collection
+	 */
 	saveBook() {
 		if(this.stateAdd) {
 			this.model.save()
@@ -215,9 +231,15 @@ export class BookForm extends ViewBinding {
 			this.router.navigate("list", {trigger: true});
 		}
 	}
+	/**
+	 * @description the method block button 'save book'
+	 */
 	blockButton() {
 		$('.addBookButton').attr('disabled', true);
 	}
+	/**
+	 * @description the method open main page
+	 */
 	redirectToListBooks() {
 		this.router.navigate("fromForm", {trigger: true});
 	}
@@ -229,6 +251,9 @@ export class BookForm extends ViewBinding {
 	// 		this.render();
 	// 	}
 	// }
+	/**
+	 * @description the method open page genres
+	 */
 	redirectToListGenres() {
 		if(this.stateAdd) {
 			this.router.navigate("check", {trigger: true});

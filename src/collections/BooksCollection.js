@@ -3,18 +3,18 @@ export class BooksCollection extends Backbone.Collection {
 	constructor() {
 		super();
 	}
-	/**@returns this getter return  constructor of model for initialization collection*/
+	/**@returns the getter returns  constructor of model for initialization collection*/
 	get model() {
 		return BookModel;
 	}
 	/**@override
-	 * @returns called method sync and pass command
+	 * @returns  the method sync was called
 	 */
 	fetch() {
 		return this.sync('read');
 	}
 	/**@override
-	 * @description this methode do request to server and get result
+	 * @description the method execute request to server and get result
 	 */
 	sync(method) {
 		if(method === 'read') {
@@ -37,19 +37,19 @@ export class BooksCollection extends Backbone.Collection {
 			})
 		}
 	}
-	/**@description this method remove book by field "_id" from collection */
+	/**@description the method remove book with field "_id" from collection */
 	removeBook(id) {
 		this.remove(this.findWhere({_id: id}));
 	}
-	/**@description this method push book to collection */
+	/**@description the method push book to collection */
 	addBook(book) {
 		this.push(book);
 	}
-	/**@description this method change book by field '_id' */
+	/**@description the method change book with field '_id' */
 	updateBook(book) {
 		this.findWhere({_id: book._id}).set(book);
 	}
-	/**@description this method define editable model */
+	/**@description the method define editable model */
 	selectEditableModel(id) {
 		this.forEach(function(item, index) {
 			if(item.get('_id') === id) {

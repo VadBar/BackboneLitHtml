@@ -27,7 +27,7 @@ export class ComparatorFiltratedCollections extends Backbone.View {
     }
     generateComponent() {
         this.listComponents.forEach((i, index) => {
-            this.listCreatedComponents.push(new i.construct(i.value, this.listCollections[index], this.lang,  i.selector, i.parent));
+            this.listCreatedComponents.push(new i.construct(i.value, this.listCollections[index], this.lang,  i.selector, i.AdvanceTableModel, i.parent));
         })
     }
     generateCollections() {

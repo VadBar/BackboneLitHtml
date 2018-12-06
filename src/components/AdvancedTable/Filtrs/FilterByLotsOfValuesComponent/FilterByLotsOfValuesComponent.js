@@ -3,9 +3,9 @@ import {FilterByLotsOfValuesModel} from './FilterByLotsOfValuesModel.js';
 import {FilterByLotsOfValuesCollection} from './FilterByLotsOfValuesCollection.js';
 import {FilterByLotsOfValues} from './FilterByLotsOfValues';
 export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
-    constructor(data, collectionValues, lang, selector) {
+    constructor(data, collectionValues, lang, selector, AdvanceTableModel) {
         super();
-
+        console.log(AdvanceTableModel)
         this.collection = FilterByLotsOfValuesCollection.getSelf();
         this.editableCollection = collectionValues;
         this.defaultCollection = collectionValues.models;

@@ -16,8 +16,8 @@ export class ListBooksComponent extends Backbone.View {
 		this.counterItem = 0;
 		this.stateButtonShowMoreBook = true;
 		this.listenTo(this.lang, 'change', this.render);
-		// this.listenTo(this.collection, 'reset', this.generateList);
-		// this.listenTo(this.collection, 'update', this.generateList);
+		this.listenTo(this.collection, 'reset', this.generateList);
+		this.listenTo(this.collection, 'update', this.generateList);
 		Backbone.View.apply(this);
 		this.listenerClickToEditBook = {
 			handleEvent(e) {
@@ -122,7 +122,6 @@ export class ListBooksComponent extends Backbone.View {
 		this.counter = 0;
 } 
 	renderBook(model) {    
-		console.log(model[1])
 		this.counterItem = 0;
 			return html`
 			<div class="itemList" data="${this.counterItem}"><div>${model[0].index + 1}<span class="side" draggable="true"></span></div></div>

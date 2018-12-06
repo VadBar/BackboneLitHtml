@@ -2,7 +2,7 @@ import {html, render} from 'lit-html';
 import {ManagerColumnsModel} from './ManagerColumnsModel.js';
 import {ManagerColumnsCollection} from './ManagerColumnCollection.js';
 export class ManagerColumnsComponent extends Backbone.View {
-    constructor(data, collectionValues, lang, selector, rootComponent) {
+    constructor(data, collectionValues, lang, selector, AdvanceTableCollection, rootComponent) {
         super();
         this.rootComponent = rootComponent;
         this.listFields = this.rootComponent.listFields;
