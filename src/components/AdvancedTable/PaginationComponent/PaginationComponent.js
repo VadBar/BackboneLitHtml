@@ -6,11 +6,11 @@ import {PaginationCollection} from './PaginationCollection';
 */
 export class PaginationComponent extends Backbone.View {
     /**@param {BooksCollection} collection - collection of books
-     * @param {string} selector - selector of element where pagination component will be inserted
-     * @param {string} id - this value is used for setting attribute "_id"
+     * @param {string} selector - selector of an element where the pagination component will be inserted
+     * @param {string} id - the value is used for setting attribute "_id"
      * @param {ListBooksComponent} llistBooks - It's link to object of ListBooksComponet
-     * @param {number} step - It's count of visible books
-     * @param {number} position - It's pagination default position   
+     * @param {number} step - It's the count of visible books
+     * @param {number} position - It's the default position of pagination component
      */
     constructor(collection, selector, id, listBooks, step=8, position=1) {
         super();
@@ -51,7 +51,7 @@ export class PaginationComponent extends Backbone.View {
         this.render(); 
         })
     }
-    /**@description This method fulfils rendering pagination component and prepering list books for ListBooksComponent*/
+    /**@description This method fulfils rendering pagination component and preparing list books for ListBooksComponent*/
     render() {
         this.model.getValuesByNumberField(this.model.get('position')); 
         this.model.checkCount(this.collection);
@@ -59,7 +59,7 @@ export class PaginationComponent extends Backbone.View {
         this.drawStyle();
         this.listI.generateList(); 
     }
-    /**@returns This method return html template for rendering pagination component */
+    /**@returns This method returns the template of html for rendering pagination component */
     prepareTemplate() {
         $(this.selector).append(this.$el);
         return (this.model.count !== 1) ? html`
@@ -72,33 +72,33 @@ export class PaginationComponent extends Backbone.View {
             </ul>
         ` : '';
     }
-    /**@returns This method return array of cells for preparing template of pagination component */
+    /**@returns This method returns array of cells for preparing template of pagination component */
     prepareCells() {
-        /**@type {Array<>} cells - this array will contain template of cells */
+        /**@type {Array<>} cells - this array will contain templates of cells */
         let cells = [];
-        /**If count cells of pagination list more than six then drawing pagination list by rules below, 
-         * else drawing pagination list of cells.
+        /**If the count of cells of pagination list more than six then draw pagination list with rules below,
+         * else draw the hole list of pagination cells.
         */
         if((this.model.count - this.model.get('position') + 1) > 6) {
-            /**generate first three cells of pagination list */
+            /**generate the first three cells of pagination list */
             for(var i = this.model.get('position'); i < this.model.get('position') + 3; i++) {
                 cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}<div></li>`);
             }
             /**generate special char */
             cells.push(html`<li class="middleList"><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>...</div></li>`);
-            /**generate last three cells of pagination list */
+            /**generate the last three cells of pagination list */
             for(var i = this.model.count - 3; i < this.model.count; i++) {
                 cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}</div></li>`)
             }
         } else {
-            /**generate all cells of pagination list */
+            /**generate all the cells of pagination list */
             for(var i = this.model.count - 6; i < this.model.count; i++) {
                 cells.push(html`<li><div name=${i}  @click=${this.listenerClickButtonPagination.handleEvent.bind(this)}>${i}<div></li>`);
             }
         } 
         return cells;
     }    
-    /**@returns This method return array of books for ListBookComponent */ 
+    /**@returns This method returns array of books to ListBookComponent */
     getList() {
         this.model.checkCount(this.collection);
         this.model.getValuesByNumberField(this.model.get('position')); 
@@ -107,9 +107,9 @@ export class PaginationComponent extends Backbone.View {
         this.drawStyle();
         return this.model.viewList;
     }
-    /**@description This method draw background of cell of paggination component which match with position  */
+    /**@description This method draws the background of pagination component cell  if it has index  matching with the position  */
     drawStyle() {
-        /**If length of pagination list of cells more 1 then redrawing background cell matching with variable position */
+        /**If the length of pagination list of cells is more than 1, then redraw the background of cell if it has index matching with the position */
         if(this.model.count > 1) {
              document.querySelector(`.pagination div[name="${this.model.get('position')}"]`).style.backgroundColor = 'black';
              let list = document.querySelectorAll('.pagination div');

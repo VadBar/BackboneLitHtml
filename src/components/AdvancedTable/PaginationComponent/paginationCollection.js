@@ -31,7 +31,7 @@ export class PaginationCollection extends Backbone.Collection {
 		}
     }
     /**@static
-     * @returns this method return object collection
+     * @returns this method returns collection object
      */
     static getSelf() {
         this.self = this.self ? this.self:  new this();

@@ -4,11 +4,11 @@ export class PaginationModel extends Backbone.Model {
     */
     constructor(attrs, options) {
         super();
-        /**@type {number} count - count cellc of pagination component */
+        /**@type {number} count - the count of cells of pagination component */
             this.count = 0;
             Backbone.Model.apply(this, [attrs, options]);       
     }
-    /**@returns - defalts attributes of PaginationModel */
+    /**@returns - default attributes of PaginationModel */
     get defaults() {
         return {
             position: '',
@@ -18,49 +18,49 @@ export class PaginationModel extends Backbone.Model {
             id: ''
             };
     }
-    /**@returns - indeficator of this Pagination Component  */
+    /**@returns - the identificator of  Pagination Component  */
     get idAttribute() {
         return "_id";
     }
     /**@returns string and PaginationModel */
     save() {
         var id = this.idAttribute;
-        /**If Indeficator exist then pass first argumen as 'update' */
+        /**If the identificator exists then pass the first argument as 'update' */
 		if(this.get(id)) {
 			return this.sync('update', this);
 		} else {
 			return this.sync('create', this);
 		}
     }
-    /**@description This method change list book for printing */
+    /**@description This method changes the list of books for printing */
     changeViewList(collection) {
         this.viewList = [];
-        /**If PaginationComponent hasn't index of first book for printing then set index and checking index of last book for printing */
+        /**If the collection doesn't have index of the first book of PaginationComponent for printing then set index and check index of the last book for printing */
         if(!collection.at(this.get('from'))) {
             this.set('from', 0);
             if(!collection.at(this.get('to'))) {
                 this.set('to', this.get('step'));
             }
         }
-        /**If collection hasn't same index as last book for printing  then set index as length of collection*/
+        /**If the collection has no the same index as the index of the last book  for printing  then set index as  the length of collection*/
         let aim = this.get('to') > collection.models.length ? collection.models.length : this.get('to');
-        /**creating list of books for printing */
+        /**create the list of books for printing */
         for(var i = this.get('from'); i < aim; i++) {
             this.viewList.push([{index: i}, collection.at(i)]);
         }
     }
-    /**@description This method check count of cells for pagination component*/
+    /**@description This method checks the count of cells for pagination component*/
     checkCount(collection) {
         this.count = parseInt(Math.ceil((collection.models.length + 1) / this.get('step')));
     }
     getValuesByNumberField(value) {
         if(value === 'next') {
-            /**If position no more count of cells then variable position plus 1 */
+            /**If position is not more than the count of cells then variable position is increased to 1 */
             if(this.get('position') < this.count) {
                 this.set('position', this.get('position')+1);
             }
         }else if(value === 'previous') {
-            /**If position minus one will be more then zero then variable position minus 1 */
+            /**If the position after subtraction 1 will be more than zero then subtract 1 from variable position */
             if(this.get('position') -1 > 0) {
                 this.set('position', this.get('position')-1);
             }
