@@ -12,7 +12,7 @@ export class AdvancedTableCollection extends Backbone.Collection {
     sync(method) {
 		if(method === 'read') {
 			return new Promise((resolve, reject) => {
-				fetch(`http://localhost:5000/api/AdvancedTableComponents`, {
+				fetch(`/api/AdvancedTableComponents`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"

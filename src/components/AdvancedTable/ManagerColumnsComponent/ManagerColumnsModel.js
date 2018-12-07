@@ -1,79 +1,26 @@
-export class ManagerColumnsModel extends Backbone.Model {
-    constructor(attrs, options) {
-        super();
-        this.defaults = {
-            name: '',
-            list: [],
-            id: ''
-            };
-            this.idAttribute = "_id";
-            this.sync = this.overridSync;
-            this.save = this.mySave;
-            Backbone.Model.apply(this, [attrs, options]);
-    }
-    mySave() {
-		var id = this.idAttribute;
-		if(this.get(id)) {
-            // console.log('update', this)
-			return this.sync('update', this);
-		} else {
-            // console.log('create', this)
-			return this.sync('create', this);
-		}
-    }
-    overridSync(method, model) {
-		switch(method) {
-            case 'create': 
-				return new Promise((resolve, reject) => {
-					fetch('/api/managerColumns', {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-                    },
-                    body: JSON.stringify(model)
-                })
-                .then((response, reject) => {
-                    return response.json();
-                })
-                .then((book) => {
-                   model.set('name', book.name);
-                   model.set('list', book.list);
-                   model.set('_id', book._id);
-                   resolve(book);
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
-				})  
-            break;
-			case 'update':
-				return new Promise((resolve, reject) => {
-					fetch(`/api/managerColumns/${model.get('id')}`, {
-                    method: 'PATCH',
-                    headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-                    },
-                    body: JSON.stringify(model)
-                })
-                .then((response, reject) => {
-                    return response.json();
-                })
-                .then((book) => {
-                   resolve(book);
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
-				})
-            break;
+export class ManagerColumnsModel {
+    constructor() {}
+    initializeModel(model, data) {
+        if(!model.get('_id')) {
+            let value = {};
+            value.name = data.name;
+            value.list = data.list;
+            model.set('id', data.id);
+            model.set('value', value);
+            return model.save();
         }
+        return new Promise((resolve, reject) => {
+            resolve(true);
+        })
     }
-    changeSteteAndPush(value) {
-        this.set('list', this.get('list').map((i) => {  
-            if(i.data === value) {
+    changeSteteAndPush(model, value) {
+        let val = model.get('value');   
+        val.list = val.list.map((i) => {
+            if(i.name === value) {
                 i.visible = !i.visible;
             }
             return i;
-        }));
+        });
+        model.set('value', val);
     }
 }

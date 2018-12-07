@@ -1,5 +1,6 @@
+import {AdvancedTableModel} from './AdvancedTableModel';
 export class ComparatorFiltratedCollections extends Backbone.View {
-    constructor(listComponents, collection, lang, parent) {
+    constructor(listComponents, collection, lang, AdvancedTableCollection, parent) {
         super();
         this.collection = collection;
         this.lang = lang;
@@ -8,6 +9,7 @@ export class ComparatorFiltratedCollections extends Backbone.View {
         this.listCreatedComponents = [];
         this.parent = parent;
         this.listCollections = [];
+        this.AdvancedTableCollection = AdvancedTableCollection;
         this.generateCollections();
         this.generateComponent();
         Backbone.View.apply(this);
@@ -25,17 +27,32 @@ export class ComparatorFiltratedCollections extends Backbone.View {
             return false; 
         })
     }
+    prepareModel(id) {
+        if(this.AdvancedTableCollection.findWhere({_id: id})) {
+            return this.AdvancedTableCollection.findWhere({_id: id});
+        }
+        return new AdvancedTableModel();
+    }
     generateComponent() {
-        this.listComponents.forEach((i, index) => {
-            this.listCreatedComponents.push(new i.construct(i.value, this.listCollections[index], this.lang,  i.selector, i.AdvanceTableModel, i.parent));
+        let index = 0;
+        this.listComponents.forEach((i) => {
+            let model = this.prepareModel(i.value.id);
+            if(i.construct.getType() === 'filtr') {
+                this.listCreatedComponents.push(new i.construct(i.value, this.listCollections[index], this.lang,  i.selector, model, i.parent));
+                index++;
+            } else {
+                this.listCreatedComponents.push(new i.construct(i.value, this.collection, this.lang,  i.selector, model, i.parent));
+            }
         })
     }
     generateCollections() {
         this.listComponents.forEach((i) => {
-            let collection = this.collection.clone();
-            collection.set(this.collection.models);
-            this.setListenersForComponents(collection);
-            this.listCollections.push(collection);
+            if(i.construct.getType() === 'filtr') {
+                let collection = this.collection.clone();
+                collection.set(this.collection.models);
+                this.setListenersForComponents(collection);
+                this.listCollections.push(collection);
+            }
         })
     }
     setListenersForComponents(collection) {

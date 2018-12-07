@@ -1,78 +1,15 @@
-export class FilterByLotsOfValuesModel extends Backbone.Model {
-    constructor(attrs, options) {
-        super();
-        this.defaults = {
-            name: '',
-            list: [],
-            id: ''
-            };
-            this.idAttribute = "_id";
-            this.sync = this.overridSync;
-            this.save = this.mySave;
-            Backbone.Model.apply(this, [attrs, options]);
+export class FilterByLotsOfValuesModel {
+    constructor() {
     }
-    mySave() {
-		var id = this.idAttribute;
-		if(this.get(id)) {
-			return this.sync('update', this);
-		} else {
-			return this.sync('create', this);
-		}
-    }
-    overridSync(method, model) {
-		switch(method) {
-            case 'create': 
-				return new Promise((resolve, reject) => {
-					fetch('/api/filterByLotsOfValues', {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-                    },
-                    body: JSON.stringify(model)
-                })
-                .then((response, reject) => {
-                    return response.json();
-                })
-                .then((book) => {
-                   model.set('name', book.name);
-                   model.set('list', book.list);
-                   model.set('_id', book._id);
-                   resolve(book);
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
-				})  
-            break;
-			case 'update':
-				return new Promise((resolve, reject) => {
-					fetch(`/api/filterByLotsOfValues/${model.get('id')}`, {
-                    method: 'PATCH',
-                    headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-                    },
-                    body: JSON.stringify(model)
-                })
-                .then((response, reject) => {
-                    return response.json();
-                })
-                .then((book) => {
-                   resolve(book);
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
-				})
-            break;
-        }
-    }
-    changeSteteAndPush(value) {
-        this.set('list', this.get('list').map((i) => {
+    changeSteteAndPush(model, value) {
+        let val = model.get('value');   
+        val.list = val.list.map((i) => {
             if(i.name === value) {
                 i.state = !i.state;
             }
             return i;
-        }));
+        });
+        model.set('value', val);
     }
     getFullListValuesByField(collection, field) {     
         var list = [];
@@ -80,5 +17,18 @@ export class FilterByLotsOfValuesModel extends Backbone.Model {
             list.push({name: i.get(field), state: false, data: i.get('_id')});
         });
         return list;
+    }
+    initializeModel(model, data, collection) {
+        if(!model.get('_id')) {
+            let value = {};
+            value.name = data.name;
+            value.list = this.getFullListValuesByField(collection, data.data);
+            model.set('id', data.id);
+            model.set('value', value);
+            return model.save();
+        }
+        return new Promise((resolve, reject) => {
+            resolve(true);
+        })
     }
 }
