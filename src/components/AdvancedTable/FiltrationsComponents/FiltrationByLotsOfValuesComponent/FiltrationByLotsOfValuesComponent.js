@@ -1,25 +1,24 @@
 import {html, render} from 'lit-html';
-import {FilterByLotsOfValuesModel} from './FilterByLotsOfValuesModel.js';
-import {FilterByLotsOfValues} from './FilterByLotsOfValues';
-export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
-    constructor(data, collectionValues, lang, selector, modelOfData) {
+import {FiltrationByLotsOfValuesModel} from './FiltrationByLotsOfValuesModel.js';
+import {FilterModule} from '../../../../modules/FilterModule.js';
+export class FiltrationByLotsOfValuesComponent extends Backbone.View {
+    constructor(data, collection, lang, selector, modelOfData) {
         super();
-        this.editableCollection = collectionValues;
-        this.defaultCollection = collectionValues.models;
+        this.collection = collection;
         this.lang = lang;
         this.listenTo(this.lang, 'change', this.render);
         Backbone.View.apply(this);
         this.data = data;
         this.modelOfData = modelOfData;
         this.selector = selector;
-        this.model = new FilterByLotsOfValuesModel();
+        this.model = new FiltrationByLotsOfValuesModel();
         this.listenerChangeStateFiltration = {
 			handleEvent(e) {
                 this.model.changeSteteAndPush(e.target.value);
                 this.model.save();
 			}
         };
-        this.model.initializeModel(this.modelOfData, data, this.editableCollection)
+        this.model.initializeModel(this.modelOfData, data, this.collection)
         .then(() => {
             this.render();
         })
@@ -27,9 +26,9 @@ export class FilterByLotsOfValuesComponent extends FilterByLotsOfValues {
     changedField(e) {
         this.model.changeSteteAndPush(this.modelOfData, e.target.value);
         if(e.target.checked) {
-            super.filtrByNewValueField(this.defaultCollection, this.editableCollection, this.data.data, e.target.value);
+            FilterModule.filtr(this.data.filterName, this.data.id, {nameField: this.data.data, valueField: e.target.value, typeFiltr: 'withOneMoreField'});
         } else {
-            super.removeUnMendetoryFields(this.defaultCollection, this.editableCollection, this.data.data, e.target.value);
+            FilterModule.filtr(this.data.filterName, this.data.id,{nameField: this.data.data, valueField: e.target.value, typeFiltr: 'withoutOneField'})
         }
         this.modelOfData.save();
     }

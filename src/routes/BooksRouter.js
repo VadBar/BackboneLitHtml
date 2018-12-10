@@ -4,8 +4,8 @@ import {BookForm} from '../pages/BookForm.js';
 import {AdvancedTableComponent} from '../components/AdvancedTable/AdvancedTableComponent/AdvancedTableComponent.js';
 import {ListOfGenres} from '../pages/ListOfGenres.js';
 import {HeaderOfPage} from '../shared/HeaderOfPage.js';
-import {FilterByLotsOfValuesComponent} from '../components/AdvancedTable/Filtrs/FilterByLotsOfValuesComponent/FilterByLotsOfValuesComponent.js';
-import {FilterByRulesComponent} from '../components/AdvancedTable/Filtrs/FilterByRulesComponent/FilterByRulesComponent.js';
+import {FiltrationByLotsOfValuesComponent} from '../components/AdvancedTable/FiltrationsComponents/FiltrationByLotsOfValuesComponent/FiltrationByLotsOfValuesComponent.js';
+import {FiltrationByRulesComponent} from '../components/AdvancedTable/FiltrationsComponents/FiltrationByRulesComponent/FiltrationByRulesComponent.js';
 import {ManagerColumnsComponent} from '../components/AdvancedTable/ManagerColumnsComponent/ManagerColumnsComponent.js';
 export class BooksRouter extends Backbone.Router {
 	constructor() {
@@ -34,8 +34,8 @@ export class BooksRouter extends Backbone.Router {
 	 * @description the method deletes all component
 	 */
 	preperingWindow() {
-		if(this.ViewMainList) {
-			this.ViewMainList.removeChild();
+		if(this.AdvancedTable) {
+			this.AdvancedTable.removeChild();
 		}
 		for(var el in this) {
 			if(this.hasOwnProperty(el)){ 
@@ -65,31 +65,8 @@ export class BooksRouter extends Backbone.Router {
 		let config = {
 			leftColumn: {
 				components: new Map([
-					[FilterByLotsOfValuesComponent, [{name: 'publishing house', data: 'homePrinting', id: 'dlksdfsl'}]],
-					// [FilterByDefinedValuesOfFieldComponent, [{name: 'genres', list: [
-					// 	{name: 'Science fiction', data: 1, state: false},
-					// 	{name: 'Satire', data: 2, state: false},
-					// 	{name: 'Drama', data: 3, state: false},
-					// 	{name: 'Action and Adventure', data: 4, state: false},
-					// 	{name: 'Romance', data: 5, state: false},
-					// 	{name: 'Mystery', data: 6, state: false},
-					// 	{name: 'Horror', data: 7, state: false},
-					// 	{name: 'Children\'s', data: 8, state: false},
-					// 	{name: 'Trilogy', data: 9, state: false},
-					// 	{name: 'Biography', data: 10, state: false},
-					// 	{name: 'Fantasy', data: 11, state: false},
-					// 	{name: 'Comics', data: 12, state: false},
-					// 	{name: 'Diaries', data: 13, state: false},
-					// 	{name: 'Journals', data: 14, state: false},
-					// 	{name: 'Poetry', data: 15, state: false},
-					// 	{name: 'Art', data: 16, state: false},
-					// 	{name: 'Cook book', data: 17, state: false},
-					// 	{name: 'Encyclopedy', data: 18, state: false},
-					// 	{name: 'Dictionary', data: 19, state: false},
-					// 	{name: 'History', data: 20, state: false}
-					// 	], id: 'lskafsldfk'}]
-					// ],
-					[FilterByRulesComponent, [{name: 'Available', data: 'available', field: 'amount', state: false, 
+					[FiltrationByLotsOfValuesComponent, [{name: 'publishing house', data: 'homePrinting', filterName: 'FiltrByLotsOfValues', id: 'dlksdfsl'}, {name: 'Author', data: 'author', filterName: 'FiltrByLotsOfValues', id: 'alksdfakslskda'}]],
+					[FiltrationByRulesComponent, [{name: 'Available', data: 'available', field: 'amount', filterName: 'FilterByRule', state: false, 
 					filtrationMethod: (value) => {
 						return value > 1;
 					},

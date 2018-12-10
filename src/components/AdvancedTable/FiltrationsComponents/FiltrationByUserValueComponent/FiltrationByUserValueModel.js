@@ -1,4 +1,4 @@
-export class FilterByUserValueModel {
+export class FiltrationByUserValueModel {
     constructor() {}
     initializeModel(model, data) {
         if(!model.get('_id')) {

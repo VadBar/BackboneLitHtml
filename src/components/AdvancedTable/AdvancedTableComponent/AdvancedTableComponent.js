@@ -1,9 +1,10 @@
 import {html, render} from 'lit-html';
-import {FilterByUserValueComponent} from '../Filtrs/FilterByUserValueComponent/FilterByUserValueComponent';
+import {FiltrationByUserValueComponent} from '../FiltrationsComponents/FiltrationByUserValueComponent/FiltrationByUserValueComponent';
 import {ListBooksComponent} from '../ListBooksComponent/ListBooksComponent';
 import {ComparatorFiltratedCollections} from './ComparatorFiltratedCollections';
 import {AdvancedTableModel} from './AdvancedTableModel';
 import {AdvancedTableCollection} from './AdvancedTableCollection';
+import {FilterModule} from '../../../modules/FilterModule';
 export class AdvancedTableComponent extends Backbone.View {
     constructor(router, lang, collection, config, selector) {
         super();
@@ -13,10 +14,10 @@ export class AdvancedTableComponent extends Backbone.View {
         this.listFields = config.listFields;
         this.router = router;
         this.lang = lang;
-        this.listenTo(this.lang, 'change', this.render);
         this.array = [];
         this.listComponents = [];
-        this.listenTo(this.collection, 'reset', this.render)
+        this.listenTo(this.lang, 'change', this.render);
+        this.listenTo(this.collection, 'reset', this.render);
         this.AdvancedTableModel = new AdvancedTableModel();
         this.AdvancedTableCollection = new AdvancedTableCollection();
         Backbone.View.apply(this);
@@ -39,7 +40,8 @@ export class AdvancedTableComponent extends Backbone.View {
 			handleEvent() {
 				this.hideRightColumn();
 			}
-		}
+        }
+        FilterModule.initialize(this.collection);
         this.render();
         this.listBooks = new ListBooksComponent(this.collection, this.router, this.lang, '.mainColumn .list',this);
         this.AdvancedTableCollection.fetch()
@@ -48,7 +50,7 @@ export class AdvancedTableComponent extends Backbone.View {
                 this.AdvancedTableCollection.reset(data, {silent: true});
             }
             this.generateComponents();
-            this.listComponents.push({value: {name: 'name', lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FilterByUserValueComponent, selector: '.mainColumn .filtrByValue', AdvanceTableModel: this.AdvancedTableModel, parent: this})
+            this.listComponents.push({value: {name: 'name', filterName: 'FilterByUserValue', lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FiltrationByUserValueComponent, selector: '.mainColumn .filtrByValue', AdvanceTableModel: this.AdvancedTableModel, parent: this})
             this.comparator = new ComparatorFiltratedCollections(this.listComponents, this.collection, this.lang, this.AdvancedTableCollection, this);
         })
     }

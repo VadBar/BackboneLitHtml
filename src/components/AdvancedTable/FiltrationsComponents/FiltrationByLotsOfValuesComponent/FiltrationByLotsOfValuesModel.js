@@ -1,4 +1,4 @@
-export class FilterByLotsOfValuesModel {
+export class FiltrationByLotsOfValuesModel {
     constructor() {
     }
     changeSteteAndPush(model, value) {

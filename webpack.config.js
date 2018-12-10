@@ -39,11 +39,11 @@ module.exports = {
                     './src/components/DropDownComponent/style.css',
                     './src/components/ImgUploaderComponent/style.css',
                     './src/components/AdvancedTable/ListBooksComponent/style.css',
-                    './src/components/AdvancedTable/Filtrs/FilterByUserValueComponent/style.css',
+                    './src/components/AdvancedTable/FiltrationsComponents/FiltrationByUserValueComponent/style.css',
                     './src/components/AdvancedTable/AdvancedTableComponent/style.css',
                     './src/components/AdvancedTable/PaginationComponent/style.css',
-                    './src/components/AdvancedTable/Filtrs/FilterByLotsOfValuesComponent/style.css',
-                    './src/components/AdvancedTable/Filtrs/FilterByRulesComponent/style.css'
+                    './src/components/AdvancedTable/FiltrationsComponents/FiltrationByLotsOfValuesComponent/style.css',
+                    './src/components/AdvancedTable/FiltrationsComponents/FiltrationByRulesComponent/style.css'
                 ]
             }
         }),

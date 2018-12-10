@@ -1,20 +1,21 @@
 import {html, render} from 'lit-html';
-import {FilterByRulesModel} from './FilterByRulesModel.js';
-import {FilterByRules} from './FilterByRules';
-export class FilterByRulesComponent extends FilterByRules{
+import {FiltrationByRulesModel} from './FiltrationByRulesModel.js';
+import {FilterModule} from '../../../../modules/FilterModule.js';
+export class FiltrationByRulesComponent extends Backbone.View{
     constructor(data, collectionValues, lang, selector, modelOfData) {
         super();
-        this.model = new FilterByRulesModel();
+        this.model = new FiltrationByRulesModel();
         this.modelOfData = modelOfData;
-        this.editableCollection = collectionValues;
-        this.defaultCollection = collectionValues.models;
         this.lang = lang;
         this.listenTo(this.lang, 'change', this.render);
         Backbone.View.apply(this);
         this.data = data;
         this.selector = selector;
         this.model.initializeModel(this.modelOfData, data, this.editableCollection)
-        .then(() => {
+        .then((value) => {
+            // if(value === 'data') {
+            //     FilterModule.filtr(this.data.filterName, this.data.id, {method: this.data.filtrationMethod, field: this.modelOfData.get('value').field, state: this.modelOfData.get('value').state});
+            // }
             this.render();
         })
     }   
@@ -24,7 +25,7 @@ export class FilterByRulesComponent extends FilterByRules{
         val.state = value;
         this.modelOfData.set('value', val);
         this.modelOfData.save();
-        super.filtrByRule(this.defaultCollection, this.editableCollection, this.data.filtrationMethod, this.modelOfData.get('value').field, this.modelOfData.get('value').state);
+        FilterModule.filtr(this.data.filterName, this.data.id, {method: this.data.filtrationMethod, field: this.modelOfData.get('value').field, state: this.modelOfData.get('value').state})
     }       
     render() {
         render(this.prepareTemplate(), this.el);

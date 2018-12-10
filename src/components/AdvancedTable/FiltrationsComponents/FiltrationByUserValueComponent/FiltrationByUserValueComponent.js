@@ -1,17 +1,16 @@
 import {html, render} from 'lit-html';
 import {DropDownComponent} from '../../../DropDownComponent/DropDownComponent.js';
-import {FilterByUserValueModel} from './FilterByUserValueModel';
-import {FilterByUserValue} from './FilterByUserValue';
-export class FilterByUserValueComponent extends FilterByUserValue {
+import {FiltrationByUserValueModel} from './FiltrationByUserValueModel';
+import {FilterModule} from '../../../../modules/FilterModule.js';
+export class FiltrationByUserValueComponent extends Backbone.View {
 	constructor(data, collection, lang, selector, modelOfData) {
 		super();
-		this.model = new FilterByUserValueModel();
+		this.model = new FiltrationByUserValueModel();
 		this.modelOfData = modelOfData;
-        this.editableCollection = collection;
-		this.defaultCollection = collection.models;
 		this.lang = lang;
 		this.id = data.id;
 		this.el =  selector;
+		this.filterName = data.filterName;
 		this.listFields = data.listFields;
 		this.listenTo(this.lang, 'change', this.render);
 		Backbone.View.apply(this);
@@ -23,7 +22,7 @@ export class FilterByUserValueComponent extends FilterByUserValue {
 		};
 		this.model.initializeModel(this.modelOfData, data)
         .then(() => {
-		super.filtrByUserValue(this.defaultCollection, this.editableCollection, this.modelOfData.get('value').value, this.modelOfData.get('value').name);
+		// FilterModule.filtr(this.filterName, this.id, {value: this.modelOfData.get('value').value, name: this.modelOfData.get('value').name})
 		this.render();
 		this.dropDown = new DropDownComponent('drop', this.listFields);
 		this.setName();
@@ -60,6 +59,6 @@ export class FilterByUserValueComponent extends FilterByUserValue {
 		this.modelOfData.save();
 	}
 	filtrBooks() {
-		super.filtrByUserValue(this.defaultCollection, this.editableCollection, this.modelOfData.get('value').value, this.modelOfData.get('value').name);
+		FilterModule.filtr(this.filterName, this.id, {value: this.modelOfData.get('value').value, name: this.modelOfData.get('value').name})
 	}
 }

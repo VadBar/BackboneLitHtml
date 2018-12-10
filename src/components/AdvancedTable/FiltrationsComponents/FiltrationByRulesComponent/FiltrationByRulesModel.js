@@ -1,7 +1,6 @@
-export class FilterByRulesModel{
-    constructor(attrs, options) {
-    }
-    initializeModel(model, data, collection) {
+export class FiltrationByRulesModel{
+    constructor() {}
+    initializeModel(model, data) {
         if(!model.get('_id')) {
             let value = {};
             value.name = data.name;
@@ -12,7 +11,7 @@ export class FilterByRulesModel{
             return model.save();
         }
         return new Promise((resolve, reject) => {
-            resolve(true);
+            resolve('data');
         })
     }
 }
