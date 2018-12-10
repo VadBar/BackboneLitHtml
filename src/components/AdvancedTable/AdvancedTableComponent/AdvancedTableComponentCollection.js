@@ -1,10 +1,10 @@
-import {AdvancedTableModel} from './AdvancedTableModel.js';
-export class AdvancedTableCollection extends Backbone.Collection {
+import {AdvancedTableComponentModel} from './AdvancedTableComponentModel.js';
+export class AdvancedTableComponentCollection extends Backbone.Collection {
     constructor() {
         super();
     }
     get model() {
-        return AdvancedTableModel;
+        return AdvancedTableComponentModel;
     }
     fetch() {
 		return this.sync('read');

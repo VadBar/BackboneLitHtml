@@ -10,7 +10,7 @@ export class ManagerColumnsModel {
             return model.save();
         }
         return new Promise((resolve, reject) => {
-            resolve(true);
+            resolve('value');
         })
     }
     changeSteteAndPush(model, value) {

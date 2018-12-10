@@ -19,7 +19,10 @@ export class FiltrationByLotsOfValuesComponent extends Backbone.View {
 			}
         };
         this.model.initializeModel(this.modelOfData, data, this.collection)
-        .then(() => {
+        .then((data) => {
+            if(data === 'data') {
+                FilterModule.filtr(this.data.filterName, this.data.id, {nameField: this.data.data, valueField: this.modelOfData.get('value').list, typeFiltr: 'byLotsValues'}, {silent: true});
+            }
             this.render();
         })
     }

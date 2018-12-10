@@ -1,9 +1,9 @@
 import {html, render} from 'lit-html';
 import {FiltrationByUserValueComponent} from '../FiltrationsComponents/FiltrationByUserValueComponent/FiltrationByUserValueComponent';
 import {ListBooksComponent} from '../ListBooksComponent/ListBooksComponent';
-import {ComparatorFiltratedCollections} from './ComparatorFiltratedCollections';
-import {AdvancedTableModel} from './AdvancedTableModel';
-import {AdvancedTableCollection} from './AdvancedTableCollection';
+import {CreaterComponents} from './CreaterComponents';
+import {AdvancedTableComponentModel} from './AdvancedTableComponentModel';
+import {AdvancedTableComponentCollection} from './AdvancedTableComponentCollection';
 import {FilterModule} from '../../../modules/FilterModule';
 export class AdvancedTableComponent extends Backbone.View {
     constructor(router, lang, collection, config, selector) {
@@ -18,8 +18,8 @@ export class AdvancedTableComponent extends Backbone.View {
         this.listComponents = [];
         this.listenTo(this.lang, 'change', this.render);
         this.listenTo(this.collection, 'reset', this.render);
-        this.AdvancedTableModel = new AdvancedTableModel();
-        this.AdvancedTableCollection = new AdvancedTableCollection();
+        this.AdvancedTableComponenModel = new AdvancedTableComponentModel();
+        this.AdvancedTableComponentCollection = new AdvancedTableComponentCollection();
         Backbone.View.apply(this);
         this.listenerClickButtonLeft = {
 			handleEvent() {   
@@ -44,14 +44,14 @@ export class AdvancedTableComponent extends Backbone.View {
         FilterModule.initialize(this.collection);
         this.render();
         this.listBooks = new ListBooksComponent(this.collection, this.router, this.lang, '.mainColumn .list',this);
-        this.AdvancedTableCollection.fetch()
+        this.AdvancedTableComponentCollection.fetch()
         .then((data) => {
             if(data) {
-                this.AdvancedTableCollection.reset(data, {silent: true});
+                this.AdvancedTableComponentCollection.reset(data, {silent: true});
             }
             this.generateComponents();
-            this.listComponents.push({value: {name: 'name', filterName: 'FilterByUserValue', lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FiltrationByUserValueComponent, selector: '.mainColumn .filtrByValue', AdvanceTableModel: this.AdvancedTableModel, parent: this})
-            this.comparator = new ComparatorFiltratedCollections(this.listComponents, this.collection, this.lang, this.AdvancedTableCollection, this);
+            this.listComponents.push({value: {name: 'name', filterName: 'FilterByUserValue', lang, listFields: this.listFields, id: 'kdssadfasdf'}, construct: FiltrationByUserValueComponent, selector: '.mainColumn .filtrByValue', AdvanceTableComponentModel: this.AdvancedTableComponentModel, parent: this})
+            this.creater = new CreaterComponents(this.listComponents, this.collection, this.lang, this.AdvancedTableComponentCollection, this);
         })
     }
     renderList() {

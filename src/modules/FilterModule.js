@@ -11,7 +11,7 @@ export var FilterModule = (function() {
         FiltrByLotsOfValues
     };
     var editableCollections = new Map([]);
-    var compareEditableCollections = function() {
+    filterModule.compareEditableCollections = function() {
         collection.reset(defaultCollection.filter((i) => {
             return findSimilierBook(i.get('_id'));
          }));
@@ -35,12 +35,21 @@ export var FilterModule = (function() {
         defaultCollection = mainCollection.models;
         collection = mainCollection;
     }
-    filterModule.filtr = function(nameFilter, id, data) {
+    filterModule.filtr = function(nameFilter, id, data, options=false) {
         if(!editableCollections.get(id)) {
             editableCollections.set(id, defaultCollection);
         }
         editableCollections.set(id, filters[nameFilter](Object.assign(data, {editableCollection: editableCollections.get(id), defaultCollection})));
-        compareEditableCollections();
+        this.compareEditableCollections();
+        // if(!options) {
+        //     this.compareEditableCollections();
+        // } else {
+        //     if(!options.silent) {
+        //         this.compareEditableCollections();
+        //     } else {
+        //         console.log(nameFilter, id, data, options=false)
+        //     }
+        // }
     } 
     return filterModule;
 })();

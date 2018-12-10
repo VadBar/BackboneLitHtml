@@ -10,7 +10,7 @@ export class FiltrationByUserValueModel {
             return model.save();
         }
         return new Promise((resolve, reject) => {
-            resolve(true);
+            resolve('data');
         })
     }
 }

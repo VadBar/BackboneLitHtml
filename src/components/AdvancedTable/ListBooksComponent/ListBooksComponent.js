@@ -17,7 +17,6 @@ export class ListBooksComponent extends Backbone.View {
 		this.stateButtonShowMoreBook = true;
 		this.listenTo(this.lang, 'change', this.render);
 		this.listenTo(this.collection, 'reset', this.generateList);
-		this.listenTo(this.collection, 'update', this.generateList);
 		Backbone.View.apply(this);
 		this.listenerClickToEditBook = {
 			handleEvent(e) {

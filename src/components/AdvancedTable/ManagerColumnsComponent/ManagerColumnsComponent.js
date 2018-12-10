@@ -14,8 +14,10 @@ export class ManagerColumnsComponent extends Backbone.View {
         this.selector = selector;
         this.model = new ManagerColumnsModel();
         this.model.initializeModel(this.modelOfData, Object.assign(data, {list: this.listFields}), this.editableCollection)
-        .then(() => {
-            this.changeColumns();
+        .then((data) => {
+            if(data === 'value') {
+                 this.changeColumns();
+            }
             this.render();
         })
     }           

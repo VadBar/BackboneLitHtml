@@ -1,6 +1,6 @@
 export var FiltrByLotsOfValues = function({defaultCollection, editableCollection, nameField, valueField, typeFiltr}) {
     if(typeFiltr === 'byLotsValues') {
-        return filtrByValuesFields(editableCollection, nameField, value,Field);
+        return filtrByValuesFields(editableCollection, nameField, valueField);
     } else if(typeFiltr === 'withOneMoreField') {
         return filtrByOneValueField(defaultCollection, editableCollection, nameField, valueField);
     } else if(typeFiltr === 'withoutOneField') {

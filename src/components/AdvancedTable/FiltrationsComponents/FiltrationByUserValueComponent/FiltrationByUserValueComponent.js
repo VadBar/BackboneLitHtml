@@ -21,8 +21,10 @@ export class FiltrationByUserValueComponent extends Backbone.View {
 			}
 		};
 		this.model.initializeModel(this.modelOfData, data)
-        .then(() => {
-		// FilterModule.filtr(this.filterName, this.id, {value: this.modelOfData.get('value').value, name: this.modelOfData.get('value').name})
+        .then((data) => {
+		if(data === 'data') {
+			FilterModule.filtr(this.filterName, this.id, {value: this.modelOfData.get('value').value, name: this.modelOfData.get('value').name}, {silent: true});
+		}
 		this.render();
 		this.dropDown = new DropDownComponent('drop', this.listFields);
 		this.setName();

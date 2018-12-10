@@ -13,9 +13,9 @@ export class FiltrationByRulesComponent extends Backbone.View{
         this.selector = selector;
         this.model.initializeModel(this.modelOfData, data, this.editableCollection)
         .then((value) => {
-            // if(value === 'data') {
-            //     FilterModule.filtr(this.data.filterName, this.data.id, {method: this.data.filtrationMethod, field: this.modelOfData.get('value').field, state: this.modelOfData.get('value').state});
-            // }
+            if(value === 'data') {
+                FilterModule.filtr(this.data.filterName, this.data.id, {method: this.data.filtrationMethod, field: this.modelOfData.get('value').field, state: this.modelOfData.get('value').state}, {silent: true});
+            }
             this.render();
         })
     }   

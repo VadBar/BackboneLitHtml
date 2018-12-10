@@ -155,19 +155,7 @@ export class BookModel extends Backbone.Model {
 			{name: "Russion", data: 'ru'}
 		];
 	}
-	// prepareFiltrationList() {
-	// 	this.filtrationList = [
-	// 	{name: 'name', data: 'name'},
-	// 	{name: 'author', data: 'athor'},
-	// 	{name: 'year', data: 'year'},
-	// 	{name: 'count of pages', data: 'countOfPage'},
-	// 	{name: 'price', data: 'price'}, 
-	// 	{name: 'amount', data: 'amount'}, 
-	// 	{name: 'publishing house', data: 'homePrinting'}, 
-	// ];
-	// }
 	/**
-	 * 
 	 * @param {object<string>} checked - identificator of selected genre
 	 * @description the method add identificator of selected genre to array of selected identificators
 	 */

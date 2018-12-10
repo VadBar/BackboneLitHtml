@@ -1,4 +1,4 @@
-export class AdvancedTableModel extends Backbone.Model {
+export class AdvancedTableComponentModel extends Backbone.Model {
     constructor(attrs, options) {
         super();
         Backbone.Model.apply(this, [attrs, options]);
